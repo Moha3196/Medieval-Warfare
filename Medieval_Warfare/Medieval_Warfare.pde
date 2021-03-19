@@ -2,12 +2,26 @@ ArrayList<Troop> t = new ArrayList<Troop>();
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight;
+PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry;
 
 
 void setup() {
   size(800, 600);
   frameRate(60);
+  swordsman = loadImage("Swordsman.png");
+  swordsman.resize(60, 60);
+  
+  giant = loadImage("Giant.png");
+  giant.resize(60, 60);
+  
+  archer = loadImage("Archer.png");
+  archer.resize(60, 60);
+  
+  mage = loadImage("Mage.png");
+  mage.resize(60, 60);
+  
+  cavalry = loadImage("Cavalry.png");
+  cavalry.resize(60,60);
   
   map = loadImage("Medievalbackground.png");
   selector = loadImage("Selector.png");

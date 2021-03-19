@@ -5,7 +5,7 @@ PImage map, selector, highlight;
 
 
 void setup() {
-  size(1000, 750);
+  size(800, 600);
   frameRate(60);
 
   t = new ArrayList<Troop>();

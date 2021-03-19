@@ -6,8 +6,8 @@ class HUD {
   int[][] boxes;
 
   HUD () {
-    selectorX = 40;       //initial coords for the selector
-    selectorInitY = 115;  //"
+    selectorX = 31;       //initial coords for the selector
+    selectorInitY = 92;  //"
     
     boxes = new int[5][5];
   }
@@ -42,7 +42,7 @@ class HUD {
 
 
   void selector(int row) {  //the arrow that indicates the selected lane
-    selectorY = selectorInitY + (75 * row); //initial y-value is adjusted to place the selector within castle doors
+    selectorY = selectorInitY + (60 * row); //initial y-value is adjusted to place the selector within castle doors
     image(selector, selectorX, selectorY);
   }
   
@@ -53,38 +53,26 @@ class HUD {
         cursor(HAND);
       }
     }
-    else {
-      cursor(ARROW);
-    }
     
-    if (mouseX >= 245 && mouseX <= 330) {  //Swordsman's box
+    else if (mouseX >= 245 && mouseX <= 330) {  //Swordsman's box
       if (mouseY >= 750 && mouseY <= 835) {
         cursor(HAND);
       }
     }
-    else {
-      cursor(ARROW);
-    }
     
-    if (mouseX >= 338 && mouseX <= 423) {  //Swordsman's box
+    else if (mouseX >= 338 && mouseX <= 423) {  //Swordsman's box
       if (mouseY >= 843 && mouseY <= 928) {
         cursor(HAND);
       }
     }
-    else {
-      cursor(ARROW);
-    }
     
-    if (mouseX >= 431 && mouseX <= 514) {  //Swordsman's box
+   else if (mouseX >= 431 && mouseX <= 514) {  //Swordsman's box
       if (mouseY >= 936 && mouseY <= 1021) {
         cursor(HAND);
       }
     }
-    else {
-      cursor(ARROW);
-    }
     
-    if (mouseX >= 524 && mouseX <= 607) {  //Swordsman's box
+   else if (mouseX >= 524 && mouseX <= 607) {  //Swordsman's box
       if (mouseY >= 1029 && mouseY <= 1114) {
         cursor(HAND);
       }

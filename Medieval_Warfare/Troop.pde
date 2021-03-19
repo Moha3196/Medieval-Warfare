@@ -31,7 +31,8 @@ class Troop {
   void collision() {
     
   }
-  
+  void spawnTrooper(){
+  }
   
 }
 

@@ -3,11 +3,17 @@ Factions f = new Factions();
 HUD h  = new HUD();
 
 PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry;
-
+int troopDeplpoyCoolDown;
+int delayTime = 1000;
+int passiveGoldCoolDown;
+int passiveGoldDelayTime = 500;
 
 void setup() {
   size(800, 600);
   frameRate(60);
+  troopDeplpoyCoolDown = millis();
+  passiveGoldCoolDown = millis();
+  
   swordsman = loadImage("Swordsman.png");
   swordsman.resize(60, 60);
   
@@ -35,6 +41,7 @@ void draw() {
   image(map, width/2, height/2);
   h.selector(h.row);
   h.sendTroop();
+  f.PassiveGold();
 
   for (int i = 0; i < t.size(); i++) {  //runs the different functions for troops
     t.get(i).update();

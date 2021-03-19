@@ -8,7 +8,7 @@ class HUD {
   HUD () {
     selectorX = 31;       //initial coords for the selector
     selectorInitY = 92;  //"
-    
+
     boxes = new int[5][5];
   }
 
@@ -45,63 +45,32 @@ class HUD {
     selectorY = selectorInitY + (60 * row); //initial y-value is adjusted to place the selector within castle doors
     image(selector, selectorX, selectorY);
   }
-  
-  
+
+
   void troopHitBox() {
-    if (mouseX >= 152 && mouseX <= 237) {  //Swordsman's box
-      if (mouseY >= 657 && mouseY <= 742) {
+    if (mouseY >= 515 && mouseY <= 589) {
+      imageMode(CORNER);
+      if (mouseX >= 151 && mouseX <= 225) {         //Swordsman's box
         cursor(HAND);
-      }
-    }
-    
-    else if (mouseX >= 245 && mouseX <= 330) {  //Swordsman's box
-      if (mouseY >= 750 && mouseY <= 835) {
+        image(highlight, 151, 515);
+      } else if (mouseX >= 236 && mouseX <= 310) {  //Swordsman's box
         cursor(HAND);
-      }
-    }
-    
-    else if (mouseX >= 338 && mouseX <= 423) {  //Swordsman's box
-      if (mouseY >= 843 && mouseY <= 928) {
+        image(highlight, 236, 515);
+      } else if (mouseX >= 321 && mouseX <= 395) {  //Swordsman's box
         cursor(HAND);
-      }
-    }
-    
-   else if (mouseX >= 431 && mouseX <= 514) {  //Swordsman's box
-      if (mouseY >= 936 && mouseY <= 1021) {
+        image(highlight, 321, 515);
+      } else if (mouseX >= 406 && mouseX <= 480) {  //Swordsman's box
         cursor(HAND);
-      }
-    }
-    
-   else if (mouseX >= 524 && mouseX <= 607) {  //Swordsman's box
-      if (mouseY >= 1029 && mouseY <= 1114) {
+        image(highlight, 406, 515);
+      } else if (mouseX >= 491 && mouseX <= 565) {  //Swordsman's box
         cursor(HAND);
+        image(highlight, 491, 515);
+      } else {
+        cursor(ARROW);
       }
-    }
-    else {
+      imageMode(CENTER);
+    } else {
       cursor(ARROW);
     }
   }
-  
-  void highlightBox(int box) {
-    if (box == 1 && highlighted) {
-      image(highlight, 194, 699);
-    }
-    
-    if (box == 2 && highlighted) {
-      image(highlight, 287, 699);
-    }
-    
-    if (box == 3 && highlighted) {
-      
-    }
-    
-    if (box == 4 && highlighted) {
-      
-    }
-    
-    if (box == 5 && highlighted) {
-      
-    }
-  }
-  
 }

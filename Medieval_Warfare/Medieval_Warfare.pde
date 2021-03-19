@@ -23,7 +23,6 @@ void draw() {
   image(map, width/2, height/2);
   h.selector(h.row);
   h.troopHitBox();
-  h.highlightBox(h.box);
 
   for (int i = 0; i < t.size(); i++) {  //runs the different functions for troops
     t.get(i).render();

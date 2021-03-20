@@ -1,9 +1,9 @@
 class Troop {
-  float movementSpeed = 1; 
   PVector pos = new PVector();  //a starting position
-  PVector speed = new PVector(movementSpeed, 0);  //the speed of a troop - not constant for all troops
+  PVector speed = new PVector(1, 0);  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
   int allegiance, hp, damage, reach; //allegiance defines the troop's faction (player or enemy)
+  float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   
   
 
@@ -33,8 +33,7 @@ class Swordsman extends Troop {
   Swordsman() {
     super();
     troop = swordsman;
-    movementSpeed = 1.2;
-    speed.x = movementSpeed;
+    speed.x = 1.2;
     damage = 5;
     hp = 20;
     f.goldCount -= 20;
@@ -51,8 +50,7 @@ class Archer extends Troop {
   Archer() {
     super();
     troop = archer;
-    movementSpeed = 0.9;
-    speed.x = movementSpeed;
+    speed.x = 0.9;
     damage = 5;
     hp = 15;
     f.goldCount -= 25;
@@ -68,8 +66,7 @@ class Mage extends Troop {
   Mage() {
     super();
     troop = mage;
-    movementSpeed = 0.9;
-    speed.x = movementSpeed;
+    speed.x = 0.9;
     damage = 8;
     hp = 15;
     f.goldCount -= 40;
@@ -85,8 +82,7 @@ class Cavalry extends Troop {
   Cavalry() {
     super();
     troop = cavalry;
-    movementSpeed = 1.5;
-    speed.x = movementSpeed;
+    speed.x = 1.5;
     damage = 4;
     hp = 50;
     f.goldCount -= 70;
@@ -102,8 +98,7 @@ class Giant extends Troop {
   Giant() {
     super();
     troop = giant;
-    movementSpeed = 0.6;
-    speed.x = movementSpeed;
+    speed.x = 0.6;
     damage = 3;
     hp = 70;
     f.goldCount -= 100;

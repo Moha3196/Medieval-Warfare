@@ -1,16 +1,18 @@
 class Factions {
-  int goldCount = 0;
+  int goldCount, passiveGoldRate, passiveGoldCD;
+  int deploymentCD, deployRate; //these will be universal for both factions
   
   Factions() {
-    
+    goldCount = 0;
+    passiveGoldRate = 2000;
+    deployRate = 1000;
   }
   
   
-  
   void PassiveGold(){
-    if(millis() - passiveGoldCoolDown >= passiveGoldDelayTime){ //Generates 20 gold every half second
+    if(millis() - passiveGoldCD >= passiveGoldRate){ //Generates 20 gold every half second
       goldCount += 20;
-      passiveGoldCoolDown = millis();
+      passiveGoldCD = millis();
     }
   }
   

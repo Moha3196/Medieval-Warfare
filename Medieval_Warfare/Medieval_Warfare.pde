@@ -3,20 +3,15 @@ Factions f = new Factions();
 HUD h  = new HUD();
 
 PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry;
-int troopDeplpoyCoolDown;
-int delayTime = 1000;
-int passiveGoldCoolDown;
-int passiveGoldDelayTime = 800;
 PFont goldenIncome;
+
 
 void setup() {
   size(800, 600);
   frameRate(60);
-  troopDeplpoyCoolDown = millis();
-  passiveGoldCoolDown = millis();
-
+  
   swordsman = loadImage("Swordsman.png");
-  swordsman.resize(60, 60);
+  swordsman.resize(60, 60); //temporary - used until actual troop images are made
 
   giant = loadImage("Giant.png");
   giant.resize(60, 60);
@@ -33,7 +28,12 @@ void setup() {
   map = loadImage("Medievalbackground.png");
   selector = loadImage("Selector.png");
   highlight = loadImage("Highlighted box.png");
-
+  
+  goldenIncome = createFont("Verdana", 20);
+  
+  f.deploymentCD = millis();
+  f.passiveGoldCD = millis();
+  
   imageMode(CENTER);
 }
 
@@ -43,31 +43,14 @@ void draw() {
   h.selector(h.row);
   h.sendTroop();
   f.PassiveGold();
-
-  for (int i = 0; i < t.size(); i++) {  //runs the different functions for troops
+  h.renderHighlight();
+  
+  //runs the different functions for troops
+  for (int i = 0; i < t.size(); i++) {
     t.get(i).update();
     t.get(i).checkCollision();
   }
   
-  image(swordsman, 188, 552); //Shows the image of the troops in the boxes below.
-  image(archer, 273, 552);
-  image(mage, 358, 552);
-  image(cavalry, 443, 552);
-  image(giant, 528, 552);
-  
-  textAlign(CENTER);
-  goldenIncome = createFont("Verdana", 20); //Makes the font to Verdena and the size to 20.
-  textFont(goldenIncome);
-  fill(255);
-  
-  text("Gold: " + f.goldCount, 65, 510); //Writes the current amount of gold
-  
-  text(20, 188, 510); //Writes the cost of the troops above the boxes
-  text(25, 273, 510);
-  text(40, 358, 510);
-  text(70, 443, 510);
-  text(100, 528, 510);
-
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 

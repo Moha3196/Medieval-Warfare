@@ -1,11 +1,10 @@
 class Troop {
   PVector pos = new PVector();  //a starting position
-  PVector speed = new PVector(1, 0);  //the speed of a troop - not constant for all troops
+  PVector speed = new PVector();  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
   int allegiance, hp, damage, reach; //allegiance defines the troop's faction (player or enemy)
-  float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
-  
-  
+  float attackSpeed; //the attack speed of a troop - not constant for all troops
+
 
   Troop () {
     pos.x = h.selectorX + 20;
@@ -36,7 +35,7 @@ class Swordsman extends Troop {
     speed.x = 1.2;
     damage = 5;
     hp = 20;
-    f.goldCount -= 20;
+    f.goldCount -= 20; //withdraws the cost of this troop from players gold
   }
 
 

@@ -13,6 +13,26 @@ class HUD {
     image(selector, selectorX, selectorY);
   }
 
+  void renderHighlight() {
+    image(swordsman, 188, 552); //"
+    image(archer, 273, 552);    //"
+    image(mage, 358, 552);      //shows the image of the troops in the boxes below
+    image(cavalry, 443, 552);   //"
+    image(giant, 528, 552);     //"
+
+    textAlign(CENTER);
+    textFont(goldenIncome);
+    fill(255);
+
+    text("Gold: " + f.goldCount, 65, 510); //writes the current amount of gold
+
+    text(20, 188, 510);  //"
+    text(25, 273, 510);  //"
+    text(40, 358, 510);  //writes the cost of the troops above the boxes
+    text(70, 443, 510);  //"
+    text(100, 528, 510); //"
+  }
+
 
   void sendTroop() {
     if (mouseY >= 515 && mouseY <= 589) {
@@ -20,46 +40,46 @@ class HUD {
         cursor(HAND); //to show that this area is clickable
         image(highlight, 188, 552); //the highlighted box
         image(swordsman, 188, 552);
-        if (mousePressed && f.goldCount >= 20 && (millis() - troopDeplpoyCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
-            t.add(new Swordsman()); //add a new troop - depends on the box that was clicked
-            mousePressed = false; //stop the program from spamming troops in the blink of an eye
-            troopDeplpoyCoolDown = millis();
+        if (mousePressed && f.goldCount >= 20 && (millis() - f.deploymentCD >= f.deployRate)) { //if box is clicked on, and player has enough gold:
+          t.add(new Swordsman()); //add a new troop - depends on the box that was clicked
+          mousePressed = false; //stop the program from spamming troops in the blink of an eye
+          f.deploymentCD = millis();
         }
       } else if (mouseX >= 236 && mouseX <= 310) { //same deal as above, but for different troops
         cursor(HAND);
         image(highlight, 273, 552);
         image(archer, 273, 552);
-        if (mousePressed && f.goldCount >= 25 && (millis() - troopDeplpoyCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
+        if (mousePressed && f.goldCount >= 25 && (millis() - f.deploymentCD >= f.deployRate)) { //("25" is the cost of deploying the troop)
           t.add(new Archer());
           mousePressed = false;
-          troopDeplpoyCoolDown = millis();
+          f.deploymentCD = millis();
         }
       } else if (mouseX >= 321 && mouseX <= 395) {
         cursor(HAND);
         image(highlight, 358, 552);
         image(mage, 358, 552);
-        if (mousePressed && f.goldCount >= 40 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
+        if (mousePressed && f.goldCount >= 40 && (millis() - f.deploymentCD >= f.deployRate)) {
           t.add(new Mage());
           mousePressed = false;
-          troopDeplpoyCoolDown = millis();
+          f.deploymentCD = millis();
         }
       } else if (mouseX >= 406 && mouseX <= 480) {
         cursor(HAND);
         image(highlight, 443, 552);
         image(cavalry, 443, 552);
-        if (mousePressed && f.goldCount >= 70 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
+        if (mousePressed && f.goldCount >= 70 && (millis() - f.deploymentCD >= f.deployRate)) {
           t.add(new Cavalry());
           mousePressed = false;
-          troopDeplpoyCoolDown = millis();
+          f.deploymentCD = millis();
         }
       } else if (mouseX >= 491 && mouseX <= 565) {
         cursor(HAND);
         image(highlight, 528, 552);
         image(giant, 528, 552);
-        if (mousePressed && f.goldCount >= 100 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
+        if (mousePressed && f.goldCount >= 100 && (millis() - f.deploymentCD >= f.deployRate)) {
           t.add(new Giant());
           mousePressed = false;
-          troopDeplpoyCoolDown = millis();
+          f.deploymentCD = millis();
         }
       } else {         //"
         cursor(ARROW); //"

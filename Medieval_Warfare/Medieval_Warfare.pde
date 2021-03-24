@@ -3,7 +3,7 @@ ArrayList<EnemyTroop> et = new ArrayList<EnemyTroop>();
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry;
+PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry, options;
 int troopDeplpoyCoolDown;
 int delayTime = 1000;
 int passiveGoldCoolDown;
@@ -39,9 +39,10 @@ void setup() {
   cavalry = loadImage("Cavalry.png");
   cavalry.resize(60, 60);
 
-  map = loadImage("Medievalbackground.png");
-  selector = loadImage("Selector.png");
+  map       = loadImage("Medievalbackground.png");
+  selector  = loadImage("Selector.png");
   highlight = loadImage("Highlighted box.png");
+  options   = loadImage ("options.png");
 
   imageMode(CENTER);
 }
@@ -52,22 +53,23 @@ void draw() {
 
   pushMatrix();
   strokeWeight(2);
-  
+
   fill(0, 255, 0);
   rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
-  
+
   fill(0, 255, 0);
   rect(0, 1, width/2/friendlyCastleHP*currentFriendlyCastleHP, 38); //Shows Friendly castle health bar
-  
+
   strokeWeight(4);
   noFill();
   rect(width/2, 1, width/2-1, 38); //Shows Enemy castle health boarder
   rect(0, 1, width/2, 38); //Shows Friendly castle health boarder
   strokeWeight(10);
   popMatrix();
-  
+
   h.selector(h.row);
   h.sendTroop();
+  h.options();
   f.PassiveGold();
 
   for (int i = 0; i < ft.size(); i++) {  //runs the different functions for friendly troops
@@ -87,24 +89,36 @@ void draw() {
     }
   }
 
-  image(swordsman, 188, 552); //Shows the image of the troops in the boxes below.
-  image(archer, 273, 552);
-  image(mage, 358, 552);
-  image(cavalry, 443, 552);
-  image(giant, 528, 552);
-
+  image(swordsman, 188, 541); //Shows the image of the troops in the boxes below.
+  image(archer, 273, 541);
+  image(mage, 358, 541);
+  image(cavalry, 443, 541);
+  image(giant, 528, 541);
   textAlign(CENTER);
   goldenIncome = createFont("Verdana", 20); //Makes the font to Verdena and the size to 20.
   textFont(goldenIncome);
   fill(255);
 
   text("Gold: " + f.goldCount, 65, 510); //Writes the current amount of gold
+  textSize(12);
+  fill(0);
 
-  text(20, 188, 510); //Writes the cost of the troops above the boxes
-  text(25, 273, 510);
-  text(40, 358, 510);
-  text(70, 443, 510);
-  text(100, 528, 510);
+  text("Knight", 188, 493); //Writes the names of the troops above the boxes
+  text("Archer", 273, 493); 
+  text("Magician", 358, 493);
+  text("Cavalry", 443, 493);
+  text("Giant", 528, 493);
+
+
+
+  textSize(16);
+  text(20, 188, 590); //Writes the cost of the troops above the boxes
+  text(25, 273, 590);
+  text(40, 358, 590);
+  text(70, 443, 590);
+  text(100, 528, 590);
+  fill(255);
+  textSize(20);
 
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }

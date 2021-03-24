@@ -1,6 +1,7 @@
 class HUD {
   int selectorX, selectorY, selectorInitY;  //coords for selector - the base is a stepping stone (see line 18)
   int row = 1;
+  int optionsRotation;
 
   HUD () {
     selectorX = 31;      //initial coords for the selector
@@ -15,20 +16,18 @@ class HUD {
 
 
   void sendTroop() {
-    if (mouseY >= 515 && mouseY <= 589) {
+    if (mouseY >= 504 && mouseY <= 597) {
       if (mouseX >= 151 && mouseX <= 225) {
         cursor(HAND); //to show that this area is clickable
-        image(highlight, 188, 552); //the highlighted box
-        image(swordsman, 188, 552);
+        image(highlight, 188, 539); //the highlighted box
         if (mousePressed && f.goldCount >= 20 && (millis() - troopDeplpoyCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
-            ft.add(new FSwordsman()); //add a new troop - depends on the box that was clicked
-            mousePressed = false; //stop the program from spamming troops in the blink of an eye
-            troopDeplpoyCoolDown = millis();
+          ft.add(new FSwordsman()); //add a new troop - depends on the box that was clicked
+          mousePressed = false; //stop the program from spamming troops in the blink of an eye
+          troopDeplpoyCoolDown = millis();
         }
       } else if (mouseX >= 236 && mouseX <= 310) { //same deal as above, but for different troops
         cursor(HAND);
-        image(highlight, 273, 552);
-        image(archer, 273, 552);
+        image(highlight, 273, 539);
         if (mousePressed && f.goldCount >= 25 && (millis() - troopDeplpoyCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
           ft.add(new FArcher());
           mousePressed = false;
@@ -36,8 +35,7 @@ class HUD {
         }
       } else if (mouseX >= 321 && mouseX <= 395) {
         cursor(HAND);
-        image(highlight, 358, 552);
-        image(mage, 358, 552);
+        image(highlight, 358, 539);
         if (mousePressed && f.goldCount >= 40 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
           ft.add(new FMage());
           mousePressed = false;
@@ -45,8 +43,7 @@ class HUD {
         }
       } else if (mouseX >= 406 && mouseX <= 480) {
         cursor(HAND);
-        image(highlight, 443, 552);
-        image(cavalry, 443, 552);
+        image(highlight, 443, 539);
         if (mousePressed && f.goldCount >= 70 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
           ft.add(new FCavalry());
           mousePressed = false;
@@ -54,8 +51,7 @@ class HUD {
         }
       } else if (mouseX >= 491 && mouseX <= 565) {
         cursor(HAND);
-        image(highlight, 528, 552);
-        image(giant, 528, 552);
+        image(highlight, 528, 539);
         if (mousePressed && f.goldCount >= 100 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
           ft.add(new FGiant());
           mousePressed = false;
@@ -67,5 +63,18 @@ class HUD {
     } else {           //"
       cursor(ARROW);   //"
     }
+  }
+
+  void options() {
+    pushMatrix();
+    println(mouseY);
+    println(mouseX);
+    if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
+      optionsRotation += 1;
+    }
+    translate(732, 541);
+    rotate(optionsRotation/8);
+    image(options, 0, 0);
+    popMatrix();
   }
 }

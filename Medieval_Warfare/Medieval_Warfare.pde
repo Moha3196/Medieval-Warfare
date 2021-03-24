@@ -5,7 +5,6 @@ HUD h  = new HUD();
 PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry;
 PFont goldenIncome;
 
-
 void setup() {
   size(800, 600);
   frameRate(60);
@@ -48,7 +47,13 @@ void draw() {
   //runs the different functions for troops
   for (int i = 0; i < t.size(); i++) {
     t.get(i).update();
-    t.get(i).checkCollision();
+    if (t.size() > 1) { //a troop can't collide, of there is nobody else to collide with
+      t.get(i).checkCollision();
+    }
+    
+    if (t.get(i).isDead || t.get(i).pos.x < 0 || t.get(i).pos.x > width) { //checks if a troop is dead - if so, it's removed
+      t.remove(t.get(i));  //done as the last thing to avoid index exceptions
+    }
   }
   
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
@@ -73,5 +78,15 @@ void keyPressed() {
     if (h.row >= 7) {
       h.row = 1;
     }
+  }
+  if (keyCode == ENTER) { //debugging
+    loop();
+  }
+  if (keyCode == ' ') { //for testing & debugging collision between troops
+    t.add(new Swordsman());
+    t.get(t.size()-1).allegiance = 0;
+    t.get(t.size()-1).pos.x = width - (h.selectorX + 20);
+    t.get(t.size()-1).speed.x *= -1;
+    t.get(t.size()-1).reach *= -1;
   }
 }

@@ -1,5 +1,5 @@
 class Factions {
-  int goldCount = 0;
+  int goldCount = 200;
   
   Factions() {
     

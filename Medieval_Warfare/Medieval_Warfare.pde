@@ -49,18 +49,21 @@ void setup() {
 
 void draw() {
   image(map, width/2, height/2);
-  
+
   pushMatrix();
+  strokeWeight(2);
+  
   fill(0, 255, 0);
-  noStroke();
-  rect(width/2, 0, width/2/enemyCastleHP*currentEnemyCastleHP, 40); //Shows Enemy castle health bar
-  fill(255, 0, 0);
-  rect(0, 0, width/2, 40); //Shows Red bar under the friendly castle health bar
+  rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
+  
   fill(0, 255, 0);
-  rect(0, 0, width/2/friendlyCastleHP*currentFriendlyCastleHP, 40); //Shows Enemy castle health bar
-  fill(0);
-  stroke(10);
-  line(width/2, 0, width/2, 40); //Line drawen in middle between the two health bars
+  rect(0, 1, width/2/friendlyCastleHP*currentFriendlyCastleHP, 38); //Shows Friendly castle health bar
+  
+  strokeWeight(4);
+  noFill();
+  rect(width/2, 1, width/2-1, 38); //Shows Enemy castle health boarder
+  rect(0, 1, width/2, 38); //Shows Friendly castle health boarder
+  strokeWeight(10);
   popMatrix();
   
   h.selector(h.row);
@@ -70,38 +73,33 @@ void draw() {
   for (int i = 0; i < ft.size(); i++) {  //runs the different functions for friendly troops
     ft.get(i).update();
     ft.get(i).checkCollision();
-    if(ft.get(i).hp <= 0){ //checks if the friendly troops are alive, and if they are dead it sends them out of the map.
-      //ft.get(i).pos.x = 3000;
-      //ft.get(i).pos.y = 3000;
-      ft.get(i).speed.x = 0;
+    if (ft.get(i).isDead) {
       ft.remove(ft.get(i));
-    } 
+      //println(ft.size());
+    }
   }
-  
+
   for (int i = 0; i < et.size(); i++) {  //runs the different functions for enemy troops
     et.get(i).update();
     et.get(i).checkCollision();
-    if(et.get(i).hp <= 0){ //checks if the enemy troops are alive, and if they are dead it sends them out of the map.
-      //et.get(i).pos.x = -3000;
-      //et.get(i).pos.y = 3000;
-      et.get(i).speed.x = 0;
+    if (et.get(i).isDead) {
       et.remove(et.get(i));
-    } 
+    }
   }
-  
+
   image(swordsman, 188, 552); //Shows the image of the troops in the boxes below.
   image(archer, 273, 552);
   image(mage, 358, 552);
   image(cavalry, 443, 552);
   image(giant, 528, 552);
-  
+
   textAlign(CENTER);
   goldenIncome = createFont("Verdana", 20); //Makes the font to Verdena and the size to 20.
   textFont(goldenIncome);
   fill(255);
-  
+
   text("Gold: " + f.goldCount, 65, 510); //Writes the current amount of gold
-  
+
   text(20, 188, 510); //Writes the cost of the troops above the boxes
   text(25, 273, 510);
   text(40, 358, 510);
@@ -133,5 +131,6 @@ void keyPressed() {
   }
   if (keyCode == ENTER) { //Makes an enemy swordsman troop... Used for testing
     et.add(new ESwordsman());
+    f.goldCount += 20;
   }
 }

@@ -6,18 +6,21 @@ class FriendlyTroop {
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
   float speedBeforeContact;
-  //boolean occupied = false;
+  boolean occupied = false;
+  boolean isDead = false;
 
 
   FriendlyTroop () {
     pos.x = h.selectorX + 20;
     pos.y = h.selectorY;
-    speedBeforeContact = speed.x;
+    isDead = false;
   }
 
 
   void update() {
-    pos.add(speed);
+    if (!occupied) {
+      pos.add(speed);
+    }
     image(troop, pos.x, pos.y);
   }
 
@@ -30,19 +33,31 @@ class FriendlyTroop {
         lastTimeAttacked = millis();
       }
     }
-
+    //int i = et.size(); i 0; i--
     for (int i = 0; i < et.size(); i++) {
-      if (pos.x >= et.get(i).pos.x - 30 - reach && pos.y == et.get(i).pos.y) { //Checks collision with enemy troops
-        speed.x = 0;
-        if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attacke speed is multiplied by 1000 because the millis()
-          et.get(i).hp -= damage;                              // runs in milli seconds while attack speed is in seconds
-          lastTimeAttacked = millis();
-          if (et.get(i).hp <= 0) {
-            this.speed.x = speedBeforeContact;
-          }
+      if (pos.x >= et.get(i).pos.x - 30 - reach 
+        && pos.y == et.get(i).pos.y 
+        && occupied == false 
+        && et.get(i).isDead == false) { //Checks collision with enemy troops
+        occupied = true;
+      } else if (occupied) { 
+        if (et.get(i).isDead) {
+          occupied = false;
         }
-      } else {
-        speed.x = speedBeforeContact;
+
+        if (et.get(i).hp >= 0) {
+          if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
+            et.get(i).hp -= damage;                              //runs in milli seconds while attack speed is in seconds
+            lastTimeAttacked = millis();
+          }
+        } else {
+          occupied = false;
+          for (int j = 0; j < ft.size(); j++) {
+            if (ft.get(j).pos.y == pos.y)
+              ft.get(j).occupied = false;
+          }
+          et.get(i).isDead = true;
+        }
       }
     }
   }
@@ -59,9 +74,10 @@ class FSwordsman extends FriendlyTroop {
     super();
     troop = swordsman;
     speed.x = 1.2;
+    speedBeforeContact = speed.x;
     damage = 5;
     hp = 20;
-    reach = 0;
+    reach = 10;
     f.goldCount -= 20;
   }
 
@@ -77,6 +93,7 @@ class FArcher extends FriendlyTroop {
     super();
     troop = archer;
     speed.x = 0.9;
+    speedBeforeContact = speed.x;
     damage = 2;
     attackSpeed = 0.5;
     hp = 15;
@@ -95,6 +112,7 @@ class FMage extends FriendlyTroop {
     super();
     troop = mage;
     speed.x = 0.9;
+    speedBeforeContact = speed.x;
     damage = 8;
     hp = 15;
     reach = 80;
@@ -111,7 +129,8 @@ class FCavalry extends FriendlyTroop {
   FCavalry() {
     super();
     troop = cavalry;
-    speed.x = 1.5;
+    speed.x = 5;
+    speedBeforeContact = speed.x;
     damage = 4;
     hp = 50;
     reach = 30;
@@ -129,6 +148,7 @@ class FGiant extends FriendlyTroop {
     super();
     troop = giant;
     speed.x = 0.6;
+    speedBeforeContact = speed.x;
     damage = 10;
     attackSpeed = 2;
     hp = 70;

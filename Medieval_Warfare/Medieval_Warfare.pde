@@ -2,15 +2,15 @@ ArrayList<Troop> t = new ArrayList<Troop>();
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry;
+PImage map, selector, highlight, knight, giant, archer, mage, cavalry;
 PFont goldenIncome;
 
 void setup() {
   size(800, 600);
   frameRate(60);
   
-  swordsman = loadImage("Swordsman.png");
-  swordsman.resize(60, 60); //temporary - used until actual troop images are made
+  knight = loadImage("Knight.png");
+  knight.resize(60, 60); //temporary - used until actual troop images are made
 
   giant = loadImage("Giant.png");
   giant.resize(60, 60);
@@ -83,7 +83,7 @@ void keyPressed() {
     loop();
   }
   if (keyCode == ' ') { //for testing & debugging collision between troops
-    t.add(new Swordsman());
+    t.add(new Knight());
     t.get(t.size()-1).allegiance = 0;
     t.get(t.size()-1).pos.x = width - (h.selectorX + 20);
     t.get(t.size()-1).speed.x *= -1;

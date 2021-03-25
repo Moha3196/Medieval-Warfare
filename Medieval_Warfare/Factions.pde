@@ -20,7 +20,7 @@ class Factions {
   void deployTroop(int troopID) { //deploys specific troop according to input, then sets allegiance, 
     switch(troopID) {
       case 1:
-        t.add(new Swordsman());
+        t.add(new Knight());
         break;
       
       case 2:

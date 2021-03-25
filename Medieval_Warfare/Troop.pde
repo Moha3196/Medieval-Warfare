@@ -70,11 +70,11 @@ class Troop {
 
 
 
-class Swordsman extends Troop {
+class Knight extends Troop {
 
-  Swordsman() {
+  Knight() {
     super(); //basically copies the info from the super-class' constructor to this one
-    troop = swordsman; //defines current image to display for the troop
+    troop = knight; //defines current image to display for the troop
     speed.x = 0.9;
     reach = 30;
     damage = 5;

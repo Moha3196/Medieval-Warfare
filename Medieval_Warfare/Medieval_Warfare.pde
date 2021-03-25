@@ -1,25 +1,35 @@
 ArrayList<FriendlyTroop> ft = new ArrayList<FriendlyTroop>();
 ArrayList<EnemyTroop> et = new ArrayList<EnemyTroop>();
+FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
 PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry, options;
-int troopDeplpoyCoolDown;
-int delayTime = 1000;
-int passiveGoldCoolDown;
-int passiveGoldDelayTime = 800;
 PFont goldenIncome;
-int friendlyCastleHP = 100;
-int currentFriendlyCastleHP;
-int enemyCastleHP = 100;
-int currentEnemyCastleHP;
-int lastTimeAttacked;
+
+int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
+
+int troopDeplpoyCoolDown; //The timer for deploying troops.
+int delayTime = 1000; //The delay time for deploying troops.
+
+int passiveGoldCoolDown; //The timer for gaining gold.
+int passiveGoldDelayTime = 800; //The delay time for gaining gold.
+
+int friendlyCastleHP = 100; //Total HP for friendly castle
+int currentFriendlyCastleHP; //Current HP for friendly castle
+
+int enemyCastleHP = 100; //Total HP for enemy castle
+int currentEnemyCastleHP; //Current HP for enemy castle
+
+int lastTimeAttacked; //The timer for attacking.
 
 void setup() {
   size(800, 600);
   frameRate(60);
+  
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
+  
   troopDeplpoyCoolDown = millis();
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
@@ -49,7 +59,7 @@ void setup() {
 
 
 void draw() {
-  image(map, width/2, height/2);
+  image(map, width/2, height/2); //Shows the playground, boxes and banners
 
   pushMatrix();
   strokeWeight(2);
@@ -64,7 +74,7 @@ void draw() {
   noFill();
   rect(width/2, 1, width/2-1, 38); //Shows Enemy castle health boarder
   rect(0, 1, width/2, 38); //Shows Friendly castle health boarder
-  strokeWeight(10);
+  //strokeWeight(10);
   popMatrix();
 
   h.selector(h.row);
@@ -72,16 +82,15 @@ void draw() {
   h.options();
   f.PassiveGold();
 
-  for (int i = 0; i < ft.size(); i++) {  //runs the different functions for friendly troops
+  for (int i = 0; i < ft.size(); i++) {  //runs the different functions for Friendly troops
     ft.get(i).update();
     ft.get(i).checkCollision();
     if (ft.get(i).isDead) {
       ft.remove(ft.get(i));
-      //println(ft.size());
     }
   }
 
-  for (int i = 0; i < et.size(); i++) {  //runs the different functions for enemy troops
+  for (int i = 0; i < et.size(); i++) {  //runs the different functions for Enemy troops
     et.get(i).update();
     et.get(i).checkCollision();
     if (et.get(i).isDead) {
@@ -94,6 +103,7 @@ void draw() {
   image(mage, 358, 541);
   image(cavalry, 443, 541);
   image(giant, 528, 541);
+  
   textAlign(CENTER);
   goldenIncome = createFont("Verdana", 20); //Makes the font to Verdena and the size to 20.
   textFont(goldenIncome);
@@ -105,7 +115,7 @@ void draw() {
 
   text("Knight", 188, 493); //Writes the names of the troops above the boxes
   text("Archer", 273, 493); 
-  text("Magician", 358, 493);
+  text("Mage", 358, 493);
   text("Cavalry", 443, 493);
   text("Giant", 528, 493);
 
@@ -143,8 +153,31 @@ void keyPressed() {
       h.row = 1;
     }
   }
-  if (keyCode == ENTER) { //Makes an enemy swordsman troop... Used for testing
-    et.add(new ESwordsman());
+  if (keyCode == ENTER) { //Makes an enemy Knight troop... Used for testing
+    et.add(new EKnight());
     f.goldCount += 20;
+  }
+  if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
+    et.add(new EKnight());
+    f.goldCount += 20;
+  }
+  if (keyCode == '2') { //Makes an enemy Archer troop... Used for testing
+    et.add(new EArcher());
+    f.goldCount += 25;
+  }
+  if (keyCode == '3') { //Makes an enemy Mage troop... Used for testing
+    et.add(new EMage());
+    f.goldCount += 40;
+  }
+  if (keyCode == '4') { //Makes an enemy Cavalry troop... Used for testing
+    et.add(new ECavalry());
+    f.goldCount += 70;
+  }
+  if (keyCode == '5') { //Makes an enemy Giant troop... Used for testing
+    et.add(new EGiant());
+    f.goldCount += 100;
+  }
+  if (keyCode == 'U') { //Upgrades the friendly Knight... Used for testing
+    knightLevel += 1;
   }
 }

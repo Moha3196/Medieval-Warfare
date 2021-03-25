@@ -2,7 +2,8 @@ class EnemyTroop {
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector(1, 0);  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
-  int allegiance, hp, damage, reach; //allegiance defines the troop's faction (player or enemy)
+  int allegiance, damage, reach; //allegiance defines the troop's faction (player or enemy)
+  float maxHP, currentHP;
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
   float speedBeforeContact;
@@ -26,6 +27,15 @@ class EnemyTroop {
     scale(-1, 1);
     image(troop, 0, 0);
     popMatrix();
+
+    pushMatrix();
+    strokeWeight(1);
+    fill(255, 0, 0);
+    rect(pos.x - 20, pos.y - 40, 40, 7);
+    fill(0, 255, 0);
+    rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7);
+    strokeWeight(4);
+    popMatrix();
   }
 
 
@@ -37,29 +47,29 @@ class EnemyTroop {
         lastTimeAttacked = millis();
       }
     }
-    //int i = ft.size()-1; i > 0; i--
+
     for (int i = 0; i < ft.size(); i++) {
       if (pos.x <= ft.get(i).pos.x + 30 + reach 
-          && pos.y == ft.get(i).pos.y 
-          && occupied == false 
-          && ft.get(i).isDead == false) { //Checks collision with friendly troops
-        //speed.x = 0;
+        && pos.y == ft.get(i).pos.y 
+        && occupied == false 
+        && ft.get(i).isDead == false) { //Checks collision with friendly troops
         occupied = true;
       } else if (occupied) { 
         if (ft.get(i).isDead) {
           occupied = false;
         }
-        
-        if (ft.get(i).hp >= 0) {
+
+        if (ft.get(i).currentHP > 0) {
           if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
-            ft.get(i).hp -= damage;                              //runs in milli seconds while attack speed is in seconds
+            ft.get(i).currentHP -= damage;                              //runs in milli seconds while attack speed is in seconds
             lastTimeAttacked = millis();
           }
         } else {
           occupied = false;
           for (int j = 0; j < et.size(); j++) {
-            if (et.get(j).pos.y == pos.y)
+            if (et.get(j).pos.y == pos.y) {
               et.get(j).occupied = false;
+            }
           }
           ft.get(i).isDead = true;
         }
@@ -73,15 +83,16 @@ class EnemyTroop {
 
 
 
-class ESwordsman extends EnemyTroop {
+class EKnight extends EnemyTroop {
 
-  ESwordsman() {
+  EKnight() {
     super();
     troop = swordsman;
     speed.x = -1.2;
     speedBeforeContact = speed.x;
     damage = 5;
-    hp = 20;
+    maxHP = 20;
+    currentHP = maxHP;
     reach = 10;
     f.goldCount -= 20;
   }
@@ -101,7 +112,8 @@ class EArcher extends EnemyTroop {
     speedBeforeContact = speed.x;
     damage = 2;
     attackSpeed = 0.5;
-    hp = 15;
+    maxHP = 15;
+    currentHP = maxHP;
     reach = 150;
     f.goldCount -= 25;
   }
@@ -119,7 +131,8 @@ class EMage extends EnemyTroop {
     speed.x = -0.9;
     speedBeforeContact = speed.x;
     damage = 8;
-    hp = 15;
+    maxHP = 15;
+    currentHP = maxHP;
     reach = 80;
     f.goldCount -= 40;
   }
@@ -137,7 +150,8 @@ class ECavalry extends EnemyTroop {
     speed.x = -1.5;
     speedBeforeContact = speed.x;
     damage = 4;
-    hp = 50;
+    maxHP = 50;
+    currentHP = maxHP;
     reach = 30;
     f.goldCount -= 70;
   }
@@ -156,7 +170,8 @@ class EGiant extends EnemyTroop {
     speedBeforeContact = speed.x;
     damage = 10;
     attackSpeed = 2;
-    hp = 70;
+    maxHP = 70;
+    currentHP = maxHP;
     reach = 10;
     f.goldCount -= 100;
   }

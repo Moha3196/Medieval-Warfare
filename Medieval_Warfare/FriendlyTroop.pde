@@ -2,12 +2,14 @@ class FriendlyTroop {
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector(1, 0);  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
-  int allegiance, hp, damage, reach; //allegiance defines the troop's faction (player or enemy)
+  int allegiance, reach; //allegiance defines the troop's faction (player or enemy)
+  float damage, maxHP, currentHP;
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
   float speedBeforeContact;
   boolean occupied = false;
   boolean isDead = false;
+  float statsUpgrade = 1;
 
 
   FriendlyTroop () {
@@ -22,6 +24,15 @@ class FriendlyTroop {
       pos.add(speed);
     }
     image(troop, pos.x, pos.y);
+
+    pushMatrix();
+    strokeWeight(1);
+    fill(255, 0, 0);
+    rect(pos.x - 20, pos.y - 40, 40, 7);
+    fill(0, 255, 0);
+    rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7);
+    strokeWeight(4);
+    popMatrix();
   }
 
 
@@ -33,7 +44,7 @@ class FriendlyTroop {
         lastTimeAttacked = millis();
       }
     }
-    //int i = et.size(); i 0; i--
+
     for (int i = 0; i < et.size(); i++) {
       if (pos.x >= et.get(i).pos.x - 30 - reach 
         && pos.y == et.get(i).pos.y 
@@ -45,16 +56,17 @@ class FriendlyTroop {
           occupied = false;
         }
 
-        if (et.get(i).hp >= 0) {
+        if (et.get(i).currentHP > 0) {
           if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
-            et.get(i).hp -= damage;                              //runs in milli seconds while attack speed is in seconds
+            et.get(i).currentHP -= damage;                      //runs in milli seconds while attack speed is in seconds
             lastTimeAttacked = millis();
           }
         } else {
           occupied = false;
           for (int j = 0; j < ft.size(); j++) {
-            if (ft.get(j).pos.y == pos.y)
+            if (ft.get(j).pos.y == pos.y) {
               ft.get(j).occupied = false;
+            }
           }
           et.get(i).isDead = true;
         }
@@ -68,19 +80,26 @@ class FriendlyTroop {
 
 
 
-class FSwordsman extends FriendlyTroop {
+class FKnight extends FriendlyTroop {
 
-  FSwordsman() {
+  FKnight(float lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl == 2) {
+      statsUpgrade = 1.5;
+    } else if (lvl == 3) {
+      statsUpgrade = 2.25;
+    }
     troop = swordsman;
     speed.x = 1.2;
     speedBeforeContact = speed.x;
-    damage = 5;
-    hp = 20;
+    damage = 5 * statsUpgrade;
+    maxHP = 20 * statsUpgrade;
+    currentHP = maxHP;
     reach = 10;
     f.goldCount -= 20;
   }
-
 
   void collision() {
   }
@@ -89,14 +108,22 @@ class FSwordsman extends FriendlyTroop {
 
 class FArcher extends FriendlyTroop {
 
-  FArcher() {
+  FArcher(float lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl == 2) {
+      statsUpgrade = 1.5;
+    } else if (lvl == 3) {
+      statsUpgrade = 2.25;
+    }
     troop = archer;
     speed.x = 0.9;
     speedBeforeContact = speed.x;
-    damage = 2;
     attackSpeed = 0.5;
-    hp = 15;
+    damage = 2 * statsUpgrade;
+    maxHP = 15 * statsUpgrade;
+    currentHP = maxHP;
     reach = 150;
     f.goldCount -= 25;
   }
@@ -108,13 +135,21 @@ class FArcher extends FriendlyTroop {
 
 class FMage extends FriendlyTroop {
 
-  FMage() {
+  FMage(float lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl == 2) {
+      statsUpgrade = 1.5;
+    } else if (lvl == 3) {
+      statsUpgrade = 2.25;
+    }
     troop = mage;
     speed.x = 0.9;
     speedBeforeContact = speed.x;
-    damage = 8;
-    hp = 15;
+    damage = 8 * statsUpgrade;
+    maxHP = 15 * statsUpgrade;
+    currentHP = maxHP;
     reach = 80;
     f.goldCount -= 40;
   }
@@ -126,13 +161,21 @@ class FMage extends FriendlyTroop {
 
 class FCavalry extends FriendlyTroop {
 
-  FCavalry() {
+  FCavalry(float lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl == 2) {
+      statsUpgrade = 1.5;
+    } else if (lvl == 3) {
+      statsUpgrade = 2.25;
+    }
     troop = cavalry;
-    speed.x = 5;
+    speed.x = 1.5;
     speedBeforeContact = speed.x;
-    damage = 4;
-    hp = 50;
+    damage = 4 * statsUpgrade;
+    maxHP = 50 * statsUpgrade;
+    currentHP = maxHP;
     reach = 30;
     f.goldCount -= 70;
   }
@@ -144,14 +187,22 @@ class FCavalry extends FriendlyTroop {
 
 class FGiant extends FriendlyTroop {
 
-  FGiant() {
+  FGiant(float lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl == 2) {
+      statsUpgrade = 1.5;
+    } else if (lvl == 3) {
+      statsUpgrade = 2.25;
+    }
     troop = giant;
     speed.x = 0.6;
     speedBeforeContact = speed.x;
-    damage = 10;
     attackSpeed = 2;
-    hp = 70;
+    damage = 10 * statsUpgrade;
+    maxHP = 70 * statsUpgrade;
+    currentHP = 70;
     reach = 10;
     f.goldCount -= 100;
   }

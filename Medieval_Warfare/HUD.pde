@@ -21,7 +21,7 @@ class HUD {
         cursor(HAND); //to show that this area is clickable
         image(highlight, 188, 539); //the highlighted box
         if (mousePressed && f.goldCount >= 20 && (millis() - troopDeplpoyCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
-          ft.add(new FSwordsman()); //add a new troop - depends on the box that was clicked
+          ft.add(new FKnight(knightLevel)); //add a new troop - depends on the box that was clicked
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
           troopDeplpoyCoolDown = millis();
         }
@@ -29,7 +29,7 @@ class HUD {
         cursor(HAND);
         image(highlight, 273, 539);
         if (mousePressed && f.goldCount >= 25 && (millis() - troopDeplpoyCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
-          ft.add(new FArcher());
+          ft.add(new FArcher(archerLevel));
           mousePressed = false;
           troopDeplpoyCoolDown = millis();
         }
@@ -37,7 +37,7 @@ class HUD {
         cursor(HAND);
         image(highlight, 358, 539);
         if (mousePressed && f.goldCount >= 40 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
-          ft.add(new FMage());
+          ft.add(new FMage(mageLevel));
           mousePressed = false;
           troopDeplpoyCoolDown = millis();
         }
@@ -45,7 +45,7 @@ class HUD {
         cursor(HAND);
         image(highlight, 443, 539);
         if (mousePressed && f.goldCount >= 70 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
-          ft.add(new FCavalry());
+          ft.add(new FCavalry(cavalryLevel));
           mousePressed = false;
           troopDeplpoyCoolDown = millis();
         }
@@ -53,7 +53,7 @@ class HUD {
         cursor(HAND);
         image(highlight, 528, 539);
         if (mousePressed && f.goldCount >= 100 && (millis() - troopDeplpoyCoolDown >= delayTime)) {
-          ft.add(new FGiant());
+          ft.add(new FGiant(giantLevel));
           mousePressed = false;
           troopDeplpoyCoolDown = millis();
         }
@@ -67,8 +67,8 @@ class HUD {
 
   void options() {
     pushMatrix();
-    println(mouseY);
-    println(mouseX);
+    //println(mouseY);
+    //println(mouseX);
     if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
       optionsRotation += 1;
     }

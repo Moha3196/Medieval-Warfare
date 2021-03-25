@@ -4,7 +4,7 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, swordsman, giant, archer, mage, cavalry, options;
+PImage map, selector, highlight, knight, giant, archer, mage, cavalry, options;
 PFont goldenIncome;
 
 int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
@@ -34,8 +34,8 @@ void setup() {
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
 
-  swordsman = loadImage("Swordsman.png");
-  swordsman.resize(60, 60);
+  knight = loadImage("Knight.png");
+  knight.resize(60, 60);
 
   giant = loadImage("Giant.png");
   giant.resize(60, 60);
@@ -98,7 +98,7 @@ void draw() {
     }
   }
 
-  image(swordsman, 188, 541); //Shows the image of the troops in the boxes below.
+  image(knight, 188, 541); //Shows the image of the troops in the boxes below.
   image(archer, 273, 541);
   image(mage, 358, 541);
   image(cavalry, 443, 541);

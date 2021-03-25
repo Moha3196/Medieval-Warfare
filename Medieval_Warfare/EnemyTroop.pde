@@ -87,7 +87,7 @@ class EKnight extends EnemyTroop {
 
   EKnight() {
     super();
-    troop = swordsman;
+    troop = knight;
     speed.x = -1.2;
     speedBeforeContact = speed.x;
     damage = 5;

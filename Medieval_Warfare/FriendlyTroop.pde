@@ -91,7 +91,7 @@ class FKnight extends FriendlyTroop {
     } else if (lvl == 3) {
       statsUpgrade = 2.25;
     }
-    troop = swordsman;
+    troop = knight;
     speed.x = 1.2;
     speedBeforeContact = speed.x;
     damage = 5 * statsUpgrade;

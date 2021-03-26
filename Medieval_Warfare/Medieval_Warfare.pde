@@ -4,7 +4,7 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, knight, giant, archer, mage, cavalry, options;
+PImage map, selector, highlight, knight, giant, archer, mage, cavalry, options, upgradeHighlight;
 PFont goldenIncome;
 
 int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
@@ -26,10 +26,10 @@ int lastTimeAttacked; //The timer for attacking.
 void setup() {
   size(800, 600);
   frameRate(60);
-  
+
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
-  
+
   troopDeplpoyCoolDown = millis();
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
@@ -52,6 +52,7 @@ void setup() {
   map       = loadImage("Medievalbackground.png");
   selector  = loadImage("Selector.png");
   highlight = loadImage("Highlighted box.png");
+  upgradeHighlight = loadImage("upgradeHighlight box.png");
   options   = loadImage ("options.png");
 
   imageMode(CENTER);
@@ -78,7 +79,7 @@ void draw() {
   popMatrix();
 
   h.selector(h.row);
-  h.sendTroop();
+  h.sendTroopAndUpgrades();
   h.options();
   f.PassiveGold();
 
@@ -98,35 +99,35 @@ void draw() {
     }
   }
 
-  image(knight, 188, 541); //Shows the image of the troops in the boxes below.
-  image(archer, 273, 541);
-  image(mage, 358, 541);
-  image(cavalry, 443, 541);
-  image(giant, 528, 541);
-  
+  image(knight, 255, 541); //Shows the image of the troops in the boxes below.
+  image(archer, 340, 541);
+  image(mage, 425, 541);
+  image(cavalry, 510, 541);
+  image(giant, 595, 541);
+
   textAlign(CENTER);
-  goldenIncome = createFont("Verdana", 20); //Makes the font to Verdena and the size to 20.
+  goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 20.
   textFont(goldenIncome);
   fill(255);
 
-  text("Gold: " + f.goldCount, 65, 510); //Writes the current amount of gold
+  text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
   textSize(12);
   fill(0);
 
-  text("Knight", 188, 493); //Writes the names of the troops above the boxes
-  text("Archer", 273, 493); 
-  text("Mage", 358, 493);
-  text("Cavalry", 443, 493);
-  text("Giant", 528, 493);
+  text("Knight", 255, 493); //Writes the names of the troops above the boxes
+  text("Archer", 340, 493); 
+  text("Mage", 425, 493);
+  text("Cavalry", 510, 493);
+  text("Giant", 595, 493);
 
 
 
   textSize(16);
-  text(20, 188, 590); //Writes the cost of the troops above the boxes
-  text(25, 273, 590);
-  text(40, 358, 590);
-  text(70, 443, 590);
-  text(100, 528, 590);
+  text(20, 255, 590); //Writes the cost of the troops above the boxes
+  text(25, 340, 590);
+  text(40, 425, 590);
+  text(70, 510, 590);
+  text(100, 595, 590);
   fill(255);
   textSize(20);
 

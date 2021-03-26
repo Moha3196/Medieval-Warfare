@@ -2,8 +2,11 @@ ArrayList<Troop> t = new ArrayList<Troop>();
 Factions f = new Factions();
 HUD h  = new HUD();
 
+Troop currOpponent;
 PImage map, selector, highlight, knight, giant, archer, mage, cavalry;
 PFont goldenIncome;
+
+boolean drawStuff = false;
 
 void setup() {
   size(800, 600);
@@ -33,6 +36,8 @@ void setup() {
   f.deploymentCD = millis();
   f.passiveGoldCD = millis();
   
+  currOpponent = new Troop();
+  
   imageMode(CENTER);
 }
 
@@ -41,7 +46,7 @@ void draw() {
   image(map, width/2, height/2);
   h.selector(h.row);
   h.sendTroop();
-  f.PassiveGold();
+  f.passiveGold();
   h.renderHighlight();
   
   //runs the different functions for troops
@@ -78,6 +83,9 @@ void keyPressed() {
     if (h.row >= 7) {
       h.row = 1;
     }
+  }
+  if (key == '½') {
+    noLoop();
   }
   if (keyCode == ENTER) { //debugging
     loop();

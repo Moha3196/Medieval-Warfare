@@ -1,4 +1,5 @@
 class Factions {
+  //Troop currOpponent = new Troop();
   int goldCount, passiveGoldRate, passiveGoldCD;
   int deploymentCD, deployRate; //these will be universal for both factions
   
@@ -9,7 +10,7 @@ class Factions {
   }
   
   
-  void PassiveGold(){
+  void passiveGold(){
     if(millis() - passiveGoldCD >= passiveGoldRate){ //Generates 20 gold every half second
       goldCount += 20;
       passiveGoldCD = millis();

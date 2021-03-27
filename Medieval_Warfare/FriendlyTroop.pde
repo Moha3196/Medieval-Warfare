@@ -28,9 +28,9 @@ class FriendlyTroop {
     pushMatrix();
     strokeWeight(1);
     fill(255, 0, 0);
-    rect(pos.x - 20, pos.y - 40, 40, 7);
+    rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red damaged health bar
     fill(0, 255, 0);
-    rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7);
+    rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7); //Shows green health bar
     strokeWeight(4);
     popMatrix();
   }
@@ -49,7 +49,7 @@ class FriendlyTroop {
       if (pos.x >= et.get(i).pos.x - 30 - reach 
         && pos.y == et.get(i).pos.y 
         && occupied == false 
-        && et.get(i).isDead == false) { //Checks collision with enemy troops
+        && et.get(i).isDead == false) { //Checks collision with enemy troops, if there is changes occupied to be true
         occupied = true;
       } else if (occupied) { 
         if (et.get(i).isDead) {
@@ -86,11 +86,9 @@ class FKnight extends FriendlyTroop {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
-    } else if (lvl == 2) {
-      statsUpgrade = 1.5;
-    } else if (lvl == 3) {
-      statsUpgrade = 2.25;
-    }
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    } 
     troop = knight;
     speed.x = 1.2;
     speedBeforeContact = speed.x;
@@ -112,11 +110,9 @@ class FArcher extends FriendlyTroop {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
-    } else if (lvl == 2) {
-      statsUpgrade = 1.5;
-    } else if (lvl == 3) {
-      statsUpgrade = 2.25;
-    }
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    } 
     troop = archer;
     speed.x = 0.9;
     speedBeforeContact = speed.x;
@@ -139,11 +135,9 @@ class FMage extends FriendlyTroop {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
-    } else if (lvl == 2) {
-      statsUpgrade = 1.5;
-    } else if (lvl == 3) {
-      statsUpgrade = 2.25;
-    }
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    } 
     troop = mage;
     speed.x = 0.9;
     speedBeforeContact = speed.x;
@@ -165,11 +159,9 @@ class FCavalry extends FriendlyTroop {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
-    } else if (lvl == 2) {
-      statsUpgrade = 1.5;
-    } else if (lvl == 3) {
-      statsUpgrade = 2.25;
-    }
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    } 
     troop = cavalry;
     speed.x = 1.5;
     speedBeforeContact = speed.x;
@@ -191,18 +183,16 @@ class FGiant extends FriendlyTroop {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
-    } else if (lvl == 2) {
-      statsUpgrade = 1.5;
-    } else if (lvl == 3) {
-      statsUpgrade = 2.25;
-    }
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    } 
     troop = giant;
     speed.x = 0.6;
     speedBeforeContact = speed.x;
     attackSpeed = 2;
     damage = 10 * statsUpgrade;
     maxHP = 70 * statsUpgrade;
-    currentHP = 70;
+    currentHP = maxHP;
     reach = 10;
     f.goldCount -= 100;
   }

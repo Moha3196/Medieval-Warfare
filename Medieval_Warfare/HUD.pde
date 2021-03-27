@@ -66,40 +66,45 @@ class HUD {
         mouseHand=true;
         image(upgradeHighlight, 107, 524); //the highlighted box
 
-        if (mousePressed && f.goldCount >= 20) { //if box is clicked on, and player has enough gold:
-
+        if (mousePressed && f.goldCount >= 20*pow(2, knightLevel)) {
+          f.goldCount -= 20*pow(2, knightLevel);
+          knightLevel += 1;
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
         }
       } else if (mouseY >= 532 && mouseY <= 547) { //same deal as above, but for different troops
         mouseHand=true;
         image(upgradeHighlight, 107, 540);
 
-        if (mousePressed && f.goldCount >= 25) { //("25" is the cost of deploying the troop)
-
+        if (mousePressed && f.goldCount >= 25*pow(2, archerLevel)) {
+          f.goldCount -= 25*pow(2, archerLevel);
+          archerLevel += 1;
           mousePressed = false;
         }
       } else if (mouseY >= 548 && mouseY <= 563) {
         mouseHand=true;
         image(upgradeHighlight, 107, 556);
 
-        if (mousePressed && f.goldCount >= 40) {
-
+        if (mousePressed && f.goldCount >= 40*pow(2, mageLevel)) {
+          f.goldCount -= 40*pow(2, mageLevel);
+          mageLevel += 1;
           mousePressed = false;
         }
       } else if (mouseY >= 564 && mouseY <= 579) {
         mouseHand=true;
         image(upgradeHighlight, 107, 572);
 
-        if (mousePressed && f.goldCount >= 70) {
-
+        if (mousePressed && f.goldCount >= 70*pow(2, cavalryLevel)) {
+          f.goldCount -= 70*pow(2, cavalryLevel);
+          cavalryLevel += 1;
           mousePressed = false;
         }
       } else if (mouseY >= 580 && mouseY <= 595) {
         mouseHand=true;
         image(upgradeHighlight, 107, 588);
 
-        if (mousePressed && f.goldCount >= 100) {
-
+        if (mousePressed && f.goldCount >= 100*pow(2, giantLevel)) {
+          f.goldCount -= 100*pow(2, giantLevel);
+          giantLevel += 1;
           mousePressed = false;
         }
       }
@@ -111,13 +116,12 @@ class HUD {
     textSize(13);
     text("Upgrade to:", 69, 513);
     textSize(12);
-    text("Level"+ /*(swordsmanlevel+1)+*/": ", 69, 532); // Nice
-    text("Level"+ /*(swordsmanlevel+1)+*/": ", 69, 548);
-    text("Level"+ /*(swordsmanlevel+1)+*/": ", 69, 564);
-    text("Level"+ /*(swordsmanlevel+1)+*/": ", 69, 580);
-    text("Level"+ /*(swordsmanlevel+1)+*/": ", 69, 596);
+    text("LVL " + (knightLevel+1) + ": " + int(20*pow(2, knightLevel)), 69, 532); // Nice
+    text("LVL " + (archerLevel+1) + ": " + int(25*pow(2, archerLevel)), 69, 548);
+    text("LVL " + (mageLevel+1) + ": " + int(40*pow(2, mageLevel)), 69, 564);
+    text("LVL " + (cavalryLevel+1) + ": " + int(70*pow(2, cavalryLevel)), 69, 580);
+    text("LVL " + (giantLevel+1) + ": " + int(100*pow(2, giantLevel)), 69, 596);
     popMatrix();
-
 
     if (mouseHand) {
       cursor(HAND);

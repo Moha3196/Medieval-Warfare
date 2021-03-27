@@ -4,10 +4,14 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, knight, giant, archer, mage, cavalry, options, upgradeHighlight;
+PImage map, selector, highlight, options, upgradeHighlight, startScreen, endScreen;
+PImage knight, giant, archer, mage, cavalry;
+
 PFont goldenIncome;
 
 int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
+
+int stage = 1;
 
 int troopDeplpoyCoolDown; //The timer for deploying troops.
 int delayTime = 1000; //The delay time for deploying troops.
@@ -15,11 +19,11 @@ int delayTime = 1000; //The delay time for deploying troops.
 int passiveGoldCoolDown; //The timer for gaining gold.
 int passiveGoldDelayTime = 800; //The delay time for gaining gold.
 
-int friendlyCastleHP = 100; //Total HP for friendly castle
-int currentFriendlyCastleHP; //Current HP for friendly castle
+float friendlyCastleHP = 1000; //Total HP for friendly castle
+float currentFriendlyCastleHP; //Current HP for friendly castle
 
-int enemyCastleHP = 100; //Total HP for enemy castle
-int currentEnemyCastleHP; //Current HP for enemy castle
+float enemyCastleHP = 1000; //Total HP for enemy castle
+float currentEnemyCastleHP; //Current HP for enemy castle
 
 int lastTimeAttacked; //The timer for attacking.
 
@@ -33,6 +37,8 @@ void setup() {
   troopDeplpoyCoolDown = millis();
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
+  
+  startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
 
   knight = loadImage("Knight.png");
   knight.resize(60, 60);
@@ -60,77 +66,15 @@ void setup() {
 
 
 void draw() {
-  image(map, width/2, height/2); //Shows the playground, boxes and banners
-
-  pushMatrix();
-  strokeWeight(2);
-
-  fill(0, 255, 0);
-  rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
-
-  fill(0, 255, 0);
-  rect(0, 1, width/2/friendlyCastleHP*currentFriendlyCastleHP, 38); //Shows Friendly castle health bar
-
-  strokeWeight(4);
-  noFill();
-  rect(width/2, 1, width/2-1, 38); //Shows Enemy castle health boarder
-  rect(0, 1, width/2, 38); //Shows Friendly castle health boarder
-  //strokeWeight(10);
-  popMatrix();
-
-  h.selector(h.row);
-  h.sendTroopAndUpgrades();
-  h.options();
-  f.PassiveGold();
-
-  for (int i = 0; i < ft.size(); i++) {  //runs the different functions for Friendly troops
-    ft.get(i).update();
-    ft.get(i).checkCollision();
-    if (ft.get(i).isDead) {
-      ft.remove(ft.get(i));
-    }
+  if (stage == 1) {
+    StartScreen();
+  } else if (stage == 2) {
+    Tutorial();
+  } else if (stage == 3) {
+    GamingScreen();
+  } else if (stage == 4) {
+    EndScreen();
   }
-
-  for (int i = 0; i < et.size(); i++) {  //runs the different functions for Enemy troops
-    et.get(i).update();
-    et.get(i).checkCollision();
-    if (et.get(i).isDead) {
-      et.remove(et.get(i));
-    }
-  }
-
-  image(knight, 255, 541); //Shows the image of the troops in the boxes below.
-  image(archer, 340, 541);
-  image(mage, 425, 541);
-  image(cavalry, 510, 541);
-  image(giant, 595, 541);
-
-  textAlign(CENTER);
-  goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 20.
-  textFont(goldenIncome);
-  fill(255);
-
-  text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
-  textSize(12);
-  fill(0);
-
-  text("Knight", 255, 493); //Writes the names of the troops above the boxes
-  text("Archer", 340, 493); 
-  text("Mage", 425, 493);
-  text("Cavalry", 510, 493);
-  text("Giant", 595, 493);
-
-
-
-  textSize(16);
-  text(20, 255, 590); //Writes the cost of the troops above the boxes
-  text(25, 340, 590);
-  text(40, 425, 590);
-  text(70, 510, 590);
-  text(100, 595, 590);
-  fill(255);
-  textSize(20);
-
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
@@ -180,5 +124,9 @@ void keyPressed() {
   }
   if (keyCode == 'U') { //Upgrades the friendly Knight... Used for testing
     knightLevel += 1;
+    archerLevel += 1;
+    mageLevel += 1;
+    cavalryLevel += 1;
+    giantLevel += 1;
   }
 }

@@ -1,5 +1,5 @@
 class Factions {
-  //Troop currOpponent = new Troop();
+  //Troop currFoe = new Troop();
   int goldCount, passiveGoldRate, passiveGoldCD;
   int deploymentCD, deployRate; //these will be universal for both factions
   

@@ -19,13 +19,13 @@ class Troop {
   }
 
   void update() {
-    //if (currOpponent.isDead) {
+    //if (currFoe.isDead) {
     //  inCombat = false;
     //}
     if (!inCombat) {
       pos.add(speed);
     } else {
-      println("Is opponent dead? " + currOpponent.isDead);
+      println("Is opponent dead? " + currFoe.isDead);
     }
     pushMatrix();
     translate(pos.x, pos.y);
@@ -72,8 +72,8 @@ class Troop {
               println();
             }
           } else { //NOTES: if this else is on the "pos.x..." if, then only last enemy troop will engage an opponent, while all others simply never seem to run "beginCombat()"
-            this.inCombat = false; //this fixes troops not escaping combat, if they themselves didn't kill the opponent, but lets other troops altz on through the opponent...
-          } //if the only two troops deployed enter combat, and both have "inCombat = true", then spawning another troop will set it to false for both **BUT THEY WILL CONTINUE TO DAMAGE EACH OTHER**
+            this.inCombat = false; //this fixes troops not escaping combat, if they themselves didn't kill the opponent, but lets other troops waltz on through the opponent...
+          } //if the only two troops deployed enter combat, and both have "inCombat = true", then spawning another troop will set it to false for both. **THEY WILL CONTINUE TO DAMAGE EACH OTHER, HOWEVER**
         }
       }
     }
@@ -81,7 +81,7 @@ class Troop {
 
   void beginCombat(Troop ally, Troop opponent) { //only exists here, so sub-classes recognize the function
     ally.inCombat = true; //used to stop ally from continuing forward
-    currOpponent = opponent;
+    currFoe = opponent;
     if (millis() - ally.attackCD >= attackFreq) { //if ally is ready to attack (i.e. cooldown has passed):
       opponent.hp -= ally.damage;
       ally.attackCD = millis(); //resets attack cooldown

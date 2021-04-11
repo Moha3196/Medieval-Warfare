@@ -53,7 +53,7 @@ class FriendlyTroop {
         currentEnemyTroop = et.get(i); 
         occupied = true;
       } else if (occupied) { 
-        if (et.get(i).isDead) {
+        if (currentEnemyTroop.isDead) {
           occupied = false;
         }
         //println(currentEnemyTroop);
@@ -69,7 +69,7 @@ class FriendlyTroop {
               ft.get(j).occupied = false;
             }
           }
-          et.get(i).isDead = true;
+          currentEnemyTroop.isDead = true;
         }
       }
     }

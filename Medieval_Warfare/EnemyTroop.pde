@@ -9,6 +9,7 @@ class EnemyTroop {
   float speedBeforeContact;
   boolean occupied = false;
   boolean isDead = false;
+  FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
 
 
   EnemyTroop () {
@@ -53,15 +54,16 @@ class EnemyTroop {
         && pos.y == ft.get(i).pos.y 
         && occupied == false 
         && ft.get(i).isDead == false) { //Checks collision with friendly troops
+        currentFriendlyTroop = ft.get(i); 
         occupied = true;
       } else if (occupied) { 
         if (ft.get(i).isDead) {
           occupied = false;
         }
 
-        if (ft.get(i).currentHP > 0) {
+        if (currentFriendlyTroop.currentHP > 0) {
           if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
-            ft.get(i).currentHP -= damage;                              //runs in milli seconds while attack speed is in seconds
+            currentFriendlyTroop.currentHP -= damage;                              //runs in milli seconds while attack speed is in seconds
             lastTimeAttacked = millis();
           }
         } else {

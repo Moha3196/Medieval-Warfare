@@ -21,7 +21,7 @@ void StartScreen() {
       rect(120, 400, 120, 80); //Start Game Button
       fill(0);
       text("Start Game", 180, 445);
-      if (mousePressed){ //Starts the Game
+      if (mousePressed) { //Starts the Game
         stage = 3;
       }
     }
@@ -30,7 +30,7 @@ void StartScreen() {
       rect(width - 120, 400, -120, 80); //Tutorial Button
       fill(0);
       text("Tutorial", width - 180, 445);
-      if (mousePressed){ //Starts the Tutorial
+      if (mousePressed) { //Starts the Tutorial
         stage = 2;
       }
     }
@@ -127,8 +127,18 @@ void GamingScreen() {
   text(100, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
+  
+  if (currentFriendlyCastleHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
+    endScreen = loadImage("Player_Loss_Medieval_Warfare_EndScreen.png");
+    stage = 4;
+  } else if (currentEnemyCastleHP <= 0) {  //When the Enemy Castle dies, loads winning screen
+    endScreen = loadImage("Player_Win_Medieval_Warfare_EndScreen.png");
+    stage = 4;
+  }
 }
 
 
 void EndScreen() {
+  endScreen.resize(width, height); //Resizes the EndScreen so it fits the boarder
+  image(endScreen, width/2, height/2); //Shows the EndScreen
 }

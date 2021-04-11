@@ -10,7 +10,7 @@ class FriendlyTroop {
   boolean occupied = false;
   boolean isDead = false;
   float statsUpgrade = 1;
-
+  EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
 
   FriendlyTroop () {
     pos.x = h.selectorX + 20;
@@ -50,15 +50,16 @@ class FriendlyTroop {
         && pos.y == et.get(i).pos.y 
         && occupied == false 
         && et.get(i).isDead == false) { //Checks collision with enemy troops, if there is changes occupied to be true
+        currentEnemyTroop = et.get(i); 
         occupied = true;
       } else if (occupied) { 
         if (et.get(i).isDead) {
           occupied = false;
         }
-
-        if (et.get(i).currentHP > 0) {
+        //println(currentEnemyTroop);
+        if (currentEnemyTroop.currentHP > 0) {
           if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
-            et.get(i).currentHP -= damage;                      //runs in milli seconds while attack speed is in seconds
+            currentEnemyTroop.currentHP -= damage;               //runs in milli seconds while attack speed is in seconds
             lastTimeAttacked = millis();
           }
         } else {

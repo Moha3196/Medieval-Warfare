@@ -66,7 +66,7 @@ void setup() {
 
 
 void draw() {
-  if (stage == 1) {
+  if (stage == 1) { //Stages is used to switch between screens
     StartScreen();
   } else if (stage == 2) {
     Tutorial();
@@ -103,6 +103,15 @@ void keyPressed() {
     f.goldCount += 20;
     troopDeplpoyCoolDown = millis();
   }
+  
+  if (keyCode == 'F') { //Makes an friendly Knight troop... Used for testing
+    //h.selectorX = 100;
+    ft.add(new FKnight(knightLevel));
+    //h.selectorX = 31;
+    f.goldCount += 20;
+    troopDeplpoyCoolDown = millis();
+  }
+  
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;

@@ -7,22 +7,23 @@ class EnemyTroop {
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
   float speedBeforeContact;
-  boolean occupied = false;
-  boolean enemyOccupied = false;
-  boolean isDead = false;
+  boolean occupied = false; //Boolean to check if in Combat
+  boolean enemyOccupied = false; //Booleans to check if there is enemy troops not moving infront
+  boolean enemyInFront = false; //Booleans to check if there is enemy troops moving infront
+  boolean isDead = false; //Boolean to check if troop is dead
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
   EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
 
   EnemyTroop () {
-    pos.x = width - h.selectorX + 20;
+    pos.x = width - h.selectorX - 20;
     pos.y = h.selectorY;
     isDead = false;
   }
 
 
   void update() {
-    if (!occupied && !enemyOccupied) {
+    if (!occupied && !enemyOccupied && !enemyInFront) {
       pos.add(speed);
     }
     pushMatrix();
@@ -52,6 +53,24 @@ class EnemyTroop {
     }
     
     for (int i = 0; i < et.size(); i++) {
+      if (pos.x <= et.get(i).pos.x + 30 + reach
+        && pos.x > et.get(i).pos.x
+        && pos.y == et.get(i).pos.y
+        && occupied == false 
+        && enemyOccupied == false
+        && enemyInFront == false
+        && et.get(i).occupied == false
+        && et.get(i).enemyOccupied == false
+        && et.get(i).enemyInFront == false
+        && et.get(i).isDead == false) { //Checks if there is an enemy troop are infront 
+        enemyTroopInFront = et.get(i); 
+        enemyInFront = true;
+      } else if (enemyInFront) {
+        if (pos.x > enemyTroopInFront.pos.x + 30 + reach) {
+          enemyInFront = false;
+        }
+      }
+      
       if (pos.x <= et.get(i).pos.x + 30 + reach 
         && pos.y == et.get(i).pos.y 
         && occupied == false 
@@ -62,9 +81,7 @@ class EnemyTroop {
         enemyTroopInFront = et.get(i); 
         enemyOccupied = true;
       } else if (enemyOccupied) {
-        println(enemyTroopInFront.isDead);
-        if (enemyTroopInFront.isDead) {
-          println("DEAD");
+        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + reach) {
           enemyOccupied = false;
           occupied = false;
         }
@@ -75,7 +92,7 @@ class EnemyTroop {
       if (pos.x <= ft.get(i).pos.x + 30 + reach 
         && pos.y == ft.get(i).pos.y 
         && occupied == false 
-        && ft.get(i).isDead == false) { //Checks collision with friendly troops
+        && ft.get(i).isDead == false) { //Checks collision with friendly troops, if there is changes occupied to be true
         currentFriendlyTroop = ft.get(i); 
         occupied = true;
       } else if (occupied) { 

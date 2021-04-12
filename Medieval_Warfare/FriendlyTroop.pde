@@ -7,9 +7,10 @@ class FriendlyTroop {
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
   float speedBeforeContact;
-  boolean occupied = false;
-  boolean friendlyOccupied = false;
-  boolean isDead = false;
+  boolean occupied = false; //Boolean to check if in Combat
+  boolean friendlyOccupied = false; //Booleans to check if there is enemy troops not moving infront
+  boolean friendlyInFront = false; //Booleans to check if there is enemy troops moving infront
+  boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
   EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
   FriendlyTroop friendlyTroopInFront; //Object used to save the EnemyTroop infront of the current EnemyTroop 
@@ -22,7 +23,7 @@ class FriendlyTroop {
 
 
   void update() {
-    if (!occupied && !friendlyOccupied) {
+    if (!occupied && !friendlyOccupied && !friendlyInFront) {
       pos.add(speed);
     }
     image(troop, pos.x, pos.y);
@@ -48,6 +49,24 @@ class FriendlyTroop {
     }
 
     for (int i = 0; i < ft.size(); i++) {
+      if (pos.x >= ft.get(i).pos.x - 30 - reach
+        && pos.x < ft.get(i).pos.x
+        && pos.y == ft.get(i).pos.y
+        && occupied == false 
+        && friendlyOccupied == false
+        && friendlyInFront == false
+        && ft.get(i).occupied == false
+        && ft.get(i).friendlyOccupied == false
+        && ft.get(i).friendlyInFront == false
+        && ft.get(i).isDead == false) { //Checks if there is an friendly troop are infront 
+        friendlyTroopInFront = ft.get(i); 
+        friendlyInFront = true;
+      } else if (friendlyInFront) {
+        if (pos.x < friendlyTroopInFront.pos.x - 30 - reach) {
+          friendlyInFront = false;
+        }
+      }
+
       if (pos.x >= ft.get(i).pos.x - 30 - reach 
         && pos.y == ft.get(i).pos.y 
         && occupied == false 
@@ -58,9 +77,7 @@ class FriendlyTroop {
         friendlyTroopInFront = ft.get(i); 
         friendlyOccupied = true;
       } else if (friendlyOccupied) {
-        println(friendlyTroopInFront.isDead);
-        if (friendlyTroopInFront.isDead) {
-          println("DEAD");
+        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - reach) {
           friendlyOccupied = false;
           occupied = false;
         }
@@ -119,7 +136,7 @@ class FKnight extends FriendlyTroop {
       statsUpgrade = 1.5 * (lvl-1);
     } 
     troop = knight;
-    speed.x = 1.2;
+    speed.x = 0.5;
     speedBeforeContact = speed.x;
     damage = 5 * statsUpgrade;
     maxHP = 20 * statsUpgrade;
@@ -143,7 +160,7 @@ class FArcher extends FriendlyTroop {
       statsUpgrade = 1.5 * (lvl-1);
     } 
     troop = archer;
-    speed.x = 0.9;
+    speed.x = 0.5;
     speedBeforeContact = speed.x;
     attackSpeed = 0.5;
     damage = 2 * statsUpgrade;
@@ -168,7 +185,7 @@ class FMage extends FriendlyTroop {
       statsUpgrade = 1.5 * (lvl-1);
     } 
     troop = mage;
-    speed.x = 0.9;
+    speed.x = 0.5;
     speedBeforeContact = speed.x;
     damage = 8 * statsUpgrade;
     maxHP = 15 * statsUpgrade;
@@ -192,7 +209,7 @@ class FCavalry extends FriendlyTroop {
       statsUpgrade = 1.5 * (lvl-1);
     } 
     troop = cavalry;
-    speed.x = 1.5;
+    speed.x = 0.9;
     speedBeforeContact = speed.x;
     damage = 4 * statsUpgrade;
     maxHP = 50 * statsUpgrade;
@@ -216,7 +233,7 @@ class FGiant extends FriendlyTroop {
       statsUpgrade = 1.5 * (lvl-1);
     } 
     troop = giant;
-    speed.x = 0.6;
+    speed.x = 0.3;
     speedBeforeContact = speed.x;
     attackSpeed = 2;
     damage = 10 * statsUpgrade;

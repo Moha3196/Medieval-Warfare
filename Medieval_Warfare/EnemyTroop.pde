@@ -8,8 +8,10 @@ class EnemyTroop {
   int lastTimeAttacked;
   float speedBeforeContact;
   boolean occupied = false;
+  boolean enemyOccupied = false;
   boolean isDead = false;
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
+  EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
 
   EnemyTroop () {
@@ -20,7 +22,7 @@ class EnemyTroop {
 
 
   void update() {
-    if (!occupied) {
+    if (!occupied && !enemyOccupied) {
       pos.add(speed);
     }
     pushMatrix();
@@ -48,6 +50,26 @@ class EnemyTroop {
         lastTimeAttacked = millis();
       }
     }
+    
+    for (int i = 0; i < et.size(); i++) {
+      if (pos.x <= et.get(i).pos.x + 30 + reach 
+        && pos.y == et.get(i).pos.y 
+        && occupied == false 
+        && enemyOccupied == false
+        && (et.get(i).occupied == true
+        || et.get(i).enemyOccupied == true)
+        && et.get(i).isDead == false) { //Checks collision with friendly troops
+        enemyTroopInFront = et.get(i); 
+        enemyOccupied = true;
+      } else if (enemyOccupied) {
+        println(enemyTroopInFront.isDead);
+        if (enemyTroopInFront.isDead) {
+          println("DEAD");
+          enemyOccupied = false;
+          occupied = false;
+        }
+      }
+    }
 
     for (int i = 0; i < ft.size(); i++) {
       if (pos.x <= ft.get(i).pos.x + 30 + reach 
@@ -63,7 +85,7 @@ class EnemyTroop {
 
         if (currentFriendlyTroop.currentHP > 0) {
           if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
-            currentFriendlyTroop.currentHP -= damage;                              //runs in milli seconds while attack speed is in seconds
+            currentFriendlyTroop.currentHP -= damage;            //runs in milli seconds while attack speed is in seconds
             lastTimeAttacked = millis();
           }
         } else {
@@ -71,9 +93,15 @@ class EnemyTroop {
           for (int j = 0; j < et.size(); j++) {
             if (et.get(j).pos.y == pos.y) {
               et.get(j).occupied = false;
+              et.get(j).enemyOccupied = false;
             }
           }
           currentFriendlyTroop.isDead = true;
+          for (int j = 0; j < ft.size(); j++) {
+            if (ft.get(j).pos.y == pos.y) {
+              ft.get(j).friendlyOccupied = false;
+            }
+          }
         }
       }
     }

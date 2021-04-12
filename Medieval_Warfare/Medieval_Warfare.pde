@@ -98,9 +98,10 @@ void keyPressed() {
       h.row = 1;
     }
   }
-  if (keyCode == ENTER) { //Makes an enemy Knight troop... Used for testing
+  if (keyCode == ENTER && millis() - troopDeplpoyCoolDown >= delayTime) { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;
+    troopDeplpoyCoolDown = millis();
   }
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());

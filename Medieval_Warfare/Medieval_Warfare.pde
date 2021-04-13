@@ -2,7 +2,6 @@ ArrayList<Troop> t = new ArrayList<Troop>();
 Factions f = new Factions();
 HUD h  = new HUD();
 
-Troop currFoe; //create this b*tch in the Troop class, so that all troops have a currFoe. This might be the cause of only the latest troop engaging an enemy.
 PImage map, selector, highlight, knight, giant, archer, mage, cavalry;
 PFont goldenIncome;
 
@@ -35,8 +34,6 @@ void setup() {
   
   f.deploymentCD = millis();
   f.passiveGoldCD = millis();
-  
-  currFoe = new Troop();
   
   imageMode(CENTER);
 }

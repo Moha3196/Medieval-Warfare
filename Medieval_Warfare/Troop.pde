@@ -1,4 +1,6 @@
 class Troop {
+  Troop currFoe; //declares a Troop for each Troop, so that the Troop being collided with has somewhere to be stored
+  
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector();  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
@@ -104,7 +106,7 @@ class Knight extends Troop {
   Knight() {
     super(); //basically copies the info from the super-class' constructor to this one
     troop = knight; //defines current image to display for the troop
-    speed.x = 0.9;
+    speed.x = 0.5;
     reach = 30;
     damage = 5;
     hp = 20;
@@ -122,7 +124,7 @@ class Archer extends Troop {
   Archer() {
     super();
     troop = archer;
-    speed.x = 1;
+    speed.x = 0.5;
     reach = 70;
     damage = 5;
     hp = 15;
@@ -139,7 +141,7 @@ class Mage extends Troop {
   Mage() {
     super();
     troop = mage;
-    speed.x = 1;
+    speed.x = 0.5;
     reach = 70;
     damage = 8;
     hp = 15;
@@ -156,7 +158,7 @@ class Cavalry extends Troop {
   Cavalry() {
     super();
     troop = cavalry;
-    speed.x = 1.7;
+    speed.x = 0.9;
     reach = 30;
     damage = 5;
     hp = 50;
@@ -173,7 +175,7 @@ class Giant extends Troop {
   Giant() {
     super();
     troop = giant;
-    speed.x = 0.6;
+    speed.x = 0.3;
     reach = 30;
     damage = 10;
     hp = 70;

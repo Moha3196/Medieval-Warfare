@@ -61,10 +61,10 @@ class HUD {
       }
     }
 
-    if (mouseX >= 62 && mouseX <= 152) {
+    if (mouseX >= 59 && mouseX <= 199) {
       if (mouseY >= 516 && mouseY <= 531) {
         mouseHand=true;
-        image(upgradeHighlight, 107, 524); //the highlighted box
+        image(upgradeHighlight, 129, 524); //the highlighted box
 
         if (mousePressed && f.goldCount >= 20*pow(2, knightLevel)) {
           f.goldCount -= 20*pow(2, knightLevel);
@@ -73,7 +73,7 @@ class HUD {
         }
       } else if (mouseY >= 532 && mouseY <= 547) { //same deal as above, but for different troops
         mouseHand=true;
-        image(upgradeHighlight, 107, 540);
+        image(upgradeHighlight, 129, 540);
 
         if (mousePressed && f.goldCount >= 25*pow(2, archerLevel)) {
           f.goldCount -= 25*pow(2, archerLevel);
@@ -82,7 +82,7 @@ class HUD {
         }
       } else if (mouseY >= 548 && mouseY <= 563) {
         mouseHand=true;
-        image(upgradeHighlight, 107, 556);
+        image(upgradeHighlight, 129, 556);
 
         if (mousePressed && f.goldCount >= 40*pow(2, mageLevel)) {
           f.goldCount -= 40*pow(2, mageLevel);
@@ -91,7 +91,7 @@ class HUD {
         }
       } else if (mouseY >= 564 && mouseY <= 579) {
         mouseHand=true;
-        image(upgradeHighlight, 107, 572);
+        image(upgradeHighlight, 129, 572);
 
         if (mousePressed && f.goldCount >= 70*pow(2, cavalryLevel)) {
           f.goldCount -= 70*pow(2, cavalryLevel);
@@ -100,7 +100,7 @@ class HUD {
         }
       } else if (mouseY >= 580 && mouseY <= 595) {
         mouseHand=true;
-        image(upgradeHighlight, 107, 588);
+        image(upgradeHighlight, 129, 588);
 
         if (mousePressed && f.goldCount >= 100*pow(2, giantLevel)) {
           f.goldCount -= 100*pow(2, giantLevel);

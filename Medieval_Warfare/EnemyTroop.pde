@@ -66,7 +66,7 @@ class EnemyTroop {
         enemyTroopInFront = et.get(i); 
         enemyInFront = true;
       } else if (enemyInFront) {
-        if (pos.x > enemyTroopInFront.pos.x + 30 + reach) {
+        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + reach) {
           enemyInFront = false;
         }
       }

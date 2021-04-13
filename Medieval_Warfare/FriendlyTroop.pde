@@ -62,7 +62,7 @@ class FriendlyTroop {
         friendlyTroopInFront = ft.get(i); 
         friendlyInFront = true;
       } else if (friendlyInFront) {
-        if (pos.x < friendlyTroopInFront.pos.x - 30 - reach) {
+        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - reach) {
           friendlyInFront = false;
         }
       }

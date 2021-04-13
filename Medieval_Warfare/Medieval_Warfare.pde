@@ -11,7 +11,7 @@ PFont goldenIncome;
 
 int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
 
-int stage = 1;
+int stage = 1; //Used to switch screens
 
 int troopDeplpoyCoolDown; //The timer for deploying troops.
 int delayTime = 1000; //The delay time for deploying troops.

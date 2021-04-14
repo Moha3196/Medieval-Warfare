@@ -53,7 +53,7 @@ class EnemyTroop {
     }
     
     for (int i = 0; i < et.size(); i++) {
-      if (pos.x <= et.get(i).pos.x + 30 + reach
+      if (pos.x <= et.get(i).pos.x + 30 + 15
         && pos.x > et.get(i).pos.x
         && pos.y == et.get(i).pos.y
         && occupied == false 
@@ -66,12 +66,12 @@ class EnemyTroop {
         enemyTroopInFront = et.get(i); 
         enemyInFront = true;
       } else if (enemyInFront) {
-        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + reach) {
+        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + 15) {
           enemyInFront = false;
         }
       }
       
-      if (pos.x <= et.get(i).pos.x + 30 + reach 
+      if (pos.x <= et.get(i).pos.x + 30 + 15 
         && pos.y == et.get(i).pos.y 
         && occupied == false 
         && enemyOccupied == false
@@ -81,7 +81,7 @@ class EnemyTroop {
         enemyTroopInFront = et.get(i); 
         enemyOccupied = true;
       } else if (enemyOccupied) {
-        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + reach) {
+        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + 15) {
           enemyOccupied = false;
           occupied = false;
         }

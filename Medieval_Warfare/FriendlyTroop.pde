@@ -49,7 +49,7 @@ class FriendlyTroop {
     }
 
     for (int i = 0; i < ft.size(); i++) {
-      if (pos.x >= ft.get(i).pos.x - 30 - reach
+      if (pos.x >= ft.get(i).pos.x - 30 - 15
         && pos.x < ft.get(i).pos.x
         && pos.y == ft.get(i).pos.y
         && occupied == false 
@@ -62,12 +62,12 @@ class FriendlyTroop {
         friendlyTroopInFront = ft.get(i); 
         friendlyInFront = true;
       } else if (friendlyInFront) {
-        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - reach) {
+        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - 15) {
           friendlyInFront = false;
         }
       }
 
-      if (pos.x >= ft.get(i).pos.x - 30 - reach 
+      if (pos.x >= ft.get(i).pos.x - 30 - 15 
         && pos.y == ft.get(i).pos.y 
         && occupied == false 
         && friendlyOccupied == false
@@ -77,7 +77,7 @@ class FriendlyTroop {
         friendlyTroopInFront = ft.get(i); 
         friendlyOccupied = true;
       } else if (friendlyOccupied) {
-        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - reach) {
+        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - 15) {
           friendlyOccupied = false;
           occupied = false;
         }

@@ -51,6 +51,8 @@ void StartScreen() {
 
 
 void Tutorial() {
+  tutorial.resize(width, height); //Resizes the Tutorial so it fits the boarder
+  image(tutorial, width/2, height/2); //Shows the Tutorial
 }
 
 

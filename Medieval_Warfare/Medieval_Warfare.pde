@@ -4,7 +4,7 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, options, upgradeHighlight, startScreen, endScreen;
+PImage map, selector, highlight, options, upgradeHighlight, startScreen, endScreen, tutorial;
 PImage knight, giant, archer, mage, cavalry;
 
 PFont goldenIncome;
@@ -39,6 +39,7 @@ void setup() {
   lastTimeAttacked = millis();
   
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
+  tutorial = loadImage("Tutorial.png");
 
   knight = loadImage("Knight.png");
   knight.resize(60, 60);

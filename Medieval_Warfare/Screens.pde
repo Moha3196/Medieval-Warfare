@@ -98,11 +98,11 @@ void GamingScreen() {
     }
   }
 
-  image(knight, 255, 541); //Shows the image of the troops in the boxes below.
-  image(archer, 340, 541);
-  image(mage, 425, 541);
-  image(cavalry, 510, 541);
-  image(giant, 595, 541);
+  image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
+  image(fArcher, 340, 541);
+  image(fMage, 425, 541);
+  image(fCavalry, 510, 541);
+  image(fGiant, 595, 541);
 
   textAlign(CENTER);
   goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.

@@ -5,7 +5,8 @@ Factions f = new Factions();
 HUD h  = new HUD();
 
 PImage map, selector, highlight, options, upgradeHighlight, startScreen, endScreen, tutorial;
-PImage knight, giant, archer, mage, cavalry;
+PImage fKnight, fGiant, fArcher, fMage, fCavalry;
+PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
 PFont goldenIncome;
 
@@ -41,20 +42,35 @@ void setup() {
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
   tutorial = loadImage("Tutorial.png");
 
-  knight = loadImage("Knight.png");
-  knight.resize(60, 60);
+  fKnight = loadImage("FriendlyKnight.png");
+  fKnight.resize(60, 60);
 
-  giant = loadImage("Giant.png");
-  giant.resize(60, 60);
+  fGiant = loadImage("FriendlyGiant.png");
+  fGiant.resize(60, 60);
 
-  archer = loadImage("Archer.png");
-  archer.resize(60, 60);
+  fArcher = loadImage("FriendlyArcher.png");
+  fArcher.resize(60, 60);
 
-  mage = loadImage("Mage.png");
-  mage.resize(60, 60);
+  fMage = loadImage("FriendlyMage.png");
+  fMage.resize(60, 60);
 
-  cavalry = loadImage("Cavalry.png");
-  cavalry.resize(60, 60);
+  fCavalry = loadImage("FriendlyCavalry.png");
+  fCavalry.resize(60, 60);
+  
+  eKnight = loadImage("EnemieKnight.png");
+  eKnight.resize(60, 60);
+
+  eGiant = loadImage("EnemieGiant.png");
+  eGiant.resize(60, 60);
+
+  eArcher = loadImage("EnemieArcher.png");
+  eArcher.resize(60, 60);
+
+  eMage = loadImage("EnemieMage.png");
+  eMage.resize(60, 60);
+
+  eCavalry = loadImage("EnemieCavalry.png");
+  eCavalry.resize(60, 60);
 
   map       = loadImage("Medievalbackground.png");
   selector  = loadImage("Selector.png");

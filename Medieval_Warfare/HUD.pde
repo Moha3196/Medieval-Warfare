@@ -116,11 +116,11 @@ class HUD {
     textSize(13);
     text("Upgrade to:", 69, 513);
     textSize(12);
-    text("LVL " + (knightLevel+1) + ": " + int(20*pow(2, knightLevel)), 69, 532); // Nice
-    text("LVL " + (archerLevel+1) + ": " + int(25*pow(2, archerLevel)), 69, 548);
-    text("LVL " + (mageLevel+1) + ": " + int(40*pow(2, mageLevel)), 69, 564);
-    text("LVL " + (cavalryLevel+1) + ": " + int(70*pow(2, cavalryLevel)), 69, 580);
-    text("LVL " + (giantLevel+1) + ": " + int(100*pow(2, giantLevel)), 69, 596);
+    text("LVL " + (knightLevel+1) + " Knight: " + int(20*pow(2, knightLevel)), 69, 532); // Nice
+    text("LVL " + (archerLevel+1) + " Archer: " + int(25*pow(2, archerLevel)), 69, 548);
+    text("LVL " + (mageLevel+1) + " Mage: " + int(40*pow(2, mageLevel)), 69, 564);
+    text("LVL " + (cavalryLevel+1) + " Cavalry: " + int(70*pow(2, cavalryLevel)), 69, 580);
+    text("LVL " + (giantLevel+1) + " Giant: " + int(100*pow(2, giantLevel)), 69, 596);
     popMatrix();
 
     if (mouseHand) {

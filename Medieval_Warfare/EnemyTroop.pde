@@ -134,7 +134,7 @@ class EKnight extends EnemyTroop {
 
   EKnight() {
     super();
-    troop = knight;
+    troop = eKnight;
     speed.x = -1.2;
     speedBeforeContact = speed.x;
     damage = 5;
@@ -154,7 +154,7 @@ class EArcher extends EnemyTroop {
 
   EArcher() {
     super();
-    troop = archer;
+    troop = eArcher;
     speed.x = -0.9;
     speedBeforeContact = speed.x;
     damage = 2;
@@ -174,7 +174,7 @@ class EMage extends EnemyTroop {
 
   EMage() {
     super();
-    troop = mage;
+    troop = eMage;
     speed.x = -0.9;
     speedBeforeContact = speed.x;
     damage = 8;
@@ -193,7 +193,7 @@ class ECavalry extends EnemyTroop {
 
   ECavalry() {
     super();
-    troop = cavalry;
+    troop = eCavalry;
     speed.x = -1.5;
     speedBeforeContact = speed.x;
     damage = 4;
@@ -212,7 +212,7 @@ class EGiant extends EnemyTroop {
 
   EGiant() {
     super();
-    troop = giant;
+    troop = eGiant;
     speed.x = -0.6;
     speedBeforeContact = speed.x;
     damage = 10;

@@ -135,7 +135,7 @@ class FKnight extends FriendlyTroop {
     } else if (lvl > 1) {
       statsUpgrade = 1.5 * (lvl-1);
     } 
-    troop = knight;
+    troop = fKnight;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
     damage = 5 * statsUpgrade;
@@ -159,7 +159,7 @@ class FArcher extends FriendlyTroop {
     } else if (lvl > 1) {
       statsUpgrade = 1.5 * (lvl-1);
     } 
-    troop = archer;
+    troop = fArcher;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
     attackSpeed = 0.5;
@@ -184,7 +184,7 @@ class FMage extends FriendlyTroop {
     } else if (lvl > 1) {
       statsUpgrade = 1.5 * (lvl-1);
     } 
-    troop = mage;
+    troop = fMage;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
     damage = 8 * statsUpgrade;
@@ -208,7 +208,7 @@ class FCavalry extends FriendlyTroop {
     } else if (lvl > 1) {
       statsUpgrade = 1.5 * (lvl-1);
     } 
-    troop = cavalry;
+    troop = fCavalry;
     speed.x = 0.9;
     speedBeforeContact = speed.x;
     damage = 4 * statsUpgrade;
@@ -232,7 +232,7 @@ class FGiant extends FriendlyTroop {
     } else if (lvl > 1) {
       statsUpgrade = 1.5 * (lvl-1);
     } 
-    troop = giant;
+    troop = fGiant;
     speed.x = 0.3;
     speedBeforeContact = speed.x;
     attackSpeed = 2;

@@ -11,6 +11,7 @@ class EnemyTroop {
   boolean enemyOccupied = false; //Booleans to check if there is enemy troops not moving infront
   boolean enemyInFront = false; //Booleans to check if there is enemy troops moving infront
   boolean isDead = false; //Boolean to check if troop is dead
+  int worth;
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
   EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
@@ -135,13 +136,14 @@ class EKnight extends EnemyTroop {
   EKnight() {
     super();
     troop = eKnight;
-    speed.x = -1.2;
+    speed.x = -0.5;
     speedBeforeContact = speed.x;
     damage = 5;
     maxHP = 20;
     currentHP = maxHP;
     reach = 10;
-    f.goldCount -= 20;
+    worth = 20;
+    f.goldCount -= worth;
   }
 
 
@@ -155,14 +157,15 @@ class EArcher extends EnemyTroop {
   EArcher() {
     super();
     troop = eArcher;
-    speed.x = -0.9;
+    speed.x = -0.5;
     speedBeforeContact = speed.x;
     damage = 2;
     attackSpeed = 0.5;
     maxHP = 15;
     currentHP = maxHP;
     reach = 150;
-    f.goldCount -= 25;
+    worth = 25;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -175,13 +178,14 @@ class EMage extends EnemyTroop {
   EMage() {
     super();
     troop = eMage;
-    speed.x = -0.9;
+    speed.x = -0.5;
     speedBeforeContact = speed.x;
     damage = 8;
     maxHP = 15;
     currentHP = maxHP;
     reach = 80;
-    f.goldCount -= 40;
+    worth = 40;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -194,13 +198,14 @@ class ECavalry extends EnemyTroop {
   ECavalry() {
     super();
     troop = eCavalry;
-    speed.x = -1.5;
+    speed.x = -0.9;
     speedBeforeContact = speed.x;
     damage = 4;
     maxHP = 50;
     currentHP = maxHP;
     reach = 30;
-    f.goldCount -= 70;
+    worth = 70;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -213,14 +218,15 @@ class EGiant extends EnemyTroop {
   EGiant() {
     super();
     troop = eGiant;
-    speed.x = -0.6;
+    speed.x = -0.3;
     speedBeforeContact = speed.x;
     damage = 10;
     attackSpeed = 2;
     maxHP = 70;
     currentHP = maxHP;
     reach = 10;
-    f.goldCount -= 100;
+    worth = 100;
+    f.goldCount -= worth;
   }
 
   void collision() {

@@ -131,16 +131,19 @@ void GamingScreen() {
   textSize(20); //Changes the size to 20
   
   if (currentFriendlyCastleHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
-    endScreen = loadImage("Player_Loss_Medieval_Warfare_EndScreen.png");
+    won = false;
     stage = 4;
   } else if (currentEnemyCastleHP <= 0) {  //When the Enemy Castle dies, loads winning screen
-    endScreen = loadImage("Player_Win_Medieval_Warfare_EndScreen.png");
+    won = true;
     stage = 4;
   }
 }
 
 
 void EndScreen() {
-  endScreen.resize(width, height); //Resizes the EndScreen so it fits the boarder
-  image(endScreen, width/2, height/2); //Shows the EndScreen
+  if (!won) {  //If player lost, show losing screen
+    image(lossScreen, width/2, height/2); //Shows the LossScreen
+  } else if (won) {  //If player won, show winning screen
+    image(winScreen, width/2, height/2); //Shows the WinScreen
+  }
 }

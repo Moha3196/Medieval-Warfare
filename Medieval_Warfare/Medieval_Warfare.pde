@@ -4,9 +4,11 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, options, upgradeHighlight, startScreen, endScreen, tutorial;
+PImage map, selector, highlight, options, upgradeHighlight, startScreen, winScreen, lossScreen, tutorial;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
+
+boolean won;
 
 PFont goldenIncome;
 
@@ -20,10 +22,10 @@ int delayTime = 1000; //The delay time for deploying troops.
 int passiveGoldCoolDown; //The timer for gaining gold.
 int passiveGoldDelayTime = 800; //The delay time for gaining gold.
 
-float friendlyCastleHP = 1000; //Total HP for friendly castle
+float friendlyCastleHP = 10; //Total HP for friendly castle
 float currentFriendlyCastleHP; //Current HP for friendly castle
 
-float enemyCastleHP = 1000; //Total HP for enemy castle
+float enemyCastleHP = 10; //Total HP for enemy castle
 float currentEnemyCastleHP; //Current HP for enemy castle
 
 int lastTimeAttacked; //The timer for attacking.
@@ -41,6 +43,11 @@ void setup() {
   
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
   tutorial = loadImage("Tutorial.png");
+  winScreen = loadImage("Win Screen.jpg");
+  winScreen.resize(width, height); //Resizes the EndScreen so it fits the boarder
+  
+  lossScreen = loadImage("Loss Screen.jpg");
+  lossScreen.resize(width, height); //Resizes the EndScreen so it fits the boarder
 
   fKnight = loadImage("FriendlyKnight.png");
   fKnight.resize(60, 60);

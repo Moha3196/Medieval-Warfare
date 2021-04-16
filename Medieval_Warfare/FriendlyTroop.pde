@@ -12,6 +12,7 @@ class FriendlyTroop {
   boolean friendlyInFront = false; //Booleans to check if there is enemy troops moving infront
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
+  int worth;
   EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
   FriendlyTroop friendlyTroopInFront; //Object used to save the EnemyTroop infront of the current EnemyTroop 
 
@@ -103,6 +104,7 @@ class FriendlyTroop {
           }
         } else {
           occupied = false;
+          f.goldCount += currentEnemyTroop.worth*1.5;
           for (int j = 0; j < ft.size(); j++) {
             if (ft.get(j).pos.y == pos.y) {
               ft.get(j).occupied = false;
@@ -142,7 +144,8 @@ class FKnight extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    f.goldCount -= 20;
+    worth = 20;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -167,7 +170,8 @@ class FArcher extends FriendlyTroop {
     maxHP = 15 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    f.goldCount -= 25;
+    worth = 25;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -191,7 +195,8 @@ class FMage extends FriendlyTroop {
     maxHP = 15 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    f.goldCount -= 40;
+    worth = 40;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -215,7 +220,8 @@ class FCavalry extends FriendlyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    f.goldCount -= 70;
+    worth = 70;
+    f.goldCount -= worth;
   }
 
   void collision() {
@@ -240,7 +246,8 @@ class FGiant extends FriendlyTroop {
     maxHP = 70 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    f.goldCount -= 100;
+    worth = 100;
+    f.goldCount -= worth;
   }
 
   void collision() {

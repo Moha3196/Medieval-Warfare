@@ -1,13 +1,11 @@
 class Troop {
   Troop currFoe; //declares a Troop for each Troop, so that the Troop being collided with has somewhere to be stored
-  
+
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector();  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
   int allegiance, hp, damage, reach, attackCD, attackFreq; //allegiance defines the troop's faction (player = 1, enemy = 0)
-  boolean isDead, inCombat;
-  
-  int killCounter; //debugging
+  boolean isDead, inCombat, isWaiting;
 
   Troop () {
     pos.x = h.selectorX + 20; //places new troop on the battlefield, instead of the selector,
@@ -16,19 +14,14 @@ class Troop {
     attackFreq = 1000; //how often a troop can attack - lower means more frequent and vice versa
     isDead = false;
     inCombat = false;
-    
-    killCounter = 0;
+    isWaiting = false;
   }
 
   void update() {
-    //if (currFoe.isDead) {
-    //  inCombat = false;
-    //}
-    if (!inCombat) {
+    if (inCombat == false && isWaiting == false) {
       pos.add(speed);
-    } else {
-      println("Is opponent dead? " + currFoe.isDead);
     }
+
     pushMatrix();
     translate(pos.x, pos.y);
     if (allegiance == 0) {
@@ -39,43 +32,36 @@ class Troop {
     image(troop, 0, 0);
     popMatrix();
     text("" + inCombat, pos.x, pos.y - 60);
-    //text(killCounter, pos.x, pos.y-60);
     text(hp, pos.x, pos.y - 40); //debugging - healthbar will be added later
-    //if (allegiance == 1) {
-    //  text(millis()-attackCD, pos.x -30, pos.y + 40); //debugging
-    //} else {
-    //  text(millis()-attackCD, pos.x + 30, pos.y + 40); //debugging
-    //}
-    if (drawStuff) {
-      //line(pos.x, pos.y, reach, pos.y);
-    }
   }
 
 
   void checkCollision() { //checks if another troop is within current troop's reach/range
     for (int i = 0; i < t.size(); i++) {
       if (this != t.get(i)) { //should only check other troops, and not itself too
-        //line(this.pos.x, this.pos.y, this.pos.x + this.reach, this.pos.y);
         if (this.pos.y == t.get(i).pos.y) {
-          //if (t.get(i).pos.x >= this.pos.x && t.get(i).pos.x <= this.pos.x + this.reach) {
-          if (this.pos.x + this.reach >= t.get(i).pos.x - 30 && this.pos.x + this.reach <= t.get(i).pos.x + 30) { //only troops on the same lane can collide with each other
+          if (this.pos.x + this.reach >= t.get(i).pos.x - 30 && this.pos.x + this.reach <= t.get(i).pos.x + 30 /*&& t.get(i).isDead == false*/) { //only troops on the same lane can collide with each other
 
             //println("within range");
             //println("reach: " + (this.pos.x + this.reach));
             //println("left side: " + (this.pos.x - 30));
             //println("middle: " + this.pos.x);
+            
+            
+            if (this.allegiance != t.get(i).allegiance) { //checks if other troop is current troop's enemy:
 
-            if (this.allegiance == t.get(i).allegiance) { //checks if other troop is on current troop's side:
-              //beginCombat(this, t.get(i)); //if so, runs collision for meeting a fellow friendly
-            } else {
-              beginCombat(this, t.get(i)); //if not - calls collision/combat function for the two opposing troops
-              //println();
-              println("In combat...");
-              println();
+              beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
+            } else if (this.pos.x < t.get(i).pos.x - 30) { //if not, they must be friendlies, therefore checks who's ahead of who and lets the troop ahead continue, but stops the one behind
+              this.isWaiting = true;
+              t.get(i).isWaiting = false;
+            //} else {
+            //  this.isWaiting = true;
+            //  t.get(i).isWaiting = false;
             }
-          } else { //NOTES: if this else is on the "pos.x..." if, then only last enemy troop will engage an opponent, while all others simply never seem to run "beginCombat()"
-            this.inCombat = false; //this fixes troops not escaping combat, if they themselves didn't kill the opponent, but lets other troops waltz on through the opponent...
-          } //if the only two troops deployed enter combat, and both have "inCombat = true", then spawning another troop will set it to false for both. **THEY WILL CONTINUE TO DAMAGE EACH OTHER, HOWEVER**
+          } else /*if (this.inCombat)*/if (this.currFoe == null || this.currFoe != null && this.currFoe.isDead) {
+            this.inCombat = false;
+            this.isWaiting = false;
+          }
         }
       }
     }
@@ -84,6 +70,7 @@ class Troop {
   void beginCombat(Troop ally, Troop opponent) { //only exists here, so sub-classes recognize the function
     ally.inCombat = true; //used to stop ally from continuing forward
     currFoe = opponent;
+
     if (millis() - ally.attackCD >= attackFreq) { //if ally is ready to attack (i.e. cooldown has passed):
       opponent.hp -= ally.damage;
       ally.attackCD = millis(); //resets attack cooldown
@@ -93,7 +80,6 @@ class Troop {
       if (opponent.hp <= 0) {
         opponent.isDead = true; //marks troop as dead, so it's removed at the end of draw()
         ally.inCombat = false;
-        ally.killCounter++;
       }
     }
   }

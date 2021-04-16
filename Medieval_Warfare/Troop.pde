@@ -18,7 +18,7 @@ class Troop {
   }
 
   void update() {
-    if (inCombat == false && isWaiting == false) {
+    if (!inCombat && !isWaiting) { //troop can't move if in combat or waiting
       pos.add(speed);
     }
 
@@ -31,6 +31,7 @@ class Troop {
     }
     image(troop, 0, 0);
     popMatrix();
+    text("" + isWaiting, pos.x, pos.y - 80);
     text("" + inCombat, pos.x, pos.y - 60);
     text(hp, pos.x, pos.y - 40); //debugging - healthbar will be added later
   }
@@ -41,22 +42,13 @@ class Troop {
       if (this != t.get(i)) { //should only check other troops, and not itself too
         if (this.pos.y == t.get(i).pos.y) {
           if (this.pos.x + this.reach >= t.get(i).pos.x - 30 && this.pos.x + this.reach <= t.get(i).pos.x + 30 /*&& t.get(i).isDead == false*/) { //only troops on the same lane can collide with each other
-
-            //println("within range");
-            //println("reach: " + (this.pos.x + this.reach));
-            //println("left side: " + (this.pos.x - 30));
-            //println("middle: " + this.pos.x);
-            
-            
             if (this.allegiance != t.get(i).allegiance) { //checks if other troop is current troop's enemy:
-
               beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
-            } else if (this.pos.x < t.get(i).pos.x - 30) { //if not, they must be friendlies, therefore checks who's ahead of who and lets the troop ahead continue, but stops the one behind
-              this.isWaiting = true;
-              t.get(i).isWaiting = false;
-            //} else {
-            //  this.isWaiting = true;
-            //  t.get(i).isWaiting = false;
+            } else {/*if (this.pos.x < t.get(i).pos.x - 30) { //if not, they must be friendlies, therefore checks who's ahead of who,
+              this.isWaiting = true;                       //and lets the troop ahead continue, but stops the one behind
+              t.get(i).isWaiting = false;*/
+              
+              alliedCollision(this.allegiance, this, t.get(i));
             }
           } else /*if (this.inCombat)*/if (this.currFoe == null || this.currFoe != null && this.currFoe.isDead) {
             this.inCombat = false;
@@ -66,7 +58,25 @@ class Troop {
       }
     }
   }
-
+  
+  void alliedCollision(int faction, Troop ally1, Troop ally2) {
+    if (faction == 1) {
+      if (ally1.pos.x >= ally2.pos.x - 30 && ally1.pos.x <= ally2.pos.x + 30) {
+        if (ally1.pos.x < ally2.pos.x) {
+          ally1.isWaiting = true;
+          ally2.isWaiting = false;
+        }
+      }
+    } else {
+      if (ally1.pos.x >= ally2.pos.x - 30 && ally1.pos.x <= ally2.pos.x + 30) {
+        if (ally2.pos.x < ally1.pos.x) {
+          ally1.isWaiting = true;
+          ally2.isWaiting = false;
+        }
+      }
+    }
+  }
+  
   void beginCombat(Troop ally, Troop opponent) { //only exists here, so sub-classes recognize the function
     ally.inCombat = true; //used to stop ally from continuing forward
     currFoe = opponent;

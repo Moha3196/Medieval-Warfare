@@ -69,6 +69,7 @@ class FriendlyTroop {
       }
 
       if (pos.x >= ft.get(i).pos.x - 30 - 15 
+        && pos.x < ft.get(i).pos.x
         && pos.y == ft.get(i).pos.y 
         && occupied == false 
         && friendlyOccupied == false

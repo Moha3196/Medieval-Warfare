@@ -52,7 +52,7 @@ class EnemyTroop {
         lastTimeAttacked = millis();
       }
     }
-    
+
     for (int i = 0; i < et.size(); i++) {
       if (pos.x <= et.get(i).pos.x + 30 + 15
         && pos.x > et.get(i).pos.x
@@ -71,8 +71,9 @@ class EnemyTroop {
           enemyInFront = false;
         }
       }
-      
+
       if (pos.x <= et.get(i).pos.x + 30 + 15 
+        && pos.x > et.get(i).pos.x
         && pos.y == et.get(i).pos.y 
         && occupied == false 
         && enemyOccupied == false

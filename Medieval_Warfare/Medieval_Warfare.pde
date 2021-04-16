@@ -44,10 +44,10 @@ void setup() {
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
   tutorial = loadImage("Tutorial.png");
   winScreen = loadImage("Win Screen.jpg");
-  winScreen.resize(width, height); //Resizes the EndScreen so it fits the boarder
+  winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
   
   lossScreen = loadImage("Loss Screen.jpg");
-  lossScreen.resize(width, height); //Resizes the EndScreen so it fits the boarder
+  lossScreen.resize(width, height); //Resizes the LossScreen so it fits the boarder
 
   fKnight = loadImage("FriendlyKnight.png");
   fKnight.resize(60, 60);

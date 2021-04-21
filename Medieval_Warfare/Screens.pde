@@ -1,4 +1,5 @@
 
+int tutorialPage=0;
 
 void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
@@ -51,8 +52,67 @@ void StartScreen() {
 
 
 void Tutorial() {
-  tutorial.resize(width, height); //Resizes the Tutorial so it fits the boarder
-  image(tutorial, width/2, height/2); //Shows the Tutorial
+  boolean mouseHand = false;
+
+
+  pushMatrix();
+  textAlign(CENTER, TOP);
+  fill(0, 0, 0);
+  textSize(20);
+
+  switch(tutorialPage) {
+  case 0:
+    image(tutorialPage0, width/2, height/2); //Shows the first page of the Tutorial
+    break;
+
+  case 1:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    text("Player Health", 240, 112);
+    text("Enemy Health", 558, 115);
+    text("Settings", 625, 390);
+    text("Highlighted Troop", 346, 325);
+    text("Troop", 422, 360);
+    text("Troop Upgrade", 234, 400);
+
+    textAlign(LEFT, CENTER);
+
+    text("Highlighted Troop Upgrade", 97, 276);
+    text("Current Lane", 195, 172);
+
+    break;
+
+  case 2:
+    image(tutorialPage2, width/2, height/2); //Shows the third page of the  Tutorial
+    break;
+  }
+  popMatrix();
+  if (mouseY >= 48 && mouseY <= 88 && stage==2) {
+    if (mouseX >= 55 && mouseX <= 75 && tutorialPage!=0) {
+      mouseHand=true;
+      if (mousePressed) {
+        tutorialPage--;
+        mousePressed=false;
+      }
+    }    
+    if (mouseX >= 724 && mouseX <= 744) {
+      mouseHand=true;
+      if (mousePressed && tutorialPage!=2) {
+        tutorialPage++;
+        mousePressed=false;
+      } else if (mousePressed && tutorialPage==2) {
+        stage=1;
+        tutorialPage=0;
+        mousePressed=false;
+      }
+    }
+  }
+
+  if (mouseHand && stage==2) {
+    cursor(HAND);
+  } else {
+    cursor(ARROW);
+    mouseHand=false;
+  }
 }
 
 
@@ -129,7 +189,7 @@ void GamingScreen() {
   text(100, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
-  
+
   if (currentFriendlyCastleHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
     won = false;
     stage = 4;

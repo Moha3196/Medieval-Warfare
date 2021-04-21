@@ -4,7 +4,7 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, options, upgradeHighlight, startScreen, winScreen, lossScreen, tutorial;
+PImage map, selector, highlight, options, upgradeHighlight, startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -40,12 +40,20 @@ void setup() {
   troopDeplpoyCoolDown = millis();
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
-  
+
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
-  tutorial = loadImage("Tutorial.png");
+  tutorialPage0 = loadImage("TutorialPage0.png");
+  tutorialPage0.resize(width, height); //Resizes the Tutorial so it fits the boarder
+
+  tutorialPage1 = loadImage("TutorialPage1.png");
+  tutorialPage1.resize(width, height); //Resizes the Tutorial so it fits the boarder
+
+  tutorialPage2 = loadImage("TutorialPage2.png");
+  tutorialPage2.resize(width, height); //Resizes the Tutorial so it fits the boarder
+
   winScreen = loadImage("Win Screen.jpg");
   winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
-  
+
   lossScreen = loadImage("Loss Screen.jpg");
   lossScreen.resize(width, height); //Resizes the LossScreen so it fits the boarder
 
@@ -63,7 +71,7 @@ void setup() {
 
   fCavalry = loadImage("FriendlyCavalry.png");
   fCavalry.resize(60, 60);
-  
+
   eKnight = loadImage("EnemieKnight.png");
   eKnight.resize(60, 60);
 
@@ -90,15 +98,24 @@ void setup() {
 
 
 void draw() {
-  if (stage == 1) { //Stages is used to switch between screens
+  switch(stage) {//Stages is used to switch between screens
+  case 1:
     StartScreen();
-  } else if (stage == 2) {
+    break; 
+
+  case 2:
     Tutorial();
-  } else if (stage == 3) {
+    break;  
+
+  case 3:
     GamingScreen();
-  } else if (stage == 4) {
+    break; 
+
+  case 4:
     EndScreen();
+    break;
   }
+
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
@@ -127,7 +144,7 @@ void keyPressed() {
     f.goldCount += 20;
     troopDeplpoyCoolDown = millis();
   }
-  
+
   if (keyCode == 'F') { //Makes an friendly Knight troop... Used for testing
     //h.selectorX = 100;
     ft.add(new FKnight(knightLevel));
@@ -135,7 +152,7 @@ void keyPressed() {
     f.goldCount += 20;
     troopDeplpoyCoolDown = millis();
   }
-  
+
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;

@@ -16,8 +16,11 @@ int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLeve
 
 int stage = 1; //Used to switch screens
 
-int troopDeplpoyCoolDown; //The timer for deploying troops.
+int troopDeployCoolDown; //The timer for deploying troops.
 int delayTime = 1000; //The delay time for deploying troops.
+
+int specialCoolDown = 30000; //The timer for special.
+int lastSpecialUsed; //The last time special was used
 
 int passiveGoldCoolDown; //The timer for gaining gold.
 int passiveGoldDelayTime = 800; //The delay time for gaining gold.
@@ -37,15 +40,16 @@ void setup() {
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
 
-  troopDeplpoyCoolDown = millis();
+  troopDeployCoolDown = millis();
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
-  
+
+
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
   tutorial = loadImage("Tutorial.png");
   winScreen = loadImage("Win Screen.jpg");
   winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
-  
+
   lossScreen = loadImage("Loss Screen.jpg");
   lossScreen.resize(width, height); //Resizes the LossScreen so it fits the boarder
 
@@ -63,7 +67,7 @@ void setup() {
 
   fCavalry = loadImage("FriendlyCavalry.png");
   fCavalry.resize(60, 60);
-  
+
   eKnight = loadImage("EnemieKnight.png");
   eKnight.resize(60, 60);
 
@@ -90,14 +94,22 @@ void setup() {
 
 
 void draw() {
-  if (stage == 1) { //Stages is used to switch between screens
+  switch(stage) {//Stages is used to switch between screens
+  case 1:
     StartScreen();
-  } else if (stage == 2) {
+    break; 
+
+  case 2:
     Tutorial();
-  } else if (stage == 3) {
+    break;
+
+  case 3:
     GamingScreen();
-  } else if (stage == 4) {
+    break; 
+
+  case 4:
     EndScreen();
+    break;
   }
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
@@ -122,20 +134,25 @@ void keyPressed() {
       h.row = 1;
     }
   }
-  if (keyCode == ENTER && millis() - troopDeplpoyCoolDown >= delayTime) { //Makes an enemy Knight troop... Used for testing
+  if (keyCode == ENTER && millis() - troopDeployCoolDown >= lastSpecialUsed) { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;
-    troopDeplpoyCoolDown = millis();
+    troopDeployCoolDown = millis();
   }
-  
+
   if (keyCode == 'F') { //Makes an friendly Knight troop... Used for testing
     //h.selectorX = 100;
     ft.add(new FKnight(knightLevel));
     //h.selectorX = 31;
     f.goldCount += 20;
-    troopDeplpoyCoolDown = millis();
+    troopDeployCoolDown = millis();
   }
-  
+
+  if (keyCode == ' ' && millis() - specialCoolDown >= lastSpecialUsed && stage == 3) { //Uses Special
+    f.Special();
+    lastSpecialUsed = millis();
+  }
+
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;

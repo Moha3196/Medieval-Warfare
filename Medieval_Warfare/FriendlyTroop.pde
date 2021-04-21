@@ -29,14 +29,16 @@ class FriendlyTroop {
     }
     image(troop, pos.x, pos.y);
 
-    pushMatrix();
-    strokeWeight(1);
-    fill(255, 0, 0);
-    rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red damaged health bar
-    fill(0, 255, 0);
-    rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7); //Shows green health bar
-    strokeWeight(4);
-    popMatrix();
+    if (currentHP > 0) {
+      pushMatrix();
+      strokeWeight(1);
+      fill(255, 0, 0);
+      rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red damaged health bar
+      fill(0, 255, 0);
+      rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7); //Shows green health bar
+      strokeWeight(4);
+      popMatrix();
+    }
   }
 
 
@@ -53,13 +55,13 @@ class FriendlyTroop {
       if (pos.x >= ft.get(i).pos.x - 30 - 15
         && pos.x < ft.get(i).pos.x
         && pos.y == ft.get(i).pos.y
-        && occupied == false 
-        && friendlyOccupied == false
-        && friendlyInFront == false
-        && ft.get(i).occupied == false
-        && ft.get(i).friendlyOccupied == false
-        && ft.get(i).friendlyInFront == false
-        && ft.get(i).isDead == false) { //Checks if there is an friendly troop are infront 
+        && !occupied 
+        && !friendlyOccupied
+        && !friendlyInFront
+        && !ft.get(i).occupied
+        && !ft.get(i).friendlyOccupied
+        && !ft.get(i).friendlyInFront
+        && !ft.get(i).isDead) { //Checks if there is an friendly troop are infront 
         friendlyTroopInFront = ft.get(i); 
         friendlyInFront = true;
       } else if (friendlyInFront) {
@@ -71,11 +73,11 @@ class FriendlyTroop {
       if (pos.x >= ft.get(i).pos.x - 30 - 15 
         && pos.x < ft.get(i).pos.x
         && pos.y == ft.get(i).pos.y 
-        && occupied == false 
-        && friendlyOccupied == false
-        && (ft.get(i).occupied == true
-        || ft.get(i).friendlyOccupied == true)
-        && ft.get(i).isDead == false) { //Checks collision with friendly troops
+        && !occupied 
+        && !friendlyOccupied
+        && (ft.get(i).occupied
+        || ft.get(i).friendlyOccupied)
+        && !ft.get(i).isDead) { //Checks collision with friendly troops
         friendlyTroopInFront = ft.get(i); 
         friendlyOccupied = true;
       } else if (friendlyOccupied) {
@@ -89,8 +91,8 @@ class FriendlyTroop {
     for (int i = 0; i < et.size(); i++) {
       if (pos.x >= et.get(i).pos.x - 30 - reach 
         && pos.y == et.get(i).pos.y 
-        && occupied == false 
-        && et.get(i).isDead == false) { //Checks collision with enemy troops, if there is changes occupied to be true
+        && !occupied 
+        && !et.get(i).isDead) { //Checks collision with enemy troops, if there is changes occupied to be true
         currentEnemyTroop = et.get(i); 
         occupied = true;
       } else if (occupied) { 

@@ -23,6 +23,7 @@ void StartScreen() {
       text("Start Game", 180, 445);
       if (mousePressed) { //Starts the Game
         stage = 3;
+        lastSpecialUsed = millis();
       }
     }
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
@@ -98,6 +99,7 @@ void GamingScreen() {
     }
   }
 
+
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
   image(fArcher, 340, 541);
   image(fMage, 425, 541);
@@ -110,8 +112,14 @@ void GamingScreen() {
   fill(255);
 
   text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
+  if((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000){ //Checks if special is ready, if not shows remaining time
+  text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
+  } else { //If ready shows "Special Ready!"
+    text("Special Ready!", width/3*2, 90);
+  }
   textSize(12); //Changes the size to 12
   fill(0);
+
 
   text("Knight", 255, 493); //Writes the names of the troops above the boxes
   text("Archer", 340, 493); 
@@ -129,7 +137,7 @@ void GamingScreen() {
   text(100, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
-  
+
   if (currentFriendlyCastleHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
     won = false;
     stage = 4;

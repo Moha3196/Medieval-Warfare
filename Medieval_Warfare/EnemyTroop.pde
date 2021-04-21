@@ -33,14 +33,16 @@ class EnemyTroop {
     image(troop, 0, 0);
     popMatrix();
 
-    pushMatrix();
-    strokeWeight(1);
-    fill(255, 0, 0);
-    rect(pos.x - 20, pos.y - 40, 40, 7);
-    fill(0, 255, 0);
-    rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7);
-    strokeWeight(4);
-    popMatrix();
+    if (currentHP > 0) {
+      pushMatrix();
+      strokeWeight(1);
+      fill(255, 0, 0);
+      rect(pos.x - 20, pos.y - 40, 40, 7);
+      fill(0, 255, 0);
+      rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7);
+      strokeWeight(4);
+      popMatrix();
+    }
   }
 
 
@@ -57,13 +59,13 @@ class EnemyTroop {
       if (pos.x <= et.get(i).pos.x + 30 + 15
         && pos.x > et.get(i).pos.x
         && pos.y == et.get(i).pos.y
-        && occupied == false 
-        && enemyOccupied == false
-        && enemyInFront == false
-        && et.get(i).occupied == false
-        && et.get(i).enemyOccupied == false
-        && et.get(i).enemyInFront == false
-        && et.get(i).isDead == false) { //Checks if there is an enemy troop are infront 
+        && !occupied 
+        && !enemyOccupied
+        && !enemyInFront
+        && !et.get(i).occupied
+        && !et.get(i).enemyOccupied
+        && !et.get(i).enemyInFront
+        && !et.get(i).isDead) { //Checks if there is an enemy troop are infront 
         enemyTroopInFront = et.get(i); 
         enemyInFront = true;
       } else if (enemyInFront) {
@@ -75,11 +77,11 @@ class EnemyTroop {
       if (pos.x <= et.get(i).pos.x + 30 + 15 
         && pos.x > et.get(i).pos.x
         && pos.y == et.get(i).pos.y 
-        && occupied == false 
-        && enemyOccupied == false
-        && (et.get(i).occupied == true
-        || et.get(i).enemyOccupied == true)
-        && et.get(i).isDead == false) { //Checks collision with friendly troops
+        && !occupied 
+        && !enemyOccupied
+        && (et.get(i).occupied
+        || et.get(i).enemyOccupied)
+        && !et.get(i).isDead) { //Checks collision with friendly troops
         enemyTroopInFront = et.get(i); 
         enemyOccupied = true;
       } else if (enemyOccupied) {
@@ -93,8 +95,8 @@ class EnemyTroop {
     for (int i = 0; i < ft.size(); i++) {
       if (pos.x <= ft.get(i).pos.x + 30 + reach 
         && pos.y == ft.get(i).pos.y 
-        && occupied == false 
-        && ft.get(i).isDead == false) { //Checks collision with friendly troops, if there is changes occupied to be true
+        && !occupied 
+        && !ft.get(i).isDead) { //Checks collision with friendly troops, if there is changes occupied to be true
         currentFriendlyTroop = ft.get(i); 
         occupied = true;
       } else if (occupied) { 

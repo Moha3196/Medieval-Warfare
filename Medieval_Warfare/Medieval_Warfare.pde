@@ -25,10 +25,10 @@ int lastSpecialUsed; //The last time special was used
 int passiveGoldCoolDown; //The timer for gaining gold.
 int passiveGoldDelayTime = 800; //The delay time for gaining gold.
 
-float friendlyCastleHP = 10; //Total HP for friendly castle
+float friendlyCastleHP = 1000; //Total HP for friendly castle
 float currentFriendlyCastleHP; //Current HP for friendly castle
 
-float enemyCastleHP = 10; //Total HP for enemy castle
+float enemyCastleHP = 1000; //Total HP for enemy castle
 float currentEnemyCastleHP; //Current HP for enemy castle
 
 int lastTimeAttacked; //The timer for attacking.
@@ -108,9 +108,9 @@ void draw() {
 
   case 2:
     Tutorial();
+    break;
 
   case 3:
-    break;
     GamingScreen();
     break; 
 

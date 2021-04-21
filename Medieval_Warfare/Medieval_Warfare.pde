@@ -33,9 +33,11 @@ float currentEnemyCastleHP; //Current HP for enemy castle
 
 int lastTimeAttacked; //The timer for attacking.
 
+boolean restart = false; //Value for restarting game 
+
 void setup() {
   size(800, 600);
-  frameRate(60);
+  frameRate(120);
 
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
@@ -160,7 +162,11 @@ void keyPressed() {
     f.Special();
     lastSpecialUsed = millis();
   }
-
+  
+  if (keyCode == 'R') { //Restarts game
+    restart = true;
+  }
+  
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;

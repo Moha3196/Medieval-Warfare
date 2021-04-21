@@ -1,5 +1,5 @@
 
-int tutorialPage=0;
+int tutorialPage = 0;
 
 void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
@@ -87,32 +87,32 @@ void Tutorial() {
     break;
   }
   popMatrix();
-  if (mouseY >= 48 && mouseY <= 88 && stage==2) {
-    if (mouseX >= 55 && mouseX <= 75 && tutorialPage!=0) {
-      mouseHand=true;
+  if (mouseY >= 48 && mouseY <= 88 && stage == 2) {
+    if (mouseX >= 55 && mouseX <= 75 && tutorialPage != 0) {
+      mouseHand = true;
       if (mousePressed) {
         tutorialPage--;
-        mousePressed=false;
+        mousePressed = false;
       }
     }    
     if (mouseX >= 724 && mouseX <= 744) {
-      mouseHand=true;
-      if (mousePressed && tutorialPage!=2) {
+      mouseHand = true;
+      if (mousePressed && tutorialPage != 2) {
         tutorialPage++;
-        mousePressed=false;
-      } else if (mousePressed && tutorialPage==2) {
-        stage=1;
-        tutorialPage=0;
-        mousePressed=false;
+        mousePressed = false;
+      } else if (mousePressed && tutorialPage == 2) {
+        stage = 1;
+        tutorialPage = 0;
+        mousePressed = false;
       }
     }
   }
 
-  if (mouseHand && stage==2) {
+  if (mouseHand && stage == 2) {
     cursor(HAND);
   } else {
     cursor(ARROW);
-    mouseHand=false;
+    mouseHand = false;
   }
 }
 
@@ -143,7 +143,7 @@ void GamingScreen() {
   h.options();
   f.PassiveGold();
 
-  for (int i = 0; i < ft.size(); i++) {  //runs the different functions for Friendly troops
+  for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
     ft.get(i).update();
     ft.get(i).checkCollision();
     if (ft.get(i).isDead) {
@@ -151,7 +151,7 @@ void GamingScreen() {
     }
   }
 
-  for (int i = 0; i < et.size(); i++) {  //runs the different functions for Enemy troops
+  for (int i = 0; i < et.size(); i++) { //runs the different functions for Enemy troops
     et.get(i).update();
     et.get(i).checkCollision();
     if (et.get(i).isDead) {
@@ -172,8 +172,8 @@ void GamingScreen() {
   fill(255);
 
   text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
-  if((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000){ //Checks if special is ready, if not shows remaining time
-  text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
+  if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
+    text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
   } else { //If ready shows "Special Ready!"
     text("Special Ready!", width/3*2, 90);
   }
@@ -213,5 +213,30 @@ void EndScreen() {
     image(lossScreen, width/2, height/2); //Shows the LossScreen
   } else if (won) {  //If player won, show winning screen
     image(winScreen, width/2, height/2); //Shows the WinScreen
+  }
+  
+  if (restart) {
+    for (int i = 0; i < et.size(); i++) { //Deletes all enemy troops
+      et.remove(et.get(i));
+    }
+    for (int i = 0; i < ft.size(); i++) { //Deletes all friendly troops
+      ft.remove(ft.get(i));
+    }
+    
+    f.goldCount = 1000; //Resets gold
+    
+    knightLevel = 1; //Resets troop lvl's back to 1
+    archerLevel = 1;
+    mageLevel = 1;
+    cavalryLevel = 1;
+    giantLevel = 1;
+    
+    currentEnemyCastleHP = 1000; //Resets Castle HP
+    currentFriendlyCastleHP = 1000;
+    
+    stage = 3; //Restarts Game on GamingScreen
+    lastSpecialUsed = millis();
+   
+    restart = false;
   }
 }

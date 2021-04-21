@@ -123,7 +123,7 @@ class HUD {
     text("LVL " + (giantLevel+1) + " Giant: " + int(100*pow(2, giantLevel)), 69, 596);
     popMatrix();
 
-    if (mouseHand) {
+    if (mouseHand && stage==3) {
       cursor(HAND);
     } else {
       cursor(ARROW);

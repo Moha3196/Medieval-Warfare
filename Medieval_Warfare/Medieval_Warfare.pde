@@ -4,7 +4,7 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, options, upgradeHighlight, startScreen, winScreen, lossScreen, tutorial;
+PImage map, selector, highlight, options, upgradeHighlight, startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -44,9 +44,16 @@ void setup() {
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
 
-
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
-  tutorial = loadImage("Tutorial.png");
+  tutorialPage0 = loadImage("TutorialPage0.png");
+  tutorialPage0.resize(width, height); //Resizes the Tutorial so it fits the boarder
+
+  tutorialPage1 = loadImage("TutorialPage1.png");
+  tutorialPage1.resize(width, height); //Resizes the Tutorial so it fits the boarder
+
+  tutorialPage2 = loadImage("TutorialPage2.png");
+  tutorialPage2.resize(width, height); //Resizes the Tutorial so it fits the boarder
+
   winScreen = loadImage("Win Screen.jpg");
   winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
 
@@ -101,9 +108,9 @@ void draw() {
 
   case 2:
     Tutorial();
-    break;
 
   case 3:
+    break;
     GamingScreen();
     break; 
 
@@ -111,6 +118,7 @@ void draw() {
     EndScreen();
     break;
   }
+
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 

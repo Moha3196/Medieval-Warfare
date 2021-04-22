@@ -173,9 +173,25 @@ void GamingScreen() {
 
   text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
   if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
-    text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
+    //text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
+    image(fireTrailSpecial, width/3*2, 80);
+    pushMatrix();
+    fill(120, 180);
+    strokeWeight(0);
+    rectMode(CORNER);
+    rect(width/3*2+75, 80-32.5, 5*-(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
+    strokeWeight(4);
+    noFill();
+    rect(width/3*2-75, 80-32.5, 150, 65);
+    fill(255);
+    popMatrix();
   } else { //If ready shows "Special Ready!"
-    text("Special Ready!", width/3*2, 90);
+    //text("Special Ready!", width/3*2, 90);
+    image(fireTrailSpecial, width/3*2, 80);
+    strokeWeight(4);
+    noFill();
+    rect(width/3*2-75, 80-32.5, 150, 65);
+    fill(255);
   }
   textSize(12); //Changes the size to 12
   fill(0);

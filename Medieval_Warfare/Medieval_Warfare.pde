@@ -4,7 +4,8 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, options, upgradeHighlight, startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
+PImage map, selector, highlight, options, upgradeHighlight, fireTrailSpecial;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -96,7 +97,13 @@ void setup() {
   selector  = loadImage("Selector.png");
   highlight = loadImage("Highlighted box.png");
   upgradeHighlight = loadImage("upgradeHighlight box.png");
-  options   = loadImage ("options.png");
+  options   = loadImage("options.png");
+  
+  fireTrailSpecial = loadImage("Fire_trail_special.png");
+  fireTrailSpecial.resize(150, 65);
+  
+  goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.
+  textFont(goldenIncome);
 
   imageMode(CENTER);
 }

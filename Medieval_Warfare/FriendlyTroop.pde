@@ -13,6 +13,7 @@ class FriendlyTroop {
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
   int worth;
+  int troopLevel; //Shows the current troop lvl
   EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
   FriendlyTroop friendlyTroopInFront; //Object used to save the EnemyTroop infront of the current EnemyTroop 
 
@@ -36,6 +37,9 @@ class FriendlyTroop {
       rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red damaged health bar
       fill(0, 255, 0);
       rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7); //Shows green health bar
+      fill(0);
+      textSize(6);
+      text("LVL:" + troopLevel, pos.x - 10, pos.y - 32); //Shows the lvl of the troop
       strokeWeight(4);
       popMatrix();
     }
@@ -133,7 +137,7 @@ class FriendlyTroop {
 
 class FKnight extends FriendlyTroop {
 
-  FKnight(float lvl) {
+  FKnight(int lvl) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -149,6 +153,7 @@ class FKnight extends FriendlyTroop {
     reach = 10;
     worth = 20;
     f.goldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -158,7 +163,7 @@ class FKnight extends FriendlyTroop {
 
 class FArcher extends FriendlyTroop {
 
-  FArcher(float lvl) {
+  FArcher(int lvl) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -175,6 +180,7 @@ class FArcher extends FriendlyTroop {
     reach = 150;
     worth = 25;
     f.goldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -184,7 +190,7 @@ class FArcher extends FriendlyTroop {
 
 class FMage extends FriendlyTroop {
 
-  FMage(float lvl) {
+  FMage(int lvl) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -200,6 +206,7 @@ class FMage extends FriendlyTroop {
     reach = 80;
     worth = 40;
     f.goldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -209,7 +216,7 @@ class FMage extends FriendlyTroop {
 
 class FCavalry extends FriendlyTroop {
 
-  FCavalry(float lvl) {
+  FCavalry(int lvl) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -225,6 +232,7 @@ class FCavalry extends FriendlyTroop {
     reach = 30;
     worth = 70;
     f.goldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -234,7 +242,7 @@ class FCavalry extends FriendlyTroop {
 
 class FGiant extends FriendlyTroop {
 
-  FGiant(float lvl) {
+  FGiant(int lvl) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -251,6 +259,7 @@ class FGiant extends FriendlyTroop {
     reach = 10;
     worth = 100;
     f.goldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {

@@ -12,6 +12,7 @@ class EnemyTroop {
   boolean enemyInFront = false; //Booleans to check if there is enemy troops moving infront
   boolean isDead = false; //Boolean to check if troop is dead
   int worth;
+  int troopLevel; //Shows the current troop lvl
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
   EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 

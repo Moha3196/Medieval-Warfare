@@ -43,6 +43,8 @@ class EnemyTroop {
       rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7);
       strokeWeight(4);
       popMatrix();
+    } else {
+      isDead = true;
     }
   }
 

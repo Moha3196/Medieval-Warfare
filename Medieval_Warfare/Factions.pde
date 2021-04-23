@@ -14,10 +14,12 @@ class Factions {
   }
 
   void Special() {
+    //posSpecial.x = 500;
+    posSpecial.y = h.selectorY;
+    
     for (int i = 0; i < et.size(); i++) { //Runs the special in the selected lane and "Kills" all enemies on the lane
-      if (et.get(i).pos.y == h.selectorY) {
-        et.get(i).isDead = true;
-        goldCount += et.get(i).worth*1.5; //1.5 is how much gold you get from each troop killed.
+      if (et.get(i).pos.y == h.selectorY && et.get(i).pos.y <= posSpecial.x + 358) {
+        et.get(i).currentHP -= 1;
       }
     }
   }

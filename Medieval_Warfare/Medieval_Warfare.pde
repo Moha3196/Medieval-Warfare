@@ -4,12 +4,14 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
-PImage map, selector, highlight, options, upgradeHighlight, fireTrailSpecial;
+PVector posSpecial = new PVector();
+
+PImage map, castles, selector, highlight, options, upgradeHighlight, fireTrailSpecialVisiualBox, fireTrailSpecial;
 PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
-boolean won;
+boolean won, specialMoving;
 
 PFont goldenIncome;
 
@@ -20,7 +22,7 @@ int stage = 1; //Used to switch screens
 int troopDeployCoolDown; //The timer for deploying troops.
 int delayTime = 1000; //The delay time for deploying troops.
 
-int specialCoolDown = 30000; //The timer for special.
+int specialCoolDown = 3000; //The timer for special.
 int lastSpecialUsed; //The last time special was used
 
 int passiveGoldCoolDown; //The timer for gaining gold.
@@ -38,8 +40,11 @@ boolean restart = false; //Value for restarting game
 
 void setup() {
   size(800, 600);
-  frameRate(120);
-
+  frameRate(60);
+  
+  posSpecial.x = -316;
+  posSpecial.y = h.selectorY;
+  
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
 
@@ -94,13 +99,16 @@ void setup() {
   eCavalry.resize(60, 60);
 
   map       = loadImage("Medievalbackground.png");
+  castles   = loadImage("Castles.png");
   selector  = loadImage("Selector.png");
   highlight = loadImage("Highlighted box.png");
   upgradeHighlight = loadImage("upgradeHighlight box.png");
   options   = loadImage("options.png");
   
   fireTrailSpecial = loadImage("Fire_trail_special.png");
-  fireTrailSpecial.resize(150, 65);
+  
+  fireTrailSpecialVisiualBox = loadImage("Fire_trail_special.png");
+  fireTrailSpecialVisiualBox.resize(150, 65);
   
   goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.
   textFont(goldenIncome);
@@ -128,7 +136,7 @@ void draw() {
     break;
   }
 
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 
@@ -167,6 +175,7 @@ void keyPressed() {
 
   if (keyCode == ' ' && millis() - specialCoolDown >= lastSpecialUsed && stage == 3) { //Uses Special
     f.Special();
+    specialMoving = true;
     lastSpecialUsed = millis();
   }
   

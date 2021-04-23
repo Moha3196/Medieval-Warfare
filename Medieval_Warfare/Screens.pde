@@ -121,9 +121,19 @@ void Tutorial() {
 
 void GamingScreen() {
   image(map, width/2, height/2); //Shows the playground, boxes and banners
-
+  //imageMode(CORNER);
+  image(fireTrailSpecial, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
+  //imageMode(CENTER);
+  image(castles, width/2, height/2);
   pushMatrix();
   strokeWeight(2);
+
+  if (specialMoving) {
+    posSpecial.x ++;
+  }
+  if (posSpecial.x == 400) {
+    specialMoving = false;
+  }
 
   fill(0, 255, 0);
   rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
@@ -154,6 +164,11 @@ void GamingScreen() {
   for (int i = 0; i < et.size(); i++) { //runs the different functions for Enemy troops
     et.get(i).update();
     et.get(i).checkCollision();
+    
+    if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358) {
+      et.get(i).currentHP -= 0.1;
+    }
+    
     if (et.get(i).isDead) {
       et.remove(et.get(i));
     }
@@ -174,7 +189,7 @@ void GamingScreen() {
   text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
   if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
     //text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
-    image(fireTrailSpecial, width/3*2, 80);
+    image(fireTrailSpecialVisiualBox, width/3*2, 80);
     pushMatrix();
     fill(120, 180);
     strokeWeight(0);
@@ -187,7 +202,7 @@ void GamingScreen() {
     popMatrix();
   } else { //If ready shows "Special Ready!"
     //text("Special Ready!", width/3*2, 90);
-    image(fireTrailSpecial, width/3*2, 80);
+    image(fireTrailSpecialVisiualBox, width/3*2, 80);
     strokeWeight(4);
     noFill();
     rect(width/3*2-75, 80-32.5, 150, 65);
@@ -230,7 +245,7 @@ void EndScreen() {
   } else if (won) {  //If player won, show winning screen
     image(winScreen, width/2, height/2); //Shows the WinScreen
   }
-  
+
   if (restart) {
     for (int i = 0; i < et.size(); i++) { //Deletes all enemy troops
       et.remove(et.get(i));
@@ -238,21 +253,21 @@ void EndScreen() {
     for (int i = 0; i < ft.size(); i++) { //Deletes all friendly troops
       ft.remove(ft.get(i));
     }
-    
+
     f.goldCount = 1000; //Resets gold
-    
+
     knightLevel = 1; //Resets troop lvl's back to 1
     archerLevel = 1;
     mageLevel = 1;
     cavalryLevel = 1;
     giantLevel = 1;
-    
+
     currentEnemyCastleHP = 1000; //Resets Castle HP
     currentFriendlyCastleHP = 1000;
-    
+
     stage = 3; //Restarts Game on GamingScreen
     lastSpecialUsed = millis();
-   
+
     restart = false;
   }
 }

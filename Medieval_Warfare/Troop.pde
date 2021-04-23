@@ -32,8 +32,8 @@ class Troop {
 
     image(troop, 0, 0);
     popMatrix();
-    text("" + isWaiting, pos.x, pos.y - 80);
-    text("" + inCombat, pos.x, pos.y - 60);
+    text("waiting? " + isWaiting, pos.x, pos.y - 80);
+    text("combat? " + inCombat, pos.x, pos.y - 60);
     text(hp, pos.x, pos.y - 40); //debugging - healthbar will be added later
     circle(pos.x, pos.y, 10);
     circle(pos.x - 30, pos.y, 15);
@@ -44,19 +44,19 @@ class Troop {
   void checkCollision() { //checks if another troop is within current troop's reach/range
     for (int i = 0; i < t.size(); i++) {
       if (this != t.get(i) && this.pos.y == t.get(i).pos.y) { //should only check other troops, and not itself too and should only check on troop's own lane, not others
-        if (this.pos.x + this.reach >= t.get(i).pos.x - 30 && this.pos.x + this.reach <= t.get(i).pos.x + 30 /*&& t.get(i).isDead == false*/) { //only troops on the same lane can collide with each other
+        if (this.pos.x + this.reach >= t.get(i).pos.x - 30 && this.pos.x + this.reach <= t.get(i).pos.x + 30) { //only troops on the same lane can collide with each other
           if (this.allegiance != t.get(i).allegiance) { //checks if other troop is current troop's enemy:
             beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
             this.inCombat = true;
             this.isWaiting = false;
           } else {/*if (this.pos.x < t.get(i).pos.x - 30) { //if not, they must be friendlies, therefore checks who's ahead of who,
-             this.isWaiting = true;                       //and lets the troop ahead continue, but stops the one behind
+             this.isWaiting = true;                         //and lets the troop ahead continue, but stops the one behind
              t.get(i).isWaiting = false;*/
 
             println("friendlies colliding");
             alliedCollision(this.allegiance, this, t.get(i));
           }
-        } else /*if (this.inCombat)if (this.currFoe == null || this.currFoe != null && this.currFoe.isDead)*/ {
+        } else /*if (this.inCombat)*/if (this.currFoe == null || this.currFoe.isDead) {
           this.inCombat = false;
           //this.isWaiting = false;
         }
@@ -64,7 +64,7 @@ class Troop {
     }
   }
 
-  void alliedCollision(int faction, Troop ally1, Troop ally2) {
+  void alliedCollision(int faction, Troop ally1, Troop ally2) { //function for collision between allied troops - collision depends on which faction's troops are colliding, so
     if (faction == 1) { //if it's not the player's troops that are colliding -*
       println("factions match");
       if (ally1.pos.x >= ally2.pos.x - 30 && ally1.pos.x <= ally2.pos.x + 30) {
@@ -73,18 +73,6 @@ class Troop {
           println("one is ahead of another");
           ally1.isWaiting = true;
           //ally2.isWaiting = false;
-
-          fill(255, 0, 0);
-          circle(ally1.pos.x, ally1.pos.y, 20);
-          fill(0, 0, 255);
-          circle(ally2.pos.x, ally1.pos.y, 20);
-          fill(255);
-        } else {
-          fill(255, 0, 0);
-          circle(ally1.pos.x, ally1.pos.y, 20);
-          fill(0, 0, 255);
-          circle(ally2.pos.x, ally1.pos.y, 20);
-          fill(255);
         }
       } else {
         ally1.isWaiting = false;
@@ -122,39 +110,63 @@ class Troop {
 
 class Knight extends Troop {
 
-  Knight() {
+  Knight(int faction) {
     super(); //basically copies the info from the super-class' constructor to this one
-    troop = knight; //defines current image to display for the troop
+    pos.x = width - (h.selectorX + 20);
     speed.x = 0.5;
     reach = 30;
+    if (faction == 1) { //determines which faction the troop being constructed belongs to
+      troop = fKnight;
+      f.goldCount -= 20; //withdraws the cost of this troop from players gold - ONLY FOR TESTING
+    } else {
+      troop = eKnight;
+      speed.x *= -1;
+      reach *= -1;
+    }
+    allegiance = faction;
     damage = 5;
     hp = 20;
-    f.goldCount -= 20; //withdraws the cost of this troop from players gold
   }
 }
 
 
 class Archer extends Troop {
 
-  Archer() {
+  Archer(int faction) {
     super();
-    troop = archer;
+    pos.x = width - (h.selectorX + 20);
     speed.x = 0.5;
     reach = 70;
+    if (faction == 1) {
+      troop = fArcher;
+      f.goldCount -= 25;
+    } else {
+      troop = eArcher;
+      speed.x *= -1;
+      reach *= -1;
+    }
+    allegiance = faction;
     damage = 5;
     hp = 15;
-    f.goldCount -= 25;
   }
 }
 
 
 class Mage extends Troop {
 
-  Mage() {
+  Mage(int faction) {
     super();
-    troop = mage;
+    pos.x = width - (h.selectorX + 20);
     speed.x = 0.5;
     reach = 70;
+    if (faction == 1) {
+      troop = fMage;
+    } else {
+      troop = eMage;
+      speed.x *= -1;
+      reach *= -1;
+    }
+    allegiance = faction;
     damage = 8;
     hp = 15;
     f.goldCount -= 40;
@@ -164,11 +176,19 @@ class Mage extends Troop {
 
 class Cavalry extends Troop {
 
-  Cavalry() {
+  Cavalry(int faction) {
     super();
-    troop = cavalry;
+    pos.x = width - (h.selectorX + 20);
     speed.x = 0.9;
     reach = 30;
+    if (faction == 1) {
+      troop = fCavalry;
+    } else {
+      troop = eCavalry;
+      speed.x *= -1;
+      reach *= -1;
+    }
+    allegiance = faction;
     damage = 5;
     hp = 50;
     f.goldCount -= 70;
@@ -178,11 +198,19 @@ class Cavalry extends Troop {
 
 class Giant extends Troop {
 
-  Giant() {
+  Giant(int faction) {
     super();
-    troop = giant;
+    pos.x = width - (h.selectorX + 20);
     speed.x = 0.3;
     reach = 30;
+    if (faction == 1) {
+      troop = fGiant;
+    } else {
+      troop = eGiant;
+      speed.x *= -1;
+      reach *= -1;
+    }
+    allegiance = faction;
     damage = 10;
     hp = 70;
     f.goldCount -= 100;

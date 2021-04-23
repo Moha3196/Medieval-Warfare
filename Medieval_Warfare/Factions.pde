@@ -1,11 +1,11 @@
 class Factions {
   int goldCount, passiveGoldRate, passiveGoldCD;
-  int deploymentCD, deployRate; //these will be universal for both factions
+  int deploymentCD, deployDelay; //these will be universal for both factions
   
   Factions() {
-    goldCount = 10000;
+    goldCount = 10000; //this is how much the player starts with (it's high while I'm testing of course)
     passiveGoldRate = 2000;
-    deployRate = 1000;
+    deployDelay = 1000;
   }
   
   
@@ -20,27 +20,27 @@ class Factions {
   void deployTroop(int troopID) { //deploys specific troop according to input, then sets allegiance, 
     switch(troopID) {
       case 1:
-        t.add(new Knight());
+        t.add(new Knight(1));
         break;
       
       case 2:
-        t.add(new Archer());
+        t.add(new Archer(1));
         break;
       
       case 3:
-        t.add(new Mage());
+        t.add(new Mage(1));
         break;
       
       case 4:
-        t.add(new Cavalry());
+        t.add(new Cavalry(1));
         break;
       
       case 5:
-        t.add(new Giant());
+        t.add(new Giant(1));
         break;
     }
     
-    t.get(t.size()-1).allegiance = 1; //"t.get(t.size()-1)" is the last troop in the array, and since a new troop was *just* added, the latest troop must also be last
+    //t.get(t.size()-1).allegiance = 1; //"t.get(t.size()-1)" is the last troop in the array, and since a new troop was *just* added, the latest troop must also be last
     mousePressed = false; //stop the program from spamming troops in the blink of an eye
     f.deploymentCD = millis(); //reset cooldown for deploying troops
   }

@@ -1,6 +1,7 @@
 class HUD {
   int selectorX, selectorY, selectorInitY;  //coords for selector - the base is a stepping stone (see line 18)
   int row = 1;
+  int optionsRotation;
 
   HUD () {
     selectorX = 31;      //initial coords for the selector
@@ -14,56 +15,67 @@ class HUD {
   }
 
   void renderHighlight() {
-    image(knight, 188, 552); //"
-    image(archer, 273, 552);    //"
-    image(mage, 358, 552);      //shows the image of the troops in the boxes below
-    image(cavalry, 443, 552);   //"
-    image(giant, 528, 552);     //"
+    image(fKnight, 255, 541);    //"
+    image(fArcher, 340, 541);    //"
+    image(fMage, 425, 541);      //shows the image of the player's troops in their boxes on screen
+    image(fCavalry, 510, 541);   //"
+    image(fGiant, 595, 541);     //"
 
     textAlign(CENTER);
-    textFont(goldenIncome);
     fill(255);
 
-    text("Gold: " + f.goldCount, 65, 510); //writes the current amount of gold
-
-    text(20, 188, 510);  //"
-    text(25, 273, 510);  //"
-    text(40, 358, 510);  //writes the cost of the troops above the boxes
-    text(70, 443, 510);  //"
-    text(100, 528, 510); //"
+    textFont(goldenIncome);
+    fill(255);
+    textSize(30);
+    text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
+    
+    textSize(12); //Changes the size to 12
+    fill(0);
+    text("Knight", 255, 493); //Writes the names of the troops above the boxes
+    text("Archer", 340, 493); 
+    text("Mage", 425, 493);
+    text("Cavalry", 510, 493);
+    text("Giant", 595, 493);
+    
+    textSize(16); //Changes the size to 16
+    text(20, 255, 590); //Writes the cost of the troops above the boxes
+    text(25, 340, 590);
+    text(40, 425, 590);
+    text(70, 510, 590);
+    text(100, 595, 590);
   }
 
 
   void sendTroop() {
-    if (mouseY >= 515 && mouseY <= 589) {
-      if (mouseX >= 151 && mouseX <= 225) {
+    if (mouseY >= 504 && mouseY <= 597) {
+      if (mouseX >= 218 && mouseX <= 292) {
         cursor(HAND); //to show that this area is clickable
-        image(highlight, 188, 552); //the highlighted box
-        if (mousePressed && f.goldCount >= 20 && (millis() - f.deploymentCD >= f.deployRate)) { //if box is clicked on, and player has enough gold:
-          f.deployTroop(1); //add a new troop - trroop depends on the box that was clicked
+        image(highlight, 255, 539); //the highlighted box
+        if (mousePressed && f.goldCount >= 20 && (millis() - f.deploymentCD >= f.deployDelay)) { //if box is clicked on, and player has enough gold:
+          f.deployTroop(1); //add a new troop - troop depends on the box that was clicked
         }
-      } else if (mouseX >= 236 && mouseX <= 310) { //same deal as above, but for different troops
+      } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
         cursor(HAND);
-        image(highlight, 273, 552);
-        if (mousePressed && f.goldCount >= 25 && (millis() - f.deploymentCD >= f.deployRate)) { //("25" is the cost of deploying the troop)
+        image(highlight, 340, 539);
+        if (mousePressed && f.goldCount >= 25 && (millis() - f.deploymentCD >= f.deployDelay)) { //("25" is the cost of deploying the troop)
           f.deployTroop(2);
         }
-      } else if (mouseX >= 321 && mouseX <= 395) {
+      } else if (mouseX >= 388 && mouseX <= 462) {
         cursor(HAND);
-        image(highlight, 358, 552);
-        if (mousePressed && f.goldCount >= 40 && (millis() - f.deploymentCD >= f.deployRate)) {
+        image(highlight, 425, 539);
+        if (mousePressed && f.goldCount >= 40 && (millis() - f.deploymentCD >= f.deployDelay)) {
           f.deployTroop(3);
         }
-      } else if (mouseX >= 406 && mouseX <= 480) {
+      } else if (mouseX >= 473 && mouseX <= 547) {
         cursor(HAND);
-        image(highlight, 443, 552);
-        if (mousePressed && f.goldCount >= 70 && (millis() - f.deploymentCD >= f.deployRate)) {
+        image(highlight, 510, 539);
+        if (mousePressed && f.goldCount >= 70 && (millis() - f.deploymentCD >= f.deployDelay)) {
           f.deployTroop(4);
         }
-      } else if (mouseX >= 491 && mouseX <= 565) {
+      } else if (mouseX >= 558 && mouseX <= 631) {
         cursor(HAND);
-        image(highlight, 528, 552);
-        if (mousePressed && f.goldCount >= 100 && (millis() - f.deploymentCD >= f.deployRate)) {
+        image(highlight, 595, 539);
+        if (mousePressed && f.goldCount >= 100 && (millis() - f.deploymentCD >= f.deployDelay)) {
           f.deployTroop(5);
         }
       } else {         //"
@@ -72,5 +84,17 @@ class HUD {
     } else {           //"
       cursor(ARROW);   //"
     }
+  }
+  
+  
+  void options() {
+    pushMatrix();
+    if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
+      optionsRotation += 1;
+    }
+    translate(732, 541);
+    rotate(optionsRotation/8);
+    image(options, 0, 0);
+    popMatrix();
   }
 }

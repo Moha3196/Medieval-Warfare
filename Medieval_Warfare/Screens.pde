@@ -59,7 +59,7 @@ void Tutorial() {
   pushMatrix();
   textAlign(CENTER, TOP);
   fill(0, 0, 0);
-  textSize(20);
+  textSize(28);
 
   switch(tutorialPage) {
   case 0:
@@ -68,21 +68,80 @@ void Tutorial() {
 
   case 1:
     image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
-    text("Player Health", 240, 112);
-    text("Enemy Health", 558, 115);
-    text("Settings", 625, 390);
-    text("Highlighted Troop", 346, 325);
-    text("Troop", 422, 360);
-    text("Troop Upgrade", 234, 400);
+    image(arrow, 245, 125);
+    text("Player Health", 240, 185);
+
+
 
     textAlign(LEFT, CENTER);
 
-    text("Highlighted Troop Upgrade", 97, 276);
-    text("Current Lane", 195, 172);
+ 
+    //text("Current Lane", 195, 172);
 
     break;
 
   case 2:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    image(arrow, 558, 125);
+    text("Enemy Health", 558, 185);
+    break;
+
+  case 3:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    pushMatrix();
+    translate(650, 450);
+    rotate(0.75*PI);
+    image(arrow, 0, 0);
+    popMatrix();
+    text("Settings", 620, 365);
+    break;
+
+  case 4:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+
+    pushMatrix();
+    translate(346, 410);
+    rotate(PI);
+    image(arrow, 0, 0);
+    popMatrix();
+    text("Troop", 346, 315);
+    break;
+
+  case 5:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+
+    pushMatrix();
+    translate(270, 485);
+    rotate(PI);
+    image(arrow, 0, 0);
+    popMatrix();
+    text("Troop Cost", 270, 390);
+    break;
+  case 6:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+
+    pushMatrix();
+    translate(180, 450);
+    rotate(PI);
+    image(arrow, 0, 0);
+    popMatrix();
+    text("Troop Upgrade", 180, 355);
+    break;
+  case 7:
+   image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+
+    pushMatrix();
+    translate(150, 170);
+    
+    rotate(1.5*PI);
+    image(arrow, 0, 0);
+   
+    popMatrix();
+     image(selector, 67, 167);
+   text("Current Lane", 195, 100);
+    break;
+
+  case 8:
     image(tutorialPage2, width/2, height/2); //Shows the third page of the  Tutorial
     break;
   }
@@ -97,10 +156,10 @@ void Tutorial() {
     }    
     if (mouseX >= 724 && mouseX <= 744) {
       mouseHand = true;
-      if (mousePressed && tutorialPage != 2) {
+      if (mousePressed && tutorialPage != 8) {
         tutorialPage++;
         mousePressed = false;
-      } else if (mousePressed && tutorialPage == 2) {
+      } else if (mousePressed && tutorialPage == 8) {
         stage = 1;
         tutorialPage = 0;
         mousePressed = false;
@@ -164,11 +223,11 @@ void GamingScreen() {
   for (int i = 0; i < et.size(); i++) { //runs the different functions for Enemy troops
     et.get(i).update();
     et.get(i).checkCollision();
-    
+
     if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358) {
       et.get(i).currentHP -= 0.1;
     }
-    
+
     if (et.get(i).isDead) {
       et.remove(et.get(i));
     }

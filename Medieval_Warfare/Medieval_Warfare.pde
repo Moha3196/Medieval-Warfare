@@ -7,7 +7,7 @@ HUD h  = new HUD();
 PVector posSpecial = new PVector();
 
 PImage map, castles, selector, highlight, options, upgradeHighlight, fireTrailSpecialVisiualBox, fireTrailSpecial;
-PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, arrow;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -62,6 +62,7 @@ void setup() {
   tutorialPage2 = loadImage("TutorialPage2.png");
   tutorialPage2.resize(width, height); //Resizes the Tutorial so it fits the boarder
 
+  arrow = loadImage("Arrow.png");
   winScreen = loadImage("Win Screen.jpg");
   winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
 

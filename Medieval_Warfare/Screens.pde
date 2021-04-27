@@ -6,35 +6,30 @@ void StartScreen() {
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
   textAlign(CENTER);
   fill(125, 100);
-  
+ 
+  image(startButton, 180, 440); //Start Game Button
+  image(tutorialButton, width - 180, 440); //Tutorial Button
   if (mouseY >= 403 && mouseY <= 483) {
     if (mouseX >= 120 && mouseX <= 241) { //Start Game Button
-      image(startButton, 180, 440); //Start Game Button
-      
-      image(tutorialButton, width - 180, 440); //Tutorial Button
-      rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
-      
+      rect(120, 400, 120, 80); //Highlighted Start Game Button
+
       if (mousePressed) { //Starts the Game
         stage = 3;
         lastSpecialUsed = millis();
       }
     }
+
+
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
-      image(tutorialButton, width - 180, 440); //Tutorial Button
-      
-      image(startButton, 180, 440); //Start Game Button
-      rect(120, 400, 120, 80); //Highlighted Start Game Button
+      rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
       if (mousePressed) { //Starts the Tutorial
         stage = 2;
       }
     }
-  } else {
-    image(startButton, 180, 440); //Start Game Button
-    image(tutorialButton, width - 180, 440); //Tutorial Button
-    rect(120, 400, 120, 80); //Highlighted Start Game Button
-    rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
   }
 }
+
+
 
 
 

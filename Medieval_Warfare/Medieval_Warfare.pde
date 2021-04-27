@@ -82,19 +82,19 @@ void draw() {
   //runs the different functions for troops
   for (int i = 0; i < t.size(); i++) {
     t.get(i).update();
-    if (t.size() > 1) { //a troop can't collide, of there is nobody else to collide with
+    //if (t.size() > 1) { //a troop can't collide, of there is nobody else to collide with
       t.get(i).checkCollision();
-    } else if (t.size() == 1) {
+    //} else if (t.size() == 1) {
       t.get(i).inCombat = false;
       t.get(i).isWaiting = false;
-    }
+    //}
 
     if (t.get(i).isDead || t.get(i).pos.x < 0 || t.get(i).pos.x > width) { //checks if a troop is dead - if so, it's removed
       t.remove(t.get(i)); //done as the last thing to avoid Out-of-Bounds exceptions
     }
   }
 
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 

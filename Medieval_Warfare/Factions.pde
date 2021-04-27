@@ -16,10 +16,11 @@ class Factions {
   void Special() {
     //posSpecial.x = 500;
     posSpecial.y = h.selectorY;
-    
+
     for (int i = 0; i < et.size(); i++) { //Runs the special in the selected lane and "Kills" all enemies on the lane
       if (et.get(i).pos.y == h.selectorY && et.get(i).pos.y <= posSpecial.x + 358) {
-        et.get(i).currentHP -= 1;
+        //et.get(i).currentHP -= 2*et.get(i).maxHP/100;
+        
       }
     }
   }

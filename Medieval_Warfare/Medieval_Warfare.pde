@@ -6,8 +6,8 @@ HUD h  = new HUD();
 
 PVector posSpecial = new PVector();
 
-PImage map, castles, selector, highlight, options, upgradeHighlight, fireTrailSpecialVisiualBox, fireTrailSpecial;
-PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2;
+PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, specialButton;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -22,7 +22,7 @@ int stage = 1; //Used to switch screens
 int troopDeployCoolDown; //The timer for deploying troops.
 int delayTime = 1000; //The delay time for deploying troops.
 
-int specialCoolDown = 3000; //The timer for special.
+int specialCoolDown = 30000; //The timer for special.
 int lastSpecialUsed; //The last time special was used
 
 int passiveGoldCoolDown; //The timer for gaining gold.
@@ -105,10 +105,15 @@ void setup() {
   upgradeHighlight = loadImage("upgradeHighlight box.png");
   options   = loadImage("options.png");
   
-  fireTrailSpecial = loadImage("Fire_trail_special.png");
+  Special = loadImage("Fire_trail_special.png");
   
-  fireTrailSpecialVisiualBox = loadImage("Fire_trail_special.png");
-  fireTrailSpecialVisiualBox.resize(150, 65);
+  tutorialButton = loadImage("Tutorial.png");
+  startButton = loadImage("start button.png");
+  specialButton = loadImage("Special button.png");
+  
+  
+  SpecialVisiualBox = loadImage("Fire_trail_special.png");
+  SpecialVisiualBox.resize(150, 65);
   
   goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.
   textFont(goldenIncome);

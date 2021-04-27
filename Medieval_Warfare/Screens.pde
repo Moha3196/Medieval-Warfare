@@ -5,47 +5,34 @@ void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
   textAlign(CENTER);
-  textSize(18);
-  fill(255);
-  rect(120, 400, 120, 80); //Start Game Button
-  fill(0);
-  text("Start Game", 180, 445);
-
-  fill(255);
-  rect(width - 120, 400, -120, 80); //Tutorial Button
-  fill(0);
-  text("Tutorial", width - 180, 445);
-
+  fill(125, 100);
+  
   if (mouseY >= 403 && mouseY <= 483) {
     if (mouseX >= 120 && mouseX <= 241) { //Start Game Button
-      fill(125);
-      rect(120, 400, 120, 80); //Start Game Button
-      fill(0);
-      text("Start Game", 180, 445);
+      image(startButton, 180, 440); //Start Game Button
+      
+      image(tutorialButton, width - 180, 440); //Tutorial Button
+      rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
+      
       if (mousePressed) { //Starts the Game
         stage = 3;
         lastSpecialUsed = millis();
       }
     }
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
-      fill(125);
-      rect(width - 120, 400, -120, 80); //Tutorial Button
-      fill(0);
-      text("Tutorial", width - 180, 445);
+      image(tutorialButton, width - 180, 440); //Tutorial Button
+      
+      image(startButton, 180, 440); //Start Game Button
+      rect(120, 400, 120, 80); //Highlighted Start Game Button
       if (mousePressed) { //Starts the Tutorial
         stage = 2;
       }
     }
   } else {
-    fill(255);
-    rect(120, 400, 120, 80); //Start Game Button
-    fill(0);
-    text("Start Game", 180, 445);
-
-    fill(255);
-    rect(width - 120, 400, -120, 80); //Tutorial Button
-    fill(0);
-    text("Tutorial", width - 180, 445);
+    image(startButton, 180, 440); //Start Game Button
+    image(tutorialButton, width - 180, 440); //Tutorial Button
+    rect(120, 400, 120, 80); //Highlighted Start Game Button
+    rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
   }
 }
 
@@ -122,18 +109,18 @@ void Tutorial() {
 void GamingScreen() {
   image(map, width/2, height/2); //Shows the playground, boxes and banners
   //imageMode(CORNER);
-  image(fireTrailSpecial, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
+  image(Special, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
   //imageMode(CENTER);
   image(castles, width/2, height/2);
   pushMatrix();
   strokeWeight(2);
 
   if (specialMoving) {
-    posSpecial.x ++;
+    posSpecial.x += 2;
   }
-  if (posSpecial.x == 400) {
-    specialMoving = false;
-  }
+  //if (posSpecial.x == 400) {
+  //  specialMoving = false;
+  //}
 
   fill(0, 255, 0);
   rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
@@ -164,11 +151,20 @@ void GamingScreen() {
   for (int i = 0; i < et.size(); i++) { //runs the different functions for Enemy troops
     et.get(i).update();
     et.get(i).checkCollision();
-    
+
     if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358) {
-      et.get(i).currentHP -= 0.1;
+      et.get(i).currentHP -= 1*et.get(i).maxHP/100;
+      if (et.get(i).currentHP <= 0) {
+        f.goldCount += et.get(i).worth*0.3;
+        for (int j = 0; j < ft.size(); j++) {
+          if (ft.get(j).pos.y == et.get(i).pos.y) {
+            ft.get(j).occupied = false;
+            ft.get(j).friendlyOccupied = false;
+          }
+        }
+      }
     }
-    
+
     if (et.get(i).isDead) {
       et.remove(et.get(i));
     }
@@ -187,9 +183,9 @@ void GamingScreen() {
   fill(255);
 
   text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
+
   if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
-    //text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
-    image(fireTrailSpecialVisiualBox, width/3*2, 80);
+    image(SpecialVisiualBox, width/3*2, 80);
     pushMatrix();
     fill(120, 180);
     strokeWeight(0);
@@ -202,7 +198,7 @@ void GamingScreen() {
     popMatrix();
   } else { //If ready shows "Special Ready!"
     //text("Special Ready!", width/3*2, 90);
-    image(fireTrailSpecialVisiualBox, width/3*2, 80);
+    image(SpecialVisiualBox, width/3*2, 80);
     strokeWeight(4);
     noFill();
     rect(width/3*2-75, 80-32.5, 150, 65);

@@ -1,8 +1,13 @@
 class Factions {
+  float playerCurrHP, enemyCurrHP, playerMaxHP, enemyMaxHP;
   int goldCount, passiveGoldRate, passiveGoldCD;
   int deploymentCD, deployDelay; //these will be universal for both factions
   
   Factions() {
+    playerMaxHP = 1000;
+    enemyMaxHP = 1000;
+    playerCurrHP = 1000;
+    enemyCurrHP = 1000;
     goldCount = 10000; //this is how much the player starts with (it's high while I'm testing of course)
     passiveGoldRate = 2000;
     deployDelay = 1000;

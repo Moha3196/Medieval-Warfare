@@ -1,11 +1,11 @@
 class HUD {
-  int selectorX, selectorY, selectorInitY;  //coords for selector - the base is a stepping stone (see line 18)
+  int selectorX, selectorY, selectorInitY; //coords for selector - the base is a stepping stone (see line 18)
   int row = 1;
   int optionsRotation;
 
   HUD () {
-    selectorX = 31;      //initial coords for the selector
-    selectorInitY = 92;  //(pretty specific due to size of display window)
+    selectorX = 31;     //initial coords for the selector
+    selectorInitY = 92; //(pretty specific due to the design of the map)
   }
 
 
@@ -14,12 +14,13 @@ class HUD {
     image(selector, selectorX, selectorY);
   }
 
+
   void renderHighlight() {
-    image(fKnight, 255, 541);    //"
-    image(fArcher, 340, 541);    //"
-    image(fMage, 425, 541);      //shows the image of the player's troops in their boxes on screen
-    image(fCavalry, 510, 541);   //"
-    image(fGiant, 595, 541);     //"
+    image(fKnight, 255, 541);  //shows the image of the player's troops in their boxes on screen
+    image(fArcher, 340, 541);  //"
+    image(fMage, 425, 541);    //"
+    image(fCavalry, 510, 541); //"
+    image(fGiant, 595, 541);   //"
 
     textAlign(CENTER);
     fill(255);
@@ -27,22 +28,22 @@ class HUD {
     textFont(goldenIncome);
     fill(255);
     textSize(30);
-    text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
+    text("Gold: " + f.goldCount, width/3, 90); //displays the current amount of gold
     
-    textSize(12); //Changes the size to 12
+    textSize(12);
     fill(0);
-    text("Knight", 255, 493); //Writes the names of the troops above the boxes
-    text("Archer", 340, 493); 
-    text("Mage", 425, 493);
-    text("Cavalry", 510, 493);
-    text("Giant", 595, 493);
+    text("Knight", 255, 493);  //displays the names of the troops above the boxes
+    text("Archer", 340, 493);  //"
+    text("Mage", 425, 493);    //"
+    text("Cavalry", 510, 493); //"
+    text("Giant", 595, 493);   //"
     
-    textSize(16); //Changes the size to 16
-    text(20, 255, 590); //Writes the cost of the troops above the boxes
-    text(25, 340, 590);
-    text(40, 425, 590);
-    text(70, 510, 590);
-    text(100, 595, 590);
+    textSize(16);
+    text(20, 255, 590);  //displays the cost of the troops above the boxes
+    text(25, 340, 590);  //"
+    text(40, 425, 590);  //"
+    text(70, 510, 590);  //"
+    text(100, 595, 590); //"
   }
 
 

@@ -67,7 +67,7 @@ void setup() {
   f.deploymentCD = millis();
   f.passiveGoldCD = millis();
 
-  imageMode(CENTER);
+  imageMode(CENTER); //done to make coordinates for images to correspond to the image's center (instead of its corner)
 }
 
 
@@ -78,13 +78,21 @@ void draw() {
   f.passiveGold();
   h.renderHighlight();
   h.options();
-
-  //runs the different functions for troops
+  
+  fill(0, 255, 0);
+  strokeWeight(2);
+  rect(width, 1, width/2/f.enemyMaxHP*-f.enemyCurrHP, 38); //faction healthbars  |  REMEMBER TO MOVE WHEN IMPLEMENTING SCREENS
+  rect(0, 1, width/2/f.playerMaxHP*f.playerCurrHP, 38);    //"                   |  "
+  
+  strokeWeight(4);
+  noFill();
+  rect(width/2, 1, width/2-1, 38); //the borders for the faction healthbars
+  rect(0, 1, width/2, 38);         //"
+  
+  
   for (int i = 0; i < t.size(); i++) {
     t.get(i).update();
-    //if (t.size() > 1) { //a troop can't collide, of there is nobody else to collide with
-      t.get(i).checkCollision();
-    //}
+    t.get(i).checkCollision();
 
     if (t.get(i).isDead || t.get(i).pos.x < 0 || t.get(i).pos.x > width) { //checks if a troop is dead - if so, it's removed
       t.remove(t.get(i)); //done as the last thing to avoid Out-of-Bounds exceptions

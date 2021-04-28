@@ -39,11 +39,11 @@ void setup() {
   fCavalry.resize(60, 60);
   fGiant.resize(60, 60);
 
-  eKnight = loadImage("EnemieKnight.png");
-  eArcher = loadImage("EnemieArcher.png");
-  eMage = loadImage("EnemieMage.png");
-  eCavalry = loadImage("EnemieCavalry.png");
-  eGiant = loadImage("EnemieGiant.png");
+  eKnight = loadImage("EnemyKnight.png");
+  eArcher = loadImage("EnemyArcher.png");
+  eMage = loadImage("EnemyMage.png");
+  eCavalry = loadImage("EnemyCavalry.png");
+  eGiant = loadImage("EnemyGiant.png");
   eKnight.resize(60, 60);
   eArcher.resize(60, 60);
   eMage.resize(60, 60);
@@ -84,9 +84,6 @@ void draw() {
     t.get(i).update();
     //if (t.size() > 1) { //a troop can't collide, of there is nobody else to collide with
       t.get(i).checkCollision();
-    //} else if (t.size() == 1) {
-      t.get(i).inCombat = false;
-      t.get(i).isWaiting = false;
     //}
 
     if (t.get(i).isDead || t.get(i).pos.x < 0 || t.get(i).pos.x > width) { //checks if a troop is dead - if so, it's removed
@@ -94,7 +91,7 @@ void draw() {
     }
   }
 
-  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 

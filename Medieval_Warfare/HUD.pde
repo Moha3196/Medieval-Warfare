@@ -28,7 +28,7 @@ class HUD {
     textFont(goldenIncome);
     fill(255);
     textSize(30);
-    text("Gold: " + f.goldCount, width/3, 90); //displays the current amount of gold
+    //text("Gold: " + f.goldCount, width/3, 90); //displays the current amount of gold
     
     textSize(12);
     fill(0);

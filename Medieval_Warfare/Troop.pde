@@ -38,10 +38,11 @@ class Troop {
     fill(255, 0, 0);
     rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red part of the health bar (indicates how much damage the troop has taken)
     fill(0, 255, 0);
-    rect(pos.x - 20, pos.y - 40, 40/maxHP*currHP, 7); //Shows green health bar (indicates the troops' remaining HP)
-
-    //text("waiting? " + isWaiting, pos.x, pos.y - 80); //debugging
-    //text("combat? " + inCombat, pos.x, pos.y - 60);   //"
+    rect(pos.x - 20, pos.y - 40, (40 * currHP)/maxHP, 7); //Shows green health bar (indicates the troops' remaining HP)
+    
+    fill(0);
+    text("" + isWaiting, pos.x, pos.y - 80); //debugging
+    text("" + inCombat, pos.x, pos.y - 60);   //"
     text(currHP, pos.x, pos.y - 40);                    //"
     //circle(pos.x, pos.y, 10);                         //"
     //circle(pos.x - bounds, pos.y, 15);                //"
@@ -51,16 +52,24 @@ class Troop {
 
   void checkCollision() { //checks if another troop is within current troop's reach/range
     for (int i = 0; i < t.size(); i++) {
+      if (this.currFoe == null || this.currFoe.isDead) {
+        this.inCombat = false;
+        //this.isWaiting = true; //for some reason the code just seems to use this value at all times, if I define it here >:/
+      }
       if (this != t.get(i) && this.pos.y == t.get(i).pos.y) { //should only check other troops, and not itself too and should only check on troop's own lane, not others
-        if (this.pos.x + this.reach >= t.get(i).pos.x - 60 && this.pos.x + this.reach <= t.get(i).pos.x + 60) { //checks if another troop is within the current troop's range
+        if (dist(this.pos.x, this.pos.y, t.get(i).pos.x, t.get(i).pos.y) <= abs(this.bounds)) {
+        //if (this.pos.x + this.reach >= t.get(i).pos.x - 60 && this.pos.x + this.reach <= t.get(i).pos.x + 60) { //checks if another troop is within the current troop's range
           if (this.allegiance != t.get(i).allegiance) { //checks if other troop is current troop's enemy:
             beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
             this.inCombat = true;
+            this.isWaiting = false;
           } else { //if not, they must be allies
             startWaiting(this.allegiance, this, t.get(i));
           }
-        } else if (this.currFoe == null || this.currFoe.isDead) {
+        } /*else /*if (this.currFoe == null || this.currFoe.isDead) {
           this.inCombat = false;
+        }*/ else if (t.size() == 1) {
+          this.isWaiting = false;
         }
       }
       
@@ -88,16 +97,18 @@ class Troop {
         //if (ally1.pos.x >= ally2.pos.x - ally2.bounds && ally1.pos.x <= ally2.pos.x + ally2.bounds) {
         if (ally1.pos.x < ally2.pos.x) { //check if the first troop is ahead, since only the troop behind should stop moving
           ally1.isWaiting = true;
+          //ally2.isWaiting = false;
         }
-      } else {
+      } else if (ally2.isDead) {
         ally1.isWaiting = false;
       }
     } else { //if not the player's troops, then must be the enemy's
       if (ally1.pos.x <= ally2.pos.x + 50 && ally1.pos.x >= ally2.pos.x - 50) {
         if (ally2.pos.x < ally1.pos.x) { //check if the second troop is ahead (since enemy's troops walk backwards, comparred to player's troops)
           ally1.isWaiting = true;
+          //ally2.isWaiting = false;
         }
-      } else {
+      } else if (ally2.isDead) {
         ally1.isWaiting = false;
       }
     }

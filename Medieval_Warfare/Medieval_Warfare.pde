@@ -27,7 +27,7 @@ int specialCoolDown = 30000; //The timer for special.
 int lastSpecialUsed; //The last time special was used
 
 int passiveGoldCoolDown; //The timer for gaining gold.
-int passiveGoldDelayTime = 800; //The delay time for gaining gold.
+int passiveGoldDelayTime = 1300; //The delay time for gaining gold.
 
 float friendlyCastleHP = 1000; //Total HP for friendly castle
 float currentFriendlyCastleHP; //Current HP for friendly castle

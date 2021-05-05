@@ -130,25 +130,23 @@ class HUD {
     text("Y", 619, 115); 
 
     textSize(11);
-    text("Knight  LVL " + (knightLevel), 639, 62); 
-    text("Archer  LVL " + (archerLevel), 639, 75); 
-    text("Mage    LVL " + (mageLevel), 639, 88); 
-    text("Cavalry LVL " + (cavalryLevel), 639, 101); 
-    text("Giant    LVL " + (giantLevel), 639, 114); 
+    text("Knight  LVL " + (enemyKnightLevel), 639, 62); //Shows Enemy troop levels in 
+    text("Archer  LVL " + (enemyArcherLevel), 639, 75); 
+    text("Mage    LVL " + (enemyMageLevel), 639, 88); 
+    text("Cavalry LVL " + (enemyCavalryLevel), 639, 101); 
+    text("Giant    LVL " + (enemyGiantLevel), 639, 114); 
     popMatrix();
 
-    if (mouseHand && stage==3) {
+    if (mouseHand && stage == 3) {
       cursor(HAND);
     } else {
       cursor(ARROW);
     }
-    mouseHand=false;
+    mouseHand = false;
   }
 
   void options() {
     pushMatrix();
-    //println(mouseY);
-    //println(mouseX);
     if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
       optionsRotation += 1;
     }

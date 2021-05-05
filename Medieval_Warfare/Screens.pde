@@ -6,7 +6,7 @@ void StartScreen() {
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
   textAlign(CENTER);
   fill(125, 100);
- 
+
   image(startButton, 180, 440); //Start Game Button
   image(tutorialButton, width - 180, 440); //Tutorial Button
   if (mouseY >= 403 && mouseY <= 483) {
@@ -129,7 +129,7 @@ void GamingScreen() {
   rect(0, 1, width/2, 38); //Shows Friendly castle health boarder
   //strokeWeight(10);
   popMatrix();
-  
+
   if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
     image(specialButton, width/3*2 - 20, 80);
     pushMatrix();
@@ -150,7 +150,7 @@ void GamingScreen() {
     rect(width/3*2 - 75 - 20, 80 - 65/2, 150, 65);
     fill(255);
   }
-  
+
   h.selector(h.row);
   h.sendTroopAndUpgrades();
   h.options();
@@ -159,10 +159,15 @@ void GamingScreen() {
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
     ft.get(i).update();
     ft.get(i).checkCollision();
-    
+
+    if (et.size() == 0) { //Friendlies should always move if there is no Enemies
+      ft.get(i).occupied = false;
+    }
+
     if (ft.get(i).currentHP <= 0) {
       ft.get(i).isDead = true;
     }
+
     if (ft.get(i).isDead) {
       ft.remove(ft.get(i));
     }
@@ -172,7 +177,11 @@ void GamingScreen() {
     et.get(i).update();
     et.get(i).checkCollision();
 
-    if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358 && et.get(i).pos.x >= posSpecial.x - 358) { //Checks if enemy troops are inside the special ability
+    if (ft.size() == 0) { //Enemies should always move if there is no Friendlies
+      et.get(i).occupied = false;
+    }
+
+    if (et.get(i).pos.y == posSpecial.y && et.get(i).pos.x <= posSpecial.x + 358 && et.get(i).pos.x >= posSpecial.x - 358) { //Checks if enemy troops are inside the special ability
       et.get(i).currentHP -= 1*et.get(i).maxHP/100;                                                                         //And if they are, they will take damage over time
       if (et.get(i).currentHP <= 0) {
         f.playerGoldCount += et.get(i).worth*0.3;
@@ -184,11 +193,17 @@ void GamingScreen() {
         }
       }
     }
-
+    
+    if (et.get(i).currentHP <= 0) {
+      et.get(i).isDead = true;
+    }
+    
     if (et.get(i).isDead) {
       et.remove(et.get(i));
     }
   }
+
+  //println(et.size());
 
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
   image(fArcher, 340, 541);
@@ -257,7 +272,7 @@ void EndScreen() {
     friendlyMageLevel = 1;
     friendlyCavalryLevel = 1;
     friendlyGiantLevel = 1;
-    
+
     enemyKnightLevel = 1;
     enemyArcherLevel = 1;
     enemyMageLevel = 1;

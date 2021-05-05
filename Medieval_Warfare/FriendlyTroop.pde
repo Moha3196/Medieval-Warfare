@@ -37,10 +37,6 @@ class FriendlyTroop {
       rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red damaged health bar
       fill(0, 255, 0);
       rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7); //Shows green health bar
-      fill(0);
-      textSize(6);
-      text("LVL:" + troopLevel, pos.x - 10, pos.y - 32); //Shows the lvl of the troop
-      strokeWeight(4);
       popMatrix();
     }
   }

@@ -15,7 +15,7 @@ boolean won, specialMoving;
 
 PFont goldenIncome;
 
-int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
+int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the FriendlyTroop levels to 1
 
 int stage = 1; //Used to switch screens
 

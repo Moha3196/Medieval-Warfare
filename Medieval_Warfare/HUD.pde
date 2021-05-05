@@ -21,42 +21,42 @@ class HUD {
       if (mouseX >= 218 && mouseX <= 292) {
         mouseHand=true;
         image(highlight, 255, 539); //the highlighted box
-        if (mousePressed && f.playerGoldCount >= 20 && (millis() - troopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
+        if (mousePressed && f.playerGoldCount >= 20 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
           ft.add(new FKnight(friendlyKnightLevel)); //add a new troop - depends on the box that was clicked
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
-          troopDeployCoolDown = millis();
+          friendlyTroopDeployCoolDown = millis();
         }
       } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
         mouseHand=true;
         image(highlight, 340, 539);
-        if (mousePressed && f.playerGoldCount >= 25 && (millis() - troopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
+        if (mousePressed && f.playerGoldCount >= 25 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
           ft.add(new FArcher(friendlyArcherLevel));
           mousePressed = false;
-          troopDeployCoolDown = millis();
+          friendlyTroopDeployCoolDown = millis();
         }
       } else if (mouseX >= 388 && mouseX <= 462) {
         mouseHand=true;
         image(highlight, 425, 539);
-        if (mousePressed && f.playerGoldCount >= 40 && (millis() - troopDeployCoolDown >= delayTime)) {
+        if (mousePressed && f.playerGoldCount >= 40 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
           ft.add(new FMage(friendlyMageLevel));
           mousePressed = false;
-          troopDeployCoolDown = millis();
+          friendlyTroopDeployCoolDown = millis();
         }
       } else if (mouseX >= 473 && mouseX <= 547) {
         mouseHand=true;
         image(highlight, 510, 539);
-        if (mousePressed && f.playerGoldCount >= 70 && (millis() - troopDeployCoolDown >= delayTime)) {
+        if (mousePressed && f.playerGoldCount >= 70 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
           ft.add(new FCavalry(friendlyCavalryLevel));
           mousePressed = false;
-          troopDeployCoolDown = millis();
+          friendlyTroopDeployCoolDown = millis();
         }
       } else if (mouseX >= 558 && mouseX <= 631) {
         image(highlight, 595, 539);        
         mouseHand=true;
-        if (mousePressed && f.playerGoldCount >= 100 && (millis() - troopDeployCoolDown >= delayTime)) {
+        if (mousePressed && f.playerGoldCount >= 100 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
           ft.add(new FGiant(friendlyGiantLevel));
           mousePressed = false;
-          troopDeployCoolDown = millis();
+          friendlyTroopDeployCoolDown = millis();
         }
       }
     }

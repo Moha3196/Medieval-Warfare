@@ -177,7 +177,7 @@ void GamingScreen() {
     et.get(i).update();
     et.get(i).checkCollision();
 
-    if (ft.size() == 0) { //Enemies should always move if there is no Friendlies
+    if (ft.size() == 0) {// && !ft.get(i).friendlyOccupied && !ft.get(i).friendlyInFront) { //Enemies should always move if there is no Friendlies
       et.get(i).occupied = false;
     }
 
@@ -193,17 +193,18 @@ void GamingScreen() {
         }
       }
     }
-    
+
     if (et.get(i).currentHP <= 0) {
       et.get(i).isDead = true;
     }
-    
+
     if (et.get(i).isDead) {
       et.remove(et.get(i));
     }
   }
 
-  //println(et.size());
+  f.EnemySpawning();
+
 
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
   image(fArcher, 340, 541);
@@ -257,9 +258,13 @@ void EndScreen() {
   }
 
   if (restart) {
+    println(et.size());
+    println(ft.size());
+    
     for (int i = 0; i < et.size(); i++) { //Deletes all enemy troops
       et.remove(et.get(i));
     }
+    
     for (int i = 0; i < ft.size(); i++) { //Deletes all friendly troops
       ft.remove(ft.get(i));
     }

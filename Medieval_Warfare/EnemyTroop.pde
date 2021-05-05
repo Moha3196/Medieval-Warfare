@@ -20,7 +20,7 @@ class EnemyTroop {
 
   EnemyTroop () {
     pos.x = width - h.selectorX - 20;
-    pos.y = h.selectorY;
+    //pos.y = h.selectorY;
     isDead = false;
   }
 
@@ -139,7 +139,7 @@ class EnemyTroop {
 
 class EKnight extends EnemyTroop {
 
-  EKnight(int lvl) {
+  EKnight(int lvl, int yPos) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -156,6 +156,7 @@ class EKnight extends EnemyTroop {
     worth = 20;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
+    pos.y = yPos;
   }
 
 
@@ -166,7 +167,7 @@ class EKnight extends EnemyTroop {
 
 class EArcher extends EnemyTroop {
 
-  EArcher(int lvl) {
+  EArcher(int lvl, int yPos) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -184,6 +185,7 @@ class EArcher extends EnemyTroop {
     worth = 25;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
+    pos.y = yPos;
   }
 
   void collision() {
@@ -193,7 +195,7 @@ class EArcher extends EnemyTroop {
 
 class EMage extends EnemyTroop {
 
-  EMage(int lvl) {
+  EMage(int lvl, int yPos) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -210,6 +212,7 @@ class EMage extends EnemyTroop {
     worth = 40;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
+    pos.y = yPos;
   }
 
   void collision() {
@@ -219,7 +222,7 @@ class EMage extends EnemyTroop {
 
 class ECavalry extends EnemyTroop {
 
-  ECavalry(int lvl) {
+  ECavalry(int lvl, int yPos) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -236,6 +239,7 @@ class ECavalry extends EnemyTroop {
     worth = 70;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
+    pos.y = yPos;
   }
 
   void collision() {
@@ -245,7 +249,7 @@ class ECavalry extends EnemyTroop {
 
 class EGiant extends EnemyTroop {
 
-  EGiant(int lvl) {
+  EGiant(int lvl, int yPos) {
     super();
     if (lvl == 1) {
       statsUpgrade = 1;
@@ -263,6 +267,7 @@ class EGiant extends EnemyTroop {
     worth = 100;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
+    pos.y = yPos;
   }
 
   void collision() {

@@ -121,6 +121,20 @@ class HUD {
     text("LVL " + (friendlyMageLevel+1) + " Mage: " + int(40*pow(2, friendlyMageLevel)), 69, 564);
     text("LVL " + (friendlyCavalryLevel+1) + " Cavalry: " + int(70*pow(2, friendlyCavalryLevel)), 69, 580);
     text("LVL " + (friendlyGiantLevel+1) + " Giant: " + int(100*pow(2, friendlyGiantLevel)), 69, 596);
+  
+    textSize(15);
+    text("E", 618, 67); 
+    text("N", 618, 79); 
+    text("E", 618, 91); 
+    text("M", 618, 103); 
+    text("Y", 619, 115); 
+
+    textSize(11);
+    text("Knight  LVL " + (knightLevel), 639, 62); 
+    text("Archer  LVL " + (archerLevel), 639, 75); 
+    text("Mage    LVL " + (mageLevel), 639, 88); 
+    text("Cavalry LVL " + (cavalryLevel), 639, 101); 
+    text("Giant    LVL " + (giantLevel), 639, 114); 
     popMatrix();
 
     if (mouseHand && stage==3) {

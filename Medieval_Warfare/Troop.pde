@@ -52,25 +52,29 @@ class Troop {
 
   void checkCollision() { //checks if another troop is within current troop's reach/range
     for (int i = 0; i < t.size(); i++) {
-      if (this.currFoe == null || this.currFoe.isDead) {
+      if (this.currFoe == null || this.currFoe.isDead) { //no opponent means no combat
         this.inCombat = false;
-        //this.isWaiting = true; //for some reason the code just seems to use this value at all times, if I define it here >:/
+        //this.isWaiting = true; //for some reason the code just seems to use this value at all times if I define it here >:/
       }
       if (this != t.get(i) && this.pos.y == t.get(i).pos.y) { //should only check other troops, and not itself too and should only check on troop's own lane, not others
-        if (dist(this.pos.x, this.pos.y, t.get(i).pos.x, t.get(i).pos.y) <= abs(this.bounds)) {
-        //if (this.pos.x + this.reach >= t.get(i).pos.x - 60 && this.pos.x + this.reach <= t.get(i).pos.x + 60) { //checks if another troop is within the current troop's range
+        //if (dist(this.pos.x, this.pos.y, t.get(i).pos.x, t.get(i).pos.y) <= abs(this.bounds)) {
+        if (this.pos.x + this.reach >= t.get(i).pos.x - 60 && this.pos.x + this.reach <= t.get(i).pos.x + 60) { //checks if another troop is within the current troop's range
           if (this.allegiance != t.get(i).allegiance) { //checks if other troop is current troop's enemy:
             beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
             this.inCombat = true;
             this.isWaiting = false;
-          } else { //if not, they must be allies
+          } else if (friendlyCollision(this, t)) { //if not, they must be allies
             startWaiting(this.allegiance, this, t.get(i));
+            println("ran wait func");
+          } else /*if (t.size() == 1)*/ {
+            this.isWaiting = false;
+            println("did not run wait func");
           }
         } /*else /*if (this.currFoe == null || this.currFoe.isDead) {
           this.inCombat = false;
-        }*/ else if (t.size() == 1) {
+        } else if (t.size() == 1) {
           this.isWaiting = false;
-        }
+        }*/
       }
       
       if (this.allegiance == 1) {
@@ -89,6 +93,17 @@ class Troop {
         }
       }
     }
+  }
+  
+  boolean friendlyCollision(Troop ally1, ArrayList<Troop> allyList) {
+    for (int i = 0; i < allyList.size(); i++) {
+      if (ally1 != allyList.get(i)) {
+        if (dist(ally1.pos.x, pos.y, allyList.get(i).pos.x, allyList.get(i).pos.y) <= abs(ally1.bounds)) { 
+          return true;
+        }
+      }
+    }
+    return false; //if no troop is within the bounds, return false to avoid stopping
   }
 
   void startWaiting(int faction, Troop ally1, Troop ally2) { //function for collision between allied troops - collision depends on which faction's troops are colliding, so

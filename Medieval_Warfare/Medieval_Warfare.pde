@@ -98,7 +98,7 @@ void draw() {
       t.remove(t.get(i)); //done as the last thing to avoid Out-of-Bounds exceptions
     }
   }
-
+  println();
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 

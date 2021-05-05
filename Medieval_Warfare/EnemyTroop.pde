@@ -2,8 +2,8 @@ class EnemyTroop {
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector(1, 0);  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
-  int allegiance, damage, reach; //allegiance defines the troop's faction (player or enemy)
-  float maxHP, currentHP;
+  int allegiance, reach; //allegiance defines the troop's faction (player or enemy)
+  float damage, maxHP, currentHP;
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
   float speedBeforeContact;
@@ -11,6 +11,7 @@ class EnemyTroop {
   boolean enemyOccupied = false; //Booleans to check if there is enemy troops not moving infront
   boolean enemyInFront = false; //Booleans to check if there is enemy troops moving infront
   boolean isDead = false; //Boolean to check if troop is dead
+  float statsUpgrade = 1;
   int worth;
   int troopLevel; //Shows the current troop lvl
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
@@ -114,6 +115,7 @@ class EnemyTroop {
           }
         } else {
           occupied = false;
+          f.enemyGoldCount += currentFriendlyTroop.worth*1.5;
           for (int j = 0; j < et.size(); j++) {
             if (et.get(j).pos.y == pos.y) {
               et.get(j).occupied = false;
@@ -139,17 +141,23 @@ class EnemyTroop {
 
 class EKnight extends EnemyTroop {
 
-  EKnight() {
+  EKnight(int lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    } 
     troop = eKnight;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 5;
-    maxHP = 20;
+    damage = 5 * statsUpgrade;
+    maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
     worth = 20;
-    f.goldCount -= worth;
+    f.enemyGoldCount -= worth;
+    troopLevel = lvl;
   }
 
 
@@ -160,18 +168,24 @@ class EKnight extends EnemyTroop {
 
 class EArcher extends EnemyTroop {
 
-  EArcher() {
+  EArcher(int lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    }
     troop = eArcher;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 2;
     attackSpeed = 0.5;
-    maxHP = 15;
+    damage = 2 * statsUpgrade;
+    maxHP = 15 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
     worth = 25;
-    f.goldCount -= worth;
+    f.enemyGoldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -181,17 +195,23 @@ class EArcher extends EnemyTroop {
 
 class EMage extends EnemyTroop {
 
-  EMage() {
+  EMage(int lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    }
     troop = eMage;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 8;
-    maxHP = 15;
+    damage = 8 * statsUpgrade;
+    maxHP = 15 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
     worth = 40;
-    f.goldCount -= worth;
+    f.enemyGoldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -201,17 +221,23 @@ class EMage extends EnemyTroop {
 
 class ECavalry extends EnemyTroop {
 
-  ECavalry() {
+  ECavalry(int lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    }
     troop = eCavalry;
     speed.x = -0.9;
     speedBeforeContact = speed.x;
-    damage = 4;
-    maxHP = 50;
+    damage = 4 * statsUpgrade;
+    maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
     worth = 70;
-    f.goldCount -= worth;
+    f.enemyGoldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {
@@ -221,18 +247,24 @@ class ECavalry extends EnemyTroop {
 
 class EGiant extends EnemyTroop {
 
-  EGiant() {
+  EGiant(int lvl) {
     super();
+    if (lvl == 1) {
+      statsUpgrade = 1;
+    } else if (lvl > 1) {
+      statsUpgrade = 1.5 * (lvl-1);
+    }
     troop = eGiant;
     speed.x = -0.3;
     speedBeforeContact = speed.x;
-    damage = 10;
     attackSpeed = 2;
-    maxHP = 70;
+    damage = 10 * statsUpgrade;
+    maxHP = 70 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
     worth = 100;
-    f.goldCount -= worth;
+    f.enemyGoldCount -= worth;
+    troopLevel = lvl;
   }
 
   void collision() {

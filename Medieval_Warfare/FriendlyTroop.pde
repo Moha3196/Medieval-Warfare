@@ -8,8 +8,8 @@ class FriendlyTroop {
   int lastTimeAttacked;
   float speedBeforeContact;
   boolean occupied = false; //Boolean to check if in Combat
-  boolean friendlyOccupied = false; //Booleans to check if there is enemy troops not moving infront
-  boolean friendlyInFront = false; //Booleans to check if there is enemy troops moving infront
+  boolean friendlyOccupied = false; //Booleans to check if there is friendly troops not moving infront
+  boolean friendlyInFront = false; //Booleans to check if there is friendly troops moving infront
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
   int worth;
@@ -37,9 +37,6 @@ class FriendlyTroop {
       rect(pos.x - 20, pos.y - 40, 40, 7); //Shows the red damaged health bar
       fill(0, 255, 0);
       rect(pos.x - 20, pos.y - 40, 40/maxHP*currentHP, 7); //Shows green health bar
-      fill(0);
-      textSize(6);
-      text("LVL:" + troopLevel, pos.x - 10, pos.y - 32); //Shows the lvl of the troop
       strokeWeight(4);
       popMatrix();
     }
@@ -111,7 +108,7 @@ class FriendlyTroop {
           }
         } else {
           occupied = false;
-          f.goldCount += currentEnemyTroop.worth*1.5;
+          f.playerGoldCount += currentEnemyTroop.worth*1.5;
           for (int j = 0; j < ft.size(); j++) {
             if (ft.get(j).pos.y == pos.y) {
               ft.get(j).occupied = false;
@@ -152,7 +149,7 @@ class FKnight extends FriendlyTroop {
     currentHP = maxHP;
     reach = 10;
     worth = 20;
-    f.goldCount -= worth;
+    f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
 
@@ -179,7 +176,7 @@ class FArcher extends FriendlyTroop {
     currentHP = maxHP;
     reach = 150;
     worth = 25;
-    f.goldCount -= worth;
+    f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
 
@@ -205,7 +202,7 @@ class FMage extends FriendlyTroop {
     currentHP = maxHP;
     reach = 80;
     worth = 40;
-    f.goldCount -= worth;
+    f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
 
@@ -231,7 +228,7 @@ class FCavalry extends FriendlyTroop {
     currentHP = maxHP;
     reach = 30;
     worth = 70;
-    f.goldCount -= worth;
+    f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
 
@@ -258,7 +255,7 @@ class FGiant extends FriendlyTroop {
     currentHP = maxHP;
     reach = 10;
     worth = 100;
-    f.goldCount -= worth;
+    f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
 

@@ -15,7 +15,8 @@ boolean won, specialMoving;
 
 PFont goldenIncome;
 
-int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
+int friendlyKnightLevel = 1, friendlyArcherLevel = 1, friendlyMageLevel = 1, friendlyCavalryLevel = 1, friendlyGiantLevel = 1; //Sets friendly troop levels to 1
+int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalryLevel = 1, enemyGiantLevel = 1; //Sets enemy troop levels to 1
 
 int stage = 1; //Used to switch screens
 
@@ -141,7 +142,7 @@ void draw() {
     break;
   }
 
-  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 
@@ -165,16 +166,16 @@ void keyPressed() {
     }
   }
   if (keyCode == ENTER && millis() - troopDeployCoolDown >= lastSpecialUsed) { //Makes an enemy Knight troop... Used for testing
-    et.add(new EKnight());
-    f.goldCount += 20;
+    et.add(new EKnight(enemyKnightLevel));
+    f.playerGoldCount += 20;
     troopDeployCoolDown = millis();
   }
 
   if (keyCode == 'F') { //Makes an friendly Knight troop... Used for testing
     //h.selectorX = 100;
-    ft.add(new FKnight(knightLevel));
+    ft.add(new FKnight(friendlyKnightLevel));
     //h.selectorX = 31;
-    f.goldCount += 20;
+    f.playerGoldCount += 20;
     troopDeployCoolDown = millis();
   }
 
@@ -189,30 +190,38 @@ void keyPressed() {
   }
   
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
-    et.add(new EKnight());
-    f.goldCount += 20;
+    et.add(new EKnight(enemyKnightLevel));
+    f.enemyGoldCount += 20;
   }
   if (keyCode == '2') { //Makes an enemy Archer troop... Used for testing
-    et.add(new EArcher());
-    f.goldCount += 25;
+    et.add(new EArcher(enemyArcherLevel));
+    f.enemyGoldCount += 25;
   }
   if (keyCode == '3') { //Makes an enemy Mage troop... Used for testing
-    et.add(new EMage());
-    f.goldCount += 40;
+    et.add(new EMage(enemyMageLevel));
+    f.enemyGoldCount += 40;
   }
   if (keyCode == '4') { //Makes an enemy Cavalry troop... Used for testing
-    et.add(new ECavalry());
-    f.goldCount += 70;
+    et.add(new ECavalry(enemyCavalryLevel));
+    f.enemyGoldCount += 70;
   }
   if (keyCode == '5') { //Makes an enemy Giant troop... Used for testing
-    et.add(new EGiant());
-    f.goldCount += 100;
+    et.add(new EGiant(enemyGiantLevel));
+    f.enemyGoldCount += 100;
   }
-  if (keyCode == 'U') { //Upgrades the friendly Knight... Used for testing
-    knightLevel += 1;
-    archerLevel += 1;
-    mageLevel += 1;
-    cavalryLevel += 1;
-    giantLevel += 1;
+  if (keyCode == 'U') { //Upgrades all friendly Troop... Used for testing
+    friendlyKnightLevel += 1;
+    friendlyArcherLevel += 1;
+    friendlyMageLevel += 1;
+    friendlyCavalryLevel += 1;
+    friendlyGiantLevel += 1;
+  }
+  
+  if (keyCode == 'I') { //Upgrades all friendly Troop... Used for testing
+    enemyKnightLevel += 1;
+    enemyArcherLevel += 1;
+    enemyMageLevel += 1;
+    enemyCavalryLevel += 1;
+    enemyGiantLevel += 1;
   }
 }

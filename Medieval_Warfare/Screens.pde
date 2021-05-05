@@ -129,7 +129,28 @@ void GamingScreen() {
   rect(0, 1, width/2, 38); //Shows Friendly castle health boarder
   //strokeWeight(10);
   popMatrix();
-
+  
+  if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
+    image(specialButton, width/3*2 - 20, 80);
+    pushMatrix();
+    fill(120, 180);
+    strokeWeight(0);
+    rectMode(CORNER);
+    rect(width/3*2 + 75 - 20, 80 - 65/2, 5*-(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
+    strokeWeight(4);
+    noFill();
+    rect(width/3*2 - 75 - 20, 80 - 65/2, 150, 65);
+    fill(255);
+    popMatrix();
+  } else { //If ready shows "Special Ready!"
+    //text("Special Ready!", width/3*2, 90);
+    image(specialButton, width/3*2 - 20, 80);
+    strokeWeight(4);
+    noFill();
+    rect(width/3*2 - 75 - 20, 80 - 65/2, 150, 65);
+    fill(255);
+  }
+  
   h.selector(h.row);
   h.sendTroopAndUpgrades();
   h.options();
@@ -138,6 +159,10 @@ void GamingScreen() {
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
     ft.get(i).update();
     ft.get(i).checkCollision();
+    
+    if (ft.get(i).currentHP <= 0) {
+      ft.get(i).isDead = true;
+    }
     if (ft.get(i).isDead) {
       ft.remove(ft.get(i));
     }
@@ -147,10 +172,10 @@ void GamingScreen() {
     et.get(i).update();
     et.get(i).checkCollision();
 
-    if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358) {
-      et.get(i).currentHP -= 1*et.get(i).maxHP/100;
+    if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358 && et.get(i).pos.x >= posSpecial.x - 358) { //Checks if enemy troops are inside the special ability
+      et.get(i).currentHP -= 1*et.get(i).maxHP/100;                                                                         //And if they are, they will take damage over time
       if (et.get(i).currentHP <= 0) {
-        f.goldCount += et.get(i).worth*0.3;
+        f.playerGoldCount += et.get(i).worth*0.3;
         for (int j = 0; j < ft.size(); j++) {
           if (ft.get(j).pos.y == et.get(i).pos.y) {
             ft.get(j).occupied = false;
@@ -165,7 +190,6 @@ void GamingScreen() {
     }
   }
 
-
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
   image(fArcher, 340, 541);
   image(fMage, 425, 541);
@@ -177,28 +201,8 @@ void GamingScreen() {
   textFont(goldenIncome);
   fill(255);
 
-  text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
+  text("Gold: " + f.playerGoldCount, width/3, 90); //Writes the current amount of gold
 
-  if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
-    image(SpecialVisiualBox, width/3*2, 80);
-    pushMatrix();
-    fill(120, 180);
-    strokeWeight(0);
-    rectMode(CORNER);
-    rect(width/3*2+75, 80-32.5, 5*-(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
-    strokeWeight(4);
-    noFill();
-    rect(width/3*2-75, 80-32.5, 150, 65);
-    fill(255);
-    popMatrix();
-  } else { //If ready shows "Special Ready!"
-    //text("Special Ready!", width/3*2, 90);
-    image(SpecialVisiualBox, width/3*2, 80);
-    strokeWeight(4);
-    noFill();
-    rect(width/3*2-75, 80-32.5, 150, 65);
-    fill(255);
-  }
   textSize(12); //Changes the size to 12
   fill(0);
 
@@ -245,13 +249,20 @@ void EndScreen() {
       ft.remove(ft.get(i));
     }
 
-    f.goldCount = 1000; //Resets gold
+    f.playerGoldCount = 1000; //Resets player gold
+    f.enemyGoldCount = 1000; //Resets enemy gold
 
-    knightLevel = 1; //Resets troop lvl's back to 1
-    archerLevel = 1;
-    mageLevel = 1;
-    cavalryLevel = 1;
-    giantLevel = 1;
+    friendlyKnightLevel = 1; //Resets troop lvl's back to 1
+    friendlyArcherLevel = 1;
+    friendlyMageLevel = 1;
+    friendlyCavalryLevel = 1;
+    friendlyGiantLevel = 1;
+    
+    enemyKnightLevel = 1;
+    enemyArcherLevel = 1;
+    enemyMageLevel = 1;
+    enemyCavalryLevel = 1;
+    enemyGiantLevel = 1;
 
     currentEnemyCastleHP = 1000; //Resets Castle HP
     currentFriendlyCastleHP = 1000;

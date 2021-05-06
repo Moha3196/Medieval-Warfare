@@ -55,7 +55,6 @@ void StartScreen() {
 void Tutorial() {
   boolean mouseHand = false;
 
-
   pushMatrix();
   textAlign(CENTER, TOP);
   fill(0, 0, 0);
@@ -65,19 +64,13 @@ void Tutorial() {
   case 0:
     image(tutorialPage0, width/2, height/2); //Shows the first page of the Tutorial
     break;
+    //text("Current Lane", 195, 172);
 
   case 1:
     image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
     image(arrow, 245, 125);
     text("Player Health", 240, 185);
-
-
-
     textAlign(LEFT, CENTER);
-
- 
-    //text("Current Lane", 195, 172);
-
     break;
 
   case 2:
@@ -94,17 +87,29 @@ void Tutorial() {
     image(arrow, 0, 0);
     popMatrix();
     text("Settings", 620, 365);
+
+    fill(255, 255, 255);
+    rect(width/3-10, height/3, width/3+20, height/3+20);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("When you click the 'Settings' button the game pauses, and the game settings shows", width/3-8, height/3-3, width/3+20, height/3+20);
     break;
 
   case 4:
     image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
 
     pushMatrix();
-    translate(346, 410);
+    translate(346, 408);
     rotate(PI);
     image(arrow, 0, 0);
     popMatrix();
     text("Troop", 346, 315);
+
+    fill(255, 255, 255);
+    rect(width/3-60, height/4-5, width/3+120, height/5+50);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("When you click the 'troop' button a troop will spawn on the current lane    (lanes are explained later)", width/3-58, height/4-8, width/3+120, height/5+50);
     break;
 
   case 5:
@@ -116,6 +121,12 @@ void Tutorial() {
     image(arrow, 0, 0);
     popMatrix();
     text("Troop Cost", 270, 390);
+
+    fill(255, 255, 255);
+    rect(width/3-10, height/4, width/3+20, height/3-20);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("'Troop cost' is the amount of gold it requires to spawn the specefic unit", width/3-8, height/4-3, width/3+20, height/3-20);
     break;
   case 6:
     image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
@@ -126,23 +137,35 @@ void Tutorial() {
     image(arrow, 0, 0);
     popMatrix();
     text("Troop Upgrade", 180, 355);
+
+    fill(255, 255, 255);
+    rect(width/3-10, height/5, width/3+20, height/3+20);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("'Troop upgrade' is used to upgrade units by cliking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);
     break;
+
   case 7:
-   image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    image(tutorialPage2, width/2, height/2); //Shows the third page of the  Tutorial
 
     pushMatrix();
     translate(150, 170);
-    
     rotate(1.5*PI);
-    image(arrow, 0, 0);
-   
-    popMatrix();
-     image(selector, 67, 167);
-   text("Current Lane", 195, 100);
-    break;
 
-  case 8:
-    image(tutorialPage2, width/2, height/2); //Shows the third page of the  Tutorial
+    image(arrow, 0, 0);
+
+    popMatrix();
+
+    image(selector, 67, 167);
+    text("Current Lane", 195, 100);
+
+    fill(255, 255, 255);
+    rect(width/3-10, height/3, width/3+20, height/4-10);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("'Current Lane' Shows which lane your currently on", width/3-8, height/3-3, width/3+20, height/4-10);
+
     break;
   }
   popMatrix();
@@ -156,10 +179,10 @@ void Tutorial() {
     }    
     if (mouseX >= 724 && mouseX <= 744) {
       mouseHand = true;
-      if (mousePressed && tutorialPage != 8) {
+      if (mousePressed && tutorialPage != 7) {
         tutorialPage++;
         mousePressed = false;
-      } else if (mousePressed && tutorialPage == 8) {
+      } else if (mousePressed && tutorialPage == 7) {
         stage = 1;
         tutorialPage = 0;
         mousePressed = false;

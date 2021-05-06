@@ -1,5 +1,5 @@
 class Troop {
-  Troop currFoe; //declares a Troop for each Troop, so that the Troop being collided with has somewhere to be stored
+  Troop currFoe, currAlly; //declares a Troop for each Troop, so that the Troop being collided with has somewhere to be stored
 
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector();  //the speed of a troop - not constant for all troops
@@ -42,11 +42,11 @@ class Troop {
     
     fill(0);
     text("" + isWaiting, pos.x, pos.y - 80); //debugging
-    text("" + inCombat, pos.x, pos.y - 60);   //"
-    text(currHP, pos.x, pos.y - 40);                    //"
-    //circle(pos.x, pos.y, 10);                         //"
-    //circle(pos.x - bounds, pos.y, 15);                //"
-    //circle(pos.x + bounds, pos.y, 15);                //"
+    text("" + inCombat, pos.x, pos.y - 60);  //"
+    text(currHP, pos.x, pos.y - 40);         //"
+    //circle(pos.x, pos.y, 10);              //"
+    //circle(pos.x - bounds, pos.y, 15);     //"
+    //circle(pos.x + bounds, pos.y, 15);     //"
   }
 
 
@@ -54,22 +54,25 @@ class Troop {
     for (int i = 0; i < t.size(); i++) {
       if (this.currFoe == null || this.currFoe.isDead) { //no opponent means no combat
         this.inCombat = false;
-        //this.isWaiting = true; //for some reason the code just seems to use this value at all times if I define it here >:/
       }
+      if (this.currAlly == null || this.currAlly.isDead ||
+      dist(this.pos.x, this.pos.y, this.currAlly.pos.x, this.currAlly.pos.y) >= 50) { //finds distance to ally,
+        this.isWaiting = false;                                                       //if ally is far enough away, troop can stop waiting
+      }
+      
+      
       if (this != t.get(i) && this.pos.y == t.get(i).pos.y) { //should only check other troops, and not itself too and should only check on troop's own lane, not others
-        //if (dist(this.pos.x, this.pos.y, t.get(i).pos.x, t.get(i).pos.y) <= abs(this.bounds)) {
         if (this.pos.x + this.reach >= t.get(i).pos.x - 60 && this.pos.x + this.reach <= t.get(i).pos.x + 60) { //checks if another troop is within the current troop's range
           if (this.allegiance != t.get(i).allegiance) { //checks if other troop is current troop's enemy:
             beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
             this.inCombat = true;
             this.isWaiting = false;
-          } else if (friendlyCollision(this, t)) { //if not, they must be allies
+          } else /*if (friendlyCollision(this, t))*/ { //if not, they must be allies
             startWaiting(this.allegiance, this, t.get(i));
-            println("ran wait func");
-          } else /*if (t.size() == 1)*/ {
+            this.inCombat = false;
+          } /*else /*if (t.size() == 1) {
             this.isWaiting = false;
-            println("did not run wait func");
-          }
+          }*/
         } /*else /*if (this.currFoe == null || this.currFoe.isDead) {
           this.inCombat = false;
         } else if (t.size() == 1) {
@@ -94,25 +97,15 @@ class Troop {
       }
     }
   }
-  
-  boolean friendlyCollision(Troop ally1, ArrayList<Troop> allyList) {
-    for (int i = 0; i < allyList.size(); i++) {
-      if (ally1 != allyList.get(i)) {
-        if (dist(ally1.pos.x, pos.y, allyList.get(i).pos.x, allyList.get(i).pos.y) <= abs(ally1.bounds)) { 
-          return true;
-        }
-      }
-    }
-    return false; //if no troop is within the bounds, return false to avoid stopping
-  }
 
-  void startWaiting(int faction, Troop ally1, Troop ally2) { //function for collision between allied troops - collision depends on which faction's troops are colliding, so
+  void startWaiting(int faction, Troop ally1, Troop ally2) { //function for collision between allied troops - collision depends on which faction's troops are colliding
+    currAlly = ally2;
+    
     if (faction == 1) { //if it's the player's troops that are colliding:
-      if (ally1.pos.x >= ally2.pos.x - 50 && ally1.pos.x <= ally2.pos.x + 50) {
-        //if (ally1.pos.x >= ally2.pos.x - ally2.bounds && ally1.pos.x <= ally2.pos.x + ally2.bounds) {
+      //if (ally1.pos.x >= ally2.pos.x - 50 && ally1.pos.x <= ally2.pos.x + 50) {
+      if (ally1.pos.x >= ally2.pos.x - ally2.bounds && ally1.pos.x <= ally2.pos.x + ally2.bounds) {
         if (ally1.pos.x < ally2.pos.x) { //check if the first troop is ahead, since only the troop behind should stop moving
           ally1.isWaiting = true;
-          //ally2.isWaiting = false;
         }
       } else if (ally2.isDead) {
         ally1.isWaiting = false;
@@ -121,7 +114,6 @@ class Troop {
       if (ally1.pos.x <= ally2.pos.x + 50 && ally1.pos.x >= ally2.pos.x - 50) {
         if (ally2.pos.x < ally1.pos.x) { //check if the second troop is ahead (since enemy's troops walk backwards, comparred to player's troops)
           ally1.isWaiting = true;
-          //ally2.isWaiting = false;
         }
       } else if (ally2.isDead) {
         ally1.isWaiting = false;

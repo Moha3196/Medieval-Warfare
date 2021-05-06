@@ -44,9 +44,6 @@ class Troop {
     text("" + isWaiting, pos.x, pos.y - 80); //debugging
     text("" + inCombat, pos.x, pos.y - 60);  //"
     text(currHP, pos.x, pos.y - 40);         //"
-    //circle(pos.x, pos.y, 10);              //"
-    //circle(pos.x - bounds, pos.y, 15);     //"
-    //circle(pos.x + bounds, pos.y, 15);     //"
   }
 
 
@@ -67,19 +64,14 @@ class Troop {
             beginCombat(this, t.get(i)); //if so - calls collision/combat function for the two opposing troops
             this.inCombat = true;
             this.isWaiting = false;
-          } else /*if (friendlyCollision(this, t))*/ { //if not, they must be allies
+          } else { //if the troops are not enemies, they must be allies:
             startWaiting(this.allegiance, this, t.get(i));
-            this.inCombat = false;
-          } /*else /*if (t.size() == 1) {
-            this.isWaiting = false;
-          }*/
-        } /*else /*if (this.currFoe == null || this.currFoe.isDead) {
-          this.inCombat = false;
-        } else if (t.size() == 1) {
-          this.isWaiting = false;
-        }*/
+            this.inCombat = false; //troop can't be in combat, if an enemy is in front
+          }
+        }
       }
       
+      //following if-else statement is for checking collision with the castles
       if (this.allegiance == 1) {
         if (this.pos.x >= width - this.bounds - this.reach && this.pos.x <= width) { //checks if enemy's base is within player's troops' reach:
           f.enemyCurrHP = attackCastle(f.enemyCurrHP, this); //if so, damages the enemy's castle
@@ -121,7 +113,7 @@ class Troop {
     }
   }
 
-  void beginCombat(Troop ally, Troop opponent) { //only exists here, so sub-classes recognize the function
+  void beginCombat(Troop ally, Troop opponent) {
     currFoe = opponent;
 
     if (millis() - ally.attackCD >= attackFreq) { //if ally is ready to attack (i.e. cooldown has passed):
@@ -141,7 +133,6 @@ class Troop {
       attacker.attackCD = millis(); //resets attack cooldown
 
       if (factionHP <= 0) {
-        //opponent.isDead = true; //marks troop as dead, so it's removed at the end of draw()
         attacker.inCombat = false;
       }
     }
@@ -160,7 +151,7 @@ class Knight extends Troop {
     bounds = 72;
     if (faction == 1) { //determines which faction the troop being constructed belongs to
       troop = fKnight;
-      f.goldCount -= 20; //withdraws the cost of this troop from players gold - ONLY FOR TESTING
+      f.goldCount -= 20; //withdraws the cost of this troop from players gold - This method of withdrawing is only for testing!
     } else {
       troop = eKnight;
       pos.x = width - (h.selectorX + 20); //places troop on the other side of the map, i.e. at enemy's base, and at the same distance from the castle as player's troops are placed

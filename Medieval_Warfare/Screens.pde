@@ -113,9 +113,6 @@ void GamingScreen() {
   if (specialMoving) {
     posSpecial.x += 2;
   }
-  //if (posSpecial.x == 400) {
-  //  specialMoving = false;
-  //}
 
   fill(0, 255, 0);
   rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
@@ -258,16 +255,8 @@ void EndScreen() {
   }
 
   if (restart) {
-    println(et.size());
-    println(ft.size());
-    
-    for (int i = 0; i < et.size(); i++) { //Deletes all enemy troops
-      et.remove(et.get(i));
-    }
-    
-    for (int i = 0; i < ft.size(); i++) { //Deletes all friendly troops
-      ft.remove(ft.get(i));
-    }
+    et.clear(); //Deletes all enemy troops
+    ft.clear(); //Deletes all friendly troops
 
     f.playerGoldCount = 1000; //Resets player gold
     f.enemyGoldCount = 1000; //Resets enemy gold
@@ -288,7 +277,9 @@ void EndScreen() {
     currentFriendlyCastleHP = 1000;
 
     stage = 3; //Restarts Game on GamingScreen
-    lastSpecialUsed = millis();
+    lastSpecialUsed = millis(); //Resets the special timer
+    posSpecial.x = -316; //Resets special
+    specialMoving = false; 
 
     restart = false;
   }

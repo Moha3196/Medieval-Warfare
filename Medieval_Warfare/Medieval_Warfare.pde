@@ -21,8 +21,10 @@ int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalry
 int stage = 1; //Used to switch screens
 
 int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
-int enemyTroopDeployCoolDown; //The timer for deploying enemy troops.
 int delayTime = 1000; //The delay time for deploying troops.
+
+int enemyTroopDeployCoolDown; //The timer for deploying enemy troops.
+int enemySpawnDelayTime = 4000; //The delay time for deploying troops.
 
 int specialCoolDown = 30000; //The timer for special.
 int lastSpecialUsed; //The last time special was used

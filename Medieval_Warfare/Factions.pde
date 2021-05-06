@@ -21,28 +21,56 @@ class Factions {
   void EnemySpawning() {
     int[] friendliesInLane = new int[6];
     for (int i = 0; i < 6; i++) { //Counts how many friendly troops there is in every lane
-      int lanePosY = 92 + (60 * (i+1));
+      int lanePosY = 92 + (60 * (i+1)); //Y-Position of the lanes
       for (int j = 0; j < ft.size(); j++) {
-        if (ft.get(j).pos.y == lanePosY) {
+        if (ft.get(j).pos.y == lanePosY) { //Checks if the friendly troop is on the current lane, and if it is, then it gets added to the Array
           friendliesInLane[i]++;
         }
       }
     }
 
-    int[] indexNumbersOfMaxValues = indexesOfMaxValues(friendliesInLane);
-    int[] lanesWithHighestNumberOfFriendlyTroops = new int[numberOfMaxIndexes];
-
-    for (int i = 0; i < lanesWithHighestNumberOfFriendlyTroops.length; i++) {
+    int[] indexNumbersOfMaxValues = indexesOfMaxValues(friendliesInLane); //Array that stores the highest lanes in it by using the indexesOfMaxValues function
+    int[] lanesWithHighestNumberOfFriendlyTroops = new int[numberOfMaxIndexes]; //Made a new Array that would only contain the specific amount of lanes
+    //with highest amount, since the indexNumbersOfMaxValues has a lot of 
+    for (int i = 0; i < lanesWithHighestNumberOfFriendlyTroops.length; i++) {   //empty places after
       lanesWithHighestNumberOfFriendlyTroops[i] = indexNumbersOfMaxValues[i];
     }
 
     int randomLaneSelector = (int)random(0, lanesWithHighestNumberOfFriendlyTroops.length);
     int selectedLane = lanesWithHighestNumberOfFriendlyTroops[randomLaneSelector];
     int enemySpawnY = 92 + (60 * (selectedLane + 1)); //Sets the troop y-position according to the lane 
-    
-    //if (millis() - enemyTroopDeployCoolDown >= delayTime*4 && ft.size() > 0) { //Spawns enemy troops on the lane with highest amount of enemies.
-    if (millis() - enemyTroopDeployCoolDown >= delayTime*4){ //Spawns enemy troops on the lane with highest amount of enemies.
-      switch(selectedLane) {
+
+    int ESelectedUnit = 0;
+    int ChosenUnitCost = 0;
+    boolean EUnitSelected = false;
+    if (EUnitSelected == false) {
+      ESelectedUnit = (int)random(0, 5);
+      switch(ESelectedUnit) {
+      case 0:
+        EUnitSelected = true;
+        ChosenUnitCost = 20;
+        break;
+      case 1:
+        EUnitSelected = true;
+        ChosenUnitCost = 25;
+        break;
+      case 2:
+        EUnitSelected = true;
+        ChosenUnitCost = 40;
+        break;
+      case 3:
+        EUnitSelected = true;
+        ChosenUnitCost = 70;
+        break;
+      case 4:
+        EUnitSelected = true;
+        ChosenUnitCost = 100;
+        break;
+      }
+    }
+
+    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - enemyTroopDeployCoolDown >= enemySpawnDelayTime) { //Spawns enemy troops on the lane with highest amount of enemies.
+      switch(ESelectedUnit) {
       case 0:
         et.add(new EKnight(enemyKnightLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
@@ -54,31 +82,21 @@ class Factions {
         break; 
 
       case 2:
-      et.add(new EMage(enemyKnightLevel, enemySpawnY));
-      enemyTroopDeployCoolDown = millis();
+        et.add(new EMage(enemyKnightLevel, enemySpawnY));
+        enemyTroopDeployCoolDown = millis();
         break;
 
       case 3:
-      et.add(new ECavalry(enemyKnightLevel, enemySpawnY));
-      enemyTroopDeployCoolDown = millis();
+        et.add(new ECavalry(enemyKnightLevel, enemySpawnY));
+        enemyTroopDeployCoolDown = millis();
         break;
 
       case 4:
-      et.add(new EGiant(enemyKnightLevel, enemySpawnY));
-      enemyTroopDeployCoolDown = millis();
-        break;
-
-      case 5:
-      enemyTroopDeployCoolDown = millis();
+        et.add(new EGiant(enemyKnightLevel, enemySpawnY));
+        enemyTroopDeployCoolDown = millis();
         break;
       }
     }
-
-    //println(lanesWithHighestNumberOfFriendlyTroops);
-    //println("");
-    //println("");
-    //println("");
-    //println("");
   }
 
   int[] indexesOfMaxValues(int[] chosenArray) { //Fuction that finds all the indexes with the highest Value
@@ -94,8 +112,8 @@ class Factions {
     }
 
     int countOfMaxIndexes = 0;
-    for (int i = 0; i < chosenArray.length; i++) { //For loop that checks every index value, and sees if the value is equal to the max value, and if it is
-      if (chosenArray[i] == maxValue) {            //then it stores the index in a new Array
+    for (int i = 0; i < chosenArray.length; i++) { //For loop that checks every index value, and sees if the value is equal to the max value,
+      if (chosenArray[i] == maxValue) {            //and if it is, then it stores the index in a new Array
         MaxIndexes[countOfMaxIndexes] = i;
         countOfMaxIndexes++;
       }

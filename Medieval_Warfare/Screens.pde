@@ -75,7 +75,7 @@ void Tutorial() {
 
     textAlign(LEFT, CENTER);
 
- 
+
     //text("Current Lane", 195, 172);
 
     break;
@@ -128,17 +128,17 @@ void Tutorial() {
     text("Troop Upgrade", 180, 355);
     break;
   case 7:
-   image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
 
     pushMatrix();
     translate(150, 170);
-    
+
     rotate(1.5*PI);
     image(arrow, 0, 0);
-   
+
     popMatrix();
-     image(selector, 67, 167);
-   text("Current Lane", 195, 100);
+    image(selector, 67, 167);
+    text("Current Lane", 195, 100);
     break;
 
   case 8:
@@ -209,7 +209,7 @@ void GamingScreen() {
 
   h.selector(h.row);
   h.sendTroopAndUpgrades();
-  h.options();
+ 
   f.PassiveGold();
 
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
@@ -295,7 +295,10 @@ void GamingScreen() {
     won = true;
     stage = 4;
   }
+  textAlign(LEFT);
+h.options();
 }
+
 
 
 void EndScreen() {

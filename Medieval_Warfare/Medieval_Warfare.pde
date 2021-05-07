@@ -41,10 +41,10 @@ boolean restart = false; //Value for restarting game
 void setup() {
   size(800, 600);
   frameRate(60);
-  
+
   posSpecial.x = -316;
   posSpecial.y = h.selectorY;
-  
+
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
 
@@ -105,12 +105,12 @@ void setup() {
   highlight = loadImage("Highlighted box.png");
   upgradeHighlight = loadImage("upgradeHighlight box.png");
   options   = loadImage("options.png");
-  
+
   fireTrailSpecial = loadImage("Fire_trail_special.png");
-  
+
   fireTrailSpecialVisiualBox = loadImage("Fire_trail_special.png");
   fireTrailSpecialVisiualBox.resize(150, 65);
-  
+
   goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.
   textFont(goldenIncome);
 
@@ -179,11 +179,11 @@ void keyPressed() {
     specialMoving = true;
     lastSpecialUsed = millis();
   }
-  
+
   if (keyCode == 'R') { //Restarts game
     restart = true;
   }
-  
+
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight());
     f.goldCount += 20;

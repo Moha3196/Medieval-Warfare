@@ -25,7 +25,7 @@ class EnemyTroop {
 
 
   void update() {
-    if (!occupied && !enemyOccupied && !enemyInFront) {
+    if (!occupied && !enemyOccupied && !enemyInFront && h.settingsOpen == false) {
       pos.add(speed);
     }
     pushMatrix();

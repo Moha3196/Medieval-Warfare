@@ -52,7 +52,7 @@ void StartScreen() {
 
 
 
-void Tutorial() {
+void Tutorial() {    //Explain the different features in the game
   boolean mouseHand = false;
 
   pushMatrix();
@@ -60,27 +60,38 @@ void Tutorial() {
   fill(0, 0, 0);
   textSize(28);
 
-  switch(tutorialPage) {
-  case 0:
-    image(tutorialPage0, width/2, height/2); //Shows the first page of the Tutorial
-    break;
-    //text("Current Lane", 195, 172);
+  switch(tutorialPage) { //Switches between the different pages
 
-  case 1:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+  case 0://Shows the first page of the Tutorial
+    image(tutorialPage0, width/2, height/2); 
+
+    textSize(60); 
+    text("Tutorial", width/2, 30);
+
+    textSize(28);
+    textAlign(LEFT, TOP);
+    text("Use the left click key on a mouse to interact with most features in this game", width/3, 120, width/2+20, 150); //explains left click effect
+
+    text("Use the up and down arrow to switch the current lane (lanes are explained later)", width/3, 270, width/2+20, 150); //explains up and down arrow effect
+
+    text("Use the spacebar to activate the special ability, which does damage to enemies on a lane", width/3, 425, width/2+20, 150); //explains spacebar effect
+    break;
+
+  case 1://Shows the second page of the Tutorial
+    image(tutorialPage1, width/2, height/2); 
     image(arrow, 245, 125);
-    text("Player Health", 240, 185);
+    text("Player Health", 240, 185); 
     textAlign(LEFT, CENTER);
     break;
 
-  case 2:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+  case 2://Shows the third page of the Tutorial
+    image(tutorialPage1, width/2, height/2); 
     image(arrow, 558, 125);
     text("Enemy Health", 558, 185);
     break;
 
-  case 3:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+  case 3://Shows the fourth page of the Tutorial
+    image(tutorialPage1, width/2, height/2); 
     pushMatrix();
     translate(650, 450);
     rotate(0.75*PI);
@@ -92,11 +103,11 @@ void Tutorial() {
     rect(width/3-10, height/3, width/3+20, height/3+20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("When you click the 'Settings' button the game pauses, and the game settings shows", width/3-8, height/3-3, width/3+20, height/3+20);
+    text("When you click the 'Settings' button the game pauses, and the game settings shows", width/3-8, height/3-3, width/3+20, height/3+20);//explains settings effect
     break;
 
-  case 4:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+  case 4://Shows the fifth page of the Tutorial
+    image(tutorialPage1, width/2, height/2); 
 
     pushMatrix();
     translate(346, 408);
@@ -109,11 +120,11 @@ void Tutorial() {
     rect(width/3-60, height/4-5, width/3+120, height/5+50);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("When you click the 'troop' button a troop will spawn on the current lane    (lanes are explained later)", width/3-58, height/4-8, width/3+120, height/5+50);
+    text("When you click the 'troop' button a troop will spawn on the current lane    (lanes are explained later)", width/3-58, height/4-8, width/3+120, height/5+50);//explains troop effect
     break;
 
-  case 5:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+  case 5://Shows the sixth page of the Tutorial
+    image(tutorialPage1, width/2, height/2); 
 
     pushMatrix();
     translate(270, 485);
@@ -126,10 +137,11 @@ void Tutorial() {
     rect(width/3-10, height/4, width/3+20, height/3-20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Troop cost' is the amount of gold it requires to spawn the specefic unit", width/3-8, height/4-3, width/3+20, height/3-20);
+    text("'Troop cost' is the amount of gold it requires to spawn the specefic unit", width/3-8, height/4-3, width/3+20, height/3-20);//explains prices
     break;
-  case 6:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+
+  case 6: //Shows the seventh page of the Tutorial
+    image(tutorialPage1, width/2, height/2);
 
     pushMatrix();
     translate(180, 450);
@@ -142,12 +154,11 @@ void Tutorial() {
     rect(width/3-10, height/5, width/3+20, height/3+20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Troop upgrade' is used to upgrade units by cliking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);
+    text("'Troop upgrade' is used to upgrade units by cliking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);//explains upgrades
     break;
 
-  case 7:
-    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
-    image(tutorialPage2, width/2, height/2); //Shows the third page of the  Tutorial
+  case 7: //Shows the eight page of the Tutorial
+    image(tutorialPage1, width/2, height/2);
 
     pushMatrix();
     translate(150, 170);
@@ -164,8 +175,34 @@ void Tutorial() {
     rect(width/3-10, height/3, width/3+20, height/4-10);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Current Lane' Shows which lane your currently on", width/3-8, height/3-3, width/3+20, height/4-10);
+    text("'Current Lane' Shows which lane your currently on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
 
+    break;
+  case 8: //Shows the ninth page of the Tutorial
+    image(tutorialPage1, width/2, height/2);
+
+    image(arrow, 400, 200);
+    text("Ability Button", 400, 250);
+
+    fill(255, 255, 255);
+    rect(width/3-25, height/2, width/3+50, height/4-10);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("'Ability Button' Shows the cooldown left on ability use", width/3-23, height/2-3, width/3+50, height/4-10);//explains current lane
+    break;
+
+  case 9: //Shows the tenth page of the Tutorial
+    image(tutorialPage1, width/2, height/2);
+    image(tutorialPage2, width/2, height/2);
+
+    image(arrow, 650, 200);
+    text("Enemy level", 610, 250);
+
+    fill(255, 255, 255);
+    rect(width/3-10, height/2, width/3+20, height/4-10);
+    fill(0, 0, 0);
+    textAlign(LEFT, TOP);
+    text("'Enemy level' Shows the current enemy level", width/3-8, height/2-3, width/3+20, height/4-10);//explains current lane
     break;
   }
   popMatrix();
@@ -179,10 +216,10 @@ void Tutorial() {
     }    
     if (mouseX >= 724 && mouseX <= 744) {
       mouseHand = true;
-      if (mousePressed && tutorialPage != 7) {
+      if (mousePressed && tutorialPage != 9) {
         tutorialPage++;
         mousePressed = false;
-      } else if (mousePressed && tutorialPage == 7) {
+      } else if (mousePressed && tutorialPage == 9) {
         stage = 1;
         tutorialPage = 0;
         mousePressed = false;

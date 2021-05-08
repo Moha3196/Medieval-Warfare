@@ -1,5 +1,5 @@
-ArrayList<FriendlyTroop> ft = new ArrayList<FriendlyTroop>();
-ArrayList<EnemyTroop> et = new ArrayList<EnemyTroop>();
+ArrayList<FriendlyTroop> ft = new ArrayList<FriendlyTroop>(0);
+ArrayList<EnemyTroop> et = new ArrayList<EnemyTroop>(0);
 FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
@@ -47,7 +47,7 @@ void setup() {
   frameRate(60);
   
   posSpecial.x = -316;
-  posSpecial.y = h.selectorY;
+  posSpecial.y = 200;
   
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;

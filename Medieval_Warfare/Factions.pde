@@ -20,24 +20,71 @@ class Factions {
   int numberOfMaxIndexes;
   void EnemySpawning() {
     int[] friendliesInLane = new int[6];
+    boolean[] friendliesAttackingCastleWithNoResistance = new boolean[6];
     for (int i = 0; i < 6; i++) { //Counts how many friendly troops there is in every lane
+      int resistance = 0;
+      int[] notAttacking = new int[6];
       int lanePosY = 92 + (60 * (i+1)); //Y-Position of the lanes
-      for (int j = 0; j < ft.size(); j++) {
-        if (ft.get(j).pos.y == lanePosY) { //Checks if the friendly troop is on the current lane, and if it is, then it gets added to the Array
+      int enemiesInLane = 0;
+
+      for (int f = 0; f < ft.size(); f++) {
+        if (ft.get(f).pos.y == lanePosY) { //Checks if the friendly troop is on the current lane, and if it is, then it gets added to the Array
           friendliesInLane[i]++;
         }
+        
+        for (int e = 0; e < et.size(); e++) {
+          if (et.get(e).pos.y == lanePosY) { //Checks if there is enemies in the lane
+            enemiesInLane++;
+          }
+        }
+        
+        if (!ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY) {
+          notAttacking[i]++;
+        } else if (ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY && enemiesInLane == 0) {
+          notAttacking[i] = 0;
+        } else if (ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY && enemiesInLane > 0) {
+          resistance++;
+        }
       }
+
+      if (notAttacking[i] > 0 || friendliesInLane[i] == 0) { //If there is no friendly troops in lane or if the troop isnt attaking castle, sets boolean to false
+        friendliesAttackingCastleWithNoResistance[i] = false;
+      } else if (notAttacking[i] == 0 && enemiesInLane == 0 ) { //If the troop is attacking but there is no resistance, sets boolean to true
+        friendliesAttackingCastleWithNoResistance[i] = true;
+      } else if (resistance > 0) { //If the troop is attacking and there is resistance, sets boolean to false
+        friendliesAttackingCastleWithNoResistance[i] = false;
+      }
+
+      resistance = 0; //Resets Resistance
     }
+
+    //println(friendliesAttackingCastleWithNoResistance);
+    //println("");
 
     int[] indexNumbersOfMaxValues = indexesOfMaxValues(friendliesInLane); //Array that stores the highest lanes in it by using the indexesOfMaxValues function
     int[] lanesWithHighestNumberOfFriendlyTroops = new int[numberOfMaxIndexes]; //Made a new Array that would only contain the specific amount of lanes
-    //with highest amount, since the indexNumbersOfMaxValues has a lot of 
+                                                                                //with highest amount, since the indexNumbersOfMaxValues has a lot of 
     for (int i = 0; i < lanesWithHighestNumberOfFriendlyTroops.length; i++) {   //empty places after
       lanesWithHighestNumberOfFriendlyTroops[i] = indexNumbersOfMaxValues[i];
     }
 
-    int randomLaneSelector = (int)random(0, lanesWithHighestNumberOfFriendlyTroops.length);
-    int selectedLane = lanesWithHighestNumberOfFriendlyTroops[randomLaneSelector];
+    ArrayList<Integer> lanesWithNoResistance = new ArrayList<Integer>();
+    for (int i = 0; i < 6; i++) { //Converts the indexes of the lanes with not resistance to another array
+      if (friendliesAttackingCastleWithNoResistance[i]) {
+        lanesWithNoResistance.add(i);
+      }
+    }
+
+    int randomLaneSelector;
+    int selectedLane;
+    if (lanesWithNoResistance.size() == 0) { //If there is no attack on castle then focus lane with highest amount of troops
+      randomLaneSelector = (int)random(0, lanesWithHighestNumberOfFriendlyTroops.length);
+      selectedLane = lanesWithHighestNumberOfFriendlyTroops[randomLaneSelector];
+    } else { //Sends troops to defend against castle attack 
+      randomLaneSelector = (int)random(0, lanesWithNoResistance.size());
+      selectedLane = lanesWithNoResistance.get(randomLaneSelector);
+    }
+
     int enemySpawnY = 92 + (60 * (selectedLane + 1)); //Sets the troop y-position according to the lane 
 
     int ESelectedUnit = 0;
@@ -45,7 +92,7 @@ class Factions {
     boolean EUnitSelected = false;
     if (EUnitSelected == false) {
       ESelectedUnit = (int)random(0, 5);
-      switch(ESelectedUnit) {
+      switch(ESelectedUnit) { //Chooses a random troop
       case 0:
         EUnitSelected = true;
         ChosenUnitCost = 20;
@@ -69,31 +116,41 @@ class Factions {
       }
     }
 
-    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - enemyTroopDeployCoolDown >= enemySpawnDelayTime) { //Spawns enemy troops on the lane with highest amount of enemies.
-      switch(ESelectedUnit) {
+    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - enemyTroopDeployCoolDown >= enemySpawnDelayTime) {
+      switch(ESelectedUnit) { //Spawns enemy troops on the selected lane
       case 0:
         et.add(new EKnight(enemyKnightLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
+        enemyGoldCount -= ChosenUnitCost;
+        EUnitSelected = false;
         break;
 
       case 1:
-        et.add(new EArcher(enemyKnightLevel, enemySpawnY));
+        et.add(new EArcher(enemyArcherLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
+        enemyGoldCount -= ChosenUnitCost;
+        EUnitSelected = false;
         break; 
 
       case 2:
-        et.add(new EMage(enemyKnightLevel, enemySpawnY));
+        et.add(new EMage(enemyMageLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
+        enemyGoldCount -= ChosenUnitCost;
+        EUnitSelected = false;
         break;
 
       case 3:
-        et.add(new ECavalry(enemyKnightLevel, enemySpawnY));
+        et.add(new ECavalry(enemyCavalryLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
+        enemyGoldCount -= ChosenUnitCost;
+        EUnitSelected = false;
         break;
 
       case 4:
-        et.add(new EGiant(enemyKnightLevel, enemySpawnY));
+        et.add(new EGiant(enemyGiantLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
+        enemyGoldCount -= ChosenUnitCost;
+        EUnitSelected = false;
         break;
       }
     }

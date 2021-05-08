@@ -10,6 +10,7 @@ class EnemyTroop {
   boolean occupied = false; //Boolean to check if in Combat
   boolean enemyOccupied = false; //Booleans to check if there is enemy troops not moving infront
   boolean enemyInFront = false; //Booleans to check if there is enemy troops moving infront
+  boolean attackingCastle = false; //Boolean to check if troop is attacking castle
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
   int worth;
@@ -26,7 +27,7 @@ class EnemyTroop {
 
 
   void update() {
-    if (!occupied && !enemyOccupied && !enemyInFront) {
+    if (!occupied && !enemyOccupied && !enemyInFront && !attackingCastle) {
       pos.add(speed);
     }
     pushMatrix();
@@ -50,8 +51,8 @@ class EnemyTroop {
 
   void checkCollision() {
     if (pos.x <= 0 + 75 + reach && pos.x > 0) { //Checks collision with Friendly castle
-      speed.x = 0;
-      if (millis() - lastTimeAttacked >= attackSpeed*1000) {
+      attackingCastle = true;
+      if (millis() - lastTimeAttacked >= attackSpeed*1000 && attackingCastle) {
         currentFriendlyCastleHP -= damage;
         lastTimeAttacked = millis();
       }
@@ -82,7 +83,8 @@ class EnemyTroop {
         && !occupied 
         && !enemyOccupied
         && (et.get(i).occupied
-        || et.get(i).enemyOccupied)
+        || et.get(i).enemyOccupied
+        || et.get(i).attackingCastle)
         && !et.get(i).isDead) { //Checks collision with friendly troops
         enemyTroopInFront = et.get(i); 
         enemyOccupied = true;
@@ -97,7 +99,8 @@ class EnemyTroop {
     for (int i = 0; i < ft.size(); i++) {
       if (pos.x <= ft.get(i).pos.x + 30 + reach 
         && pos.y == ft.get(i).pos.y 
-        && !occupied 
+        && !occupied
+        && !attackingCastle
         && !ft.get(i).isDead) { //Checks collision with friendly troops, if there is changes occupied to be true
         currentFriendlyTroop = ft.get(i); 
         occupied = true;

@@ -16,6 +16,7 @@ void StartScreen() {
       if (mousePressed) { //Starts the Game
         stage = 3;
         lastSpecialUsed = millis();
+        enemyTroopDeployCoolDown = millis();
       }
     }
 
@@ -200,7 +201,7 @@ void GamingScreen() {
     }
   }
 
-  f.EnemySpawning();
+  //f.EnemySpawning();
 
 
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
@@ -275,6 +276,8 @@ void EndScreen() {
 
     currentEnemyCastleHP = 1000; //Resets Castle HP
     currentFriendlyCastleHP = 1000;
+
+    enemyTroopDeployCoolDown = millis(); //Resets Troop spawning
 
     stage = 3; //Restarts Game on GamingScreen
     lastSpecialUsed = millis(); //Resets the special timer

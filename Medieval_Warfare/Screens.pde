@@ -201,7 +201,7 @@ void GamingScreen() {
     }
   }
 
-  //f.EnemySpawning();
+  f.EnemySpawning();
 
 
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.

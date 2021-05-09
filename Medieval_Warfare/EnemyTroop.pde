@@ -18,7 +18,6 @@ class EnemyTroop {
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
   EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
-
   EnemyTroop () {
     pos.x = width - h.selectorX - 20;
     //pos.y = h.selectorY;
@@ -152,8 +151,9 @@ class EKnight extends EnemyTroop {
     troop = eKnight;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 5 * statsUpgrade;
-    maxHP = 20 * statsUpgrade;
+    attackSpeed = 1;
+    damage = 4 * statsUpgrade;
+    maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
     worth = 20;
@@ -180,9 +180,9 @@ class EArcher extends EnemyTroop {
     troop = eArcher;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    attackSpeed = 0.5;
-    damage = 2 * statsUpgrade;
-    maxHP = 15 * statsUpgrade;
+    attackSpeed = 0.7;
+    damage = 4 * statsUpgrade;
+    maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
     worth = 25;
@@ -208,8 +208,9 @@ class EMage extends EnemyTroop {
     troop = eMage;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 8 * statsUpgrade;
-    maxHP = 15 * statsUpgrade;
+    attackSpeed = 2.5;
+    damage = 15 * statsUpgrade;
+    maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
     worth = 40;
@@ -235,7 +236,8 @@ class ECavalry extends EnemyTroop {
     troop = eCavalry;
     speed.x = -0.9;
     speedBeforeContact = speed.x;
-    damage = 4 * statsUpgrade;
+    attackSpeed = 1.5;
+    damage = 5 * statsUpgrade;
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
@@ -264,7 +266,7 @@ class EGiant extends EnemyTroop {
     speedBeforeContact = speed.x;
     attackSpeed = 2;
     damage = 10 * statsUpgrade;
-    maxHP = 70 * statsUpgrade;
+    maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
     worth = 100;

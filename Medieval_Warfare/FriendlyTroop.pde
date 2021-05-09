@@ -147,8 +147,9 @@ class FKnight extends FriendlyTroop {
     troop = fKnight;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
-    damage = 5 * statsUpgrade;
-    maxHP = 20 * statsUpgrade;
+    attackSpeed = 1;
+    damage = 4 * statsUpgrade;
+    maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
     worth = 20;
@@ -173,9 +174,9 @@ class FArcher extends FriendlyTroop {
     troop = fArcher;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
-    attackSpeed = 0.5;
-    damage = 2 * statsUpgrade;
-    maxHP = 15 * statsUpgrade;
+    attackSpeed = 0.7;
+    damage = 4 * statsUpgrade;
+    maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
     worth = 25;
@@ -200,8 +201,9 @@ class FMage extends FriendlyTroop {
     troop = fMage;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
-    damage = 8 * statsUpgrade;
-    maxHP = 15 * statsUpgrade;
+    attackSpeed = 2.5;
+    damage = 15 * statsUpgrade;
+    maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
     worth = 40;
@@ -226,7 +228,8 @@ class FCavalry extends FriendlyTroop {
     troop = fCavalry;
     speed.x = 0.9;
     speedBeforeContact = speed.x;
-    damage = 4 * statsUpgrade;
+    attackSpeed = 1.5;
+    damage = 5 * statsUpgrade;
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
@@ -254,7 +257,7 @@ class FGiant extends FriendlyTroop {
     speedBeforeContact = speed.x;
     attackSpeed = 2;
     damage = 10 * statsUpgrade;
-    maxHP = 70 * statsUpgrade;
+    maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
     worth = 100;

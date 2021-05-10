@@ -167,6 +167,7 @@ class HUD {
     if  (mousePressed && mouseButton == LEFT) {
       if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
         settingsOpen = true;
+        specialCoolDownBeforeOptions = millis() - lastSpecialUsed;
       }
     }
 
@@ -198,6 +199,7 @@ class HUD {
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 140 && mouseY <= 210) { //resume Button
           settingsOpen = false;
+          lastSpecialUsed = millis() - specialCoolDownBeforeOptions;
         }
       }
      

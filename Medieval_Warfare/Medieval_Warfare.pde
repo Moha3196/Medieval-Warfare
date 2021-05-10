@@ -35,6 +35,7 @@ int enemyTroopDeployCoolDown; //The timer for deploying enemy troops.
 int enemySpawnDelayTime = 4000; //The delay time for deploying troops.
 
 int specialCoolDown = 30000; //The timer for special.
+int specialCoolDownBeforeOptions; //The timer for special before option was opened.
 int lastSpecialUsed; //The last time special was used
 
 int passiveGoldCoolDown; //The timer for gaining gold.
@@ -75,7 +76,7 @@ void setup() {
   tutorialPage1 = loadImage("TutorialPage1.png");
   tutorialPage1.resize(width, height); //Resizes the Tutorial so it fits the boarder
 
-  tutorialPage2 = loadImage("tutorialPage2.png");
+  tutorialPage2 = loadImage("TutorialPage2.png");
   tutorialPage2.resize(width, height); //Resizes the Tutorial so it fits the boarder
 
   arrow = loadImage("Arrow.png");
@@ -195,7 +196,7 @@ void mousePressed() {
 }
 
 void keyPressed() {
-  if (keyCode == UP || key =='s') { //to change the selected row (marked with the arrow)
+  if (keyCode == UP || key == 'w') { //to change the selected row (marked with the arrow)
     h.row -= 1;
 
     if (h.row <= 0) { //used for wrap-around for the selector

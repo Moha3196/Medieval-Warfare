@@ -162,30 +162,33 @@ void draw() {
     h.options();
   }
   m.volume(vol);
-  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+
+  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 void mouseClicked() {
   if  (mouseButton == LEFT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
     if (h.difficulty <= 2) {
       h.difficulty++;
+      f.setDifficulty(h.difficulty);
     } else {
       h.difficulty = 1;
     }
   } else if (mouseButton == RIGHT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
     if (h.difficulty >= 2) {
       h.difficulty--;
+      f.setDifficulty(h.difficulty);
     } else {
       h.difficulty = 3;
     }
   }
   if  (mouseButton == LEFT && mouseX >= 260 && mouseX <= 540 && mouseY >= 225 && mouseY <= 295) { //Volume button
     if (vol < 1) {
-      vol += 0.10;
+      vol += 0.1;
     }
   } else if (mouseButton == RIGHT && mouseX >= 260 && mouseX <= 540 && mouseY >= 225 && mouseY <= 295) {
     if (vol >= 0.1) {
-      vol -= 0.10;
+      vol -= 0.1;
     }
   }
 }

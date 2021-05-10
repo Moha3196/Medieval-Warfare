@@ -26,8 +26,7 @@ class FriendlyTroop {
 
 
   void update() {
-    if (!occupied && !friendlyOccupied && !friendlyInFront && !attackingCastle) {
-    if (!occupied && !friendlyOccupied && !friendlyInFront && h.settingsOpen == false) {
+    if (!occupied && !friendlyOccupied && !friendlyInFront && !attackingCastle && h.settingsOpen == false) {
       pos.add(speed);
     }
     image(troop, pos.x, pos.y);
@@ -155,7 +154,6 @@ class FKnight extends FriendlyTroop {
     reach = 10;
     worth = friendlyKnightWorth;
     f.playerGoldCount -= worth;
-    worth = 20*f.multiplier;
     troopLevel = lvl;
   }
 

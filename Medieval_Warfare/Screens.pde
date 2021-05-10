@@ -151,7 +151,7 @@ void GamingScreen() {
 
   h.selector(h.row);
   h.sendTroopAndUpgrades();
- 
+
   f.PassiveGold();
 
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
@@ -225,7 +225,7 @@ void GamingScreen() {
   text("Mage", 425, 493);
   text("Cavalry", 510, 493);
   text("Giant", 595, 493);
-  
+
   textSize(16); //Changes the size to 16
   text((int)friendlyKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
   text((int)friendlyArcherWorth, 340, 590);
@@ -243,7 +243,7 @@ void GamingScreen() {
     stage = 4;
   }
   textAlign(LEFT);
-h.options();
+  //h.options();
 }
 
 

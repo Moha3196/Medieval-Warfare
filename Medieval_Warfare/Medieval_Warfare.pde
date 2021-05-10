@@ -129,13 +129,13 @@ void setup() {
 
 
 void draw() {
-  switch(stage) {//Stages is used to switch between screens
+  switch(stage) { //Stages is used to switch between screens
   case 1:
     StartScreen();
     break; 
 
   case 2:
-    Tutorial();
+    //Tutorial();
     break;
 
   case 3:
@@ -149,6 +149,7 @@ void draw() {
 
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
+
 void mouseClicked() {
   if  (mouseButton == LEFT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
     if (h.difficulty <= 2) {

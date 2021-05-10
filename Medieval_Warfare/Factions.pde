@@ -1,8 +1,8 @@
 class Factions {
-  int playerGoldCount = 100;
-  int enemyGoldCount = 10000;
+  int playerGoldCount = 200;
+  int enemyGoldCount = 200;
   int numberOfMaxIndexes;
-  float multiplier;
+  float multiplier = 1;
 
   Factions() {
   }
@@ -171,6 +171,7 @@ class Factions {
       }
     }
   }
+
   //<------
   int[] indexesOfMaxValues(int[] chosenArray) { //Fuction that finds all the indexes with the highest Value
     int maxValue = chosenArray[0];
@@ -222,20 +223,20 @@ class Factions {
 
     return MaxIndexes; //Returns the an array with the index numbers
   }
-void setDifficulty(int value) {
-  switch(value) {
+
+  void setDifficulty(int value) {
+    switch(value) {
     case 1:
       multiplier = 1;
       break;
-    
+
     case 2:
       multiplier = 1.5;
       break;
-    
+
     case 3:
       multiplier = 2;
       break;
+    }
   }
-}
-
 }

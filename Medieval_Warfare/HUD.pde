@@ -2,9 +2,9 @@ class HUD {
   int selectorX, selectorY, selectorInitY;  //coords for selector - the base is a stepping stone (see line 18)
   int row = 1;
   int optionsRotation;
-  boolean mouseHand=false;
+  boolean mouseHand = false;
   boolean settingsOpen = false;
-  int difficulty=1;
+  int difficulty = 1;
 
 
   HUD () {
@@ -206,14 +206,25 @@ class HUD {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
 
           stage = 1; // Resets everything and puts you back to the startscreen 
+          
           ft.clear();
           et.clear();
-          f.goldCount = 1000;
-          knightLevel = 1;
-          archerLevel = 1;
-          mageLevel = 1;
-          cavalryLevel = 1;
-          giantLevel = 1;
+          
+          f.playerGoldCount = 1000;
+          f.enemyGoldCount = 1000;
+          
+          friendlyKnightLevel = 1;
+          friendlyArcherLevel = 1;
+          friendlyMageLevel = 1;
+          friendlyCavalryLevel = 1;
+          friendlyGiantLevel = 1;
+          
+          enemyKnightLevel = 1;
+          enemyArcherLevel = 1;
+          enemyMageLevel = 1;
+          enemyCavalryLevel = 1;
+          enemyGiantLevel = 1;
+          
           lastSpecialUsed = millis();          
           row = 1;
 

@@ -26,8 +26,7 @@ class EnemyTroop {
 
 
   void update() {
-    if (!occupied && !enemyOccupied && !enemyInFront && !attackingCastle) {
-    if (!occupied && !enemyOccupied && !enemyInFront && h.settingsOpen == false) {
+    if (!occupied && !enemyOccupied && !enemyInFront && !attackingCastle && h.settingsOpen == false) {
       pos.add(speed);
     }
     pushMatrix();
@@ -153,13 +152,11 @@ class EKnight extends EnemyTroop {
     speed.x = -0.5;
     speedBeforeContact = speed.x;
     attackSpeed = 1;
-    damage = 4 * statsUpgrade;
-    maxHP = 25 * statsUpgrade;
-    damage = 5*f.multiplier;
-    maxHP = 20*f.multiplier;
+    damage = 4 * statsUpgrade * f.multiplier;
+    maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = enemyKnightWorth;
+    worth = enemyKnightWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -184,11 +181,11 @@ class EArcher extends EnemyTroop {
     speed.x = -0.5;
     speedBeforeContact = speed.x;
     attackSpeed = 0.7;
-    damage = 4 * statsUpgrade;
+    damage = 4 * statsUpgrade * f.multiplier;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = enemyArcherWorth;
+    worth = enemyArcherWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -212,12 +209,12 @@ class EMage extends EnemyTroop {
     speed.x = -0.5;
     speedBeforeContact = speed.x;
     attackSpeed = 2.5;
-    damage = 15 * statsUpgrade;
-    maxHP = 25 * statsUpgrade;
+    damage = 15 * statsUpgrade * f.multiplier;
+    maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 80;
     worth = enemyMageWorth;
-    f.enemyGoldCount -= worth;
+    f.enemyGoldCount -= worth * f.multiplier;
     troopLevel = lvl;
     pos.y = yPos;
   }
@@ -240,11 +237,11 @@ class ECavalry extends EnemyTroop {
     speed.x = -0.9;
     speedBeforeContact = speed.x;
     attackSpeed = 1.5;
-    damage = 5 * statsUpgrade;
-    maxHP = 50 * statsUpgrade;
+    damage = 5 * statsUpgrade * f.multiplier;
+    maxHP = 50 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 30;
-    worth = enemyCavalryWorth;
+    worth = enemyCavalryWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -268,11 +265,11 @@ class EGiant extends EnemyTroop {
     speed.x = -0.3;
     speedBeforeContact = speed.x;
     attackSpeed = 2;
-    damage = 10 * statsUpgrade;
-    maxHP = 75 * statsUpgrade;
+    damage = 10 * statsUpgrade * f.multiplier;
+    maxHP = 75 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = enemyGiantWorth;
+    worth = enemyGiantWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

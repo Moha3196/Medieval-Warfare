@@ -5,204 +5,68 @@ void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
   textAlign(CENTER);
-  textSize(18);
-  fill(255);
-  rect(120, 400, 120, 80); //Start Game Button
-  fill(0);
-  text("Start Game", 180, 445);
+  fill(125, 100);
 
-  fill(255);
-  rect(width - 120, 400, -120, 80); //Tutorial Button
-  fill(0);
-  text("Tutorial", width - 180, 445);
-
+  image(startButton, 180, 440); //Start Game Button
+  image(tutorialButton, width - 180, 440); //Tutorial Button
   if (mouseY >= 403 && mouseY <= 483) {
     if (mouseX >= 120 && mouseX <= 241) { //Start Game Button
-      fill(125);
-      rect(120, 400, 120, 80); //Start Game Button
-      fill(0);
-      text("Start Game", 180, 445);
+      rect(120, 400, 120, 80); //Highlighted Start Game Button
+
       if (mousePressed) { //Starts the Game
         stage = 3;
         lastSpecialUsed = millis();
+        enemyTroopDeployCoolDown = millis();
       }
     }
+
+
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
-      fill(125);
-      rect(width - 120, 400, -120, 80); //Tutorial Button
-      fill(0);
-      text("Tutorial", width - 180, 445);
+      rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
       if (mousePressed) { //Starts the Tutorial
         stage = 2;
       }
     }
-  } else {
-    fill(255);
-    rect(120, 400, 120, 80); //Start Game Button
-    fill(0);
-    text("Start Game", 180, 445);
-
-    fill(255);
-    rect(width - 120, 400, -120, 80); //Tutorial Button
-    fill(0);
-    text("Tutorial", width - 180, 445);
   }
 }
 
 
 
 
-void Tutorial() {    //Explain the different features in the game
+
+
+void Tutorial() {
   boolean mouseHand = false;
+
 
   pushMatrix();
   textAlign(CENTER, TOP);
   fill(0, 0, 0);
-  textSize(28);
+  textSize(20);
 
-  switch(tutorialPage) { //Switches between the different pages
-
-  case 0://Shows the first page of the Tutorial
-    image(tutorialPage0, width/2, height/2); 
-
-    textSize(60); 
-    text("Tutorial", width/2, 30);
-
-    textSize(28);
-    textAlign(LEFT, TOP);
-    text("Use the left click key on a mouse to interact with most features in this game", width/3, 120, width/2+20, 150); //explains left click effect
-
-    text("Use the up and down arrow to switch the current lane (lanes are explained later)", width/3, 270, width/2+20, 150); //explains up and down arrow effect
-
-    text("Use the spacebar to activate the special ability, which does damage to enemies on a lane", width/3, 425, width/2+20, 150); //explains spacebar effect
+  switch(tutorialPage) {
+  case 0:
+    image(tutorialPage0, width/2, height/2); //Shows the first page of the Tutorial
     break;
 
-  case 1://Shows the second page of the Tutorial
-    image(tutorialPage1, width/2, height/2); 
-    image(arrow, 245, 125);
-    text("Player Health", 240, 185); 
+  case 1:
+    image(tutorialPage1, width/2, height/2); //Shows the second page of the Tutorial
+    text("Player Health", 240, 112);
+    text("Enemy Health", 558, 115);
+    text("Settings", 625, 390);
+    text("Highlighted Troop", 346, 325);
+    text("Troop", 422, 360);
+    text("Troop Upgrade", 234, 400);
+
     textAlign(LEFT, CENTER);
-    break;
 
-  case 2://Shows the third page of the Tutorial
-    image(tutorialPage1, width/2, height/2); 
-    image(arrow, 558, 125);
-    text("Enemy Health", 558, 185);
-    break;
-
-  case 3://Shows the fourth page of the Tutorial
-    image(tutorialPage1, width/2, height/2); 
-    pushMatrix();
-    translate(650, 450);
-    rotate(0.75*PI);
-    image(arrow, 0, 0);
-    popMatrix();
-    text("Settings", 620, 365);
-
-    fill(255, 255, 255);
-    rect(width/3-10, height/3, width/3+20, height/3+20);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("When you click the 'Settings' button the game pauses, and the game settings shows", width/3-8, height/3-3, width/3+20, height/3+20);//explains settings effect
-    break;
-
-  case 4://Shows the fifth page of the Tutorial
-    image(tutorialPage1, width/2, height/2); 
-
-    pushMatrix();
-    translate(346, 408);
-    rotate(PI);
-    image(arrow, 0, 0);
-    popMatrix();
-    text("Troop", 346, 315);
-
-    fill(255, 255, 255);
-    rect(width/3-60, height/4-5, width/3+120, height/5+50);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("When you click the 'troop' button a troop will spawn on the current lane    (lanes are explained later)", width/3-58, height/4-8, width/3+120, height/5+50);//explains troop effect
-    break;
-
-  case 5://Shows the sixth page of the Tutorial
-    image(tutorialPage1, width/2, height/2); 
-
-    pushMatrix();
-    translate(270, 485);
-    rotate(PI);
-    image(arrow, 0, 0);
-    popMatrix();
-    text("Troop Cost", 270, 390);
-
-    fill(255, 255, 255);
-    rect(width/3-10, height/4, width/3+20, height/3-20);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("'Troop cost' is the amount of gold it requires to spawn the specefic unit", width/3-8, height/4-3, width/3+20, height/3-20);//explains prices
-    break;
-
-  case 6: //Shows the seventh page of the Tutorial
-    image(tutorialPage1, width/2, height/2);
-
-    pushMatrix();
-    translate(180, 450);
-    rotate(PI);
-    image(arrow, 0, 0);
-    popMatrix();
-    text("Troop Upgrade", 180, 355);
-
-    fill(255, 255, 255);
-    rect(width/3-10, height/5, width/3+20, height/3+20);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("'Troop upgrade' is used to upgrade units by cliking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);//explains upgrades
-    break;
-
-  case 7: //Shows the eight page of the Tutorial
-    image(tutorialPage1, width/2, height/2);
-
-    pushMatrix();
-    translate(150, 170);
-    rotate(1.5*PI);
-
-    image(arrow, 0, 0);
-
-    popMatrix();
-
-    image(selector, 67, 167);
-    text("Current Lane", 195, 100);
-
-    fill(255, 255, 255);
-    rect(width/3-10, height/3, width/3+20, height/4-10);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("'Current Lane' Shows which lane your currently on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
+    text("Highlighted Troop Upgrade", 97, 276);
+    text("Current Lane", 195, 172);
 
     break;
-  case 8: //Shows the ninth page of the Tutorial
-    image(tutorialPage1, width/2, height/2);
 
-    image(arrow, 400, 200);
-    text("Ability Button", 400, 250);
-
-    fill(255, 255, 255);
-    rect(width/3-25, height/2, width/3+50, height/4-10);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("'Ability Button' Shows the cooldown left on ability use", width/3-23, height/2-3, width/3+50, height/4-10);//explains current lane
-    break;
-
-  case 9: //Shows the tenth page of the Tutorial
-    image(tutorialPage1, width/2, height/2);
-    image(tutorialPage2, width/2, height/2);
-
-    image(arrow, 650, 200);
-    text("Enemy level", 610, 250);
-
-    fill(255, 255, 255);
-    rect(width/3-10, height/2, width/3+20, height/4-10);
-    fill(0, 0, 0);
-    textAlign(LEFT, TOP);
-    text("'Enemy level' Shows the current enemy level", width/3-8, height/2-3, width/3+20, height/4-10);//explains current lane
+  case 2:
+    image(tutorialPage2, width/2, height/2); //Shows the third page of the  Tutorial
     break;
   }
   popMatrix();
@@ -216,10 +80,10 @@ void Tutorial() {    //Explain the different features in the game
     }    
     if (mouseX >= 724 && mouseX <= 744) {
       mouseHand = true;
-      if (mousePressed && tutorialPage != 9) {
+      if (mousePressed && tutorialPage != 2) {
         tutorialPage++;
         mousePressed = false;
-      } else if (mousePressed && tutorialPage == 9) {
+      } else if (mousePressed && tutorialPage == 2) {
         stage = 1;
         tutorialPage = 0;
         mousePressed = false;
@@ -241,17 +105,14 @@ void Tutorial() {    //Explain the different features in the game
 void GamingScreen() {
   image(map, width/2, height/2); //Shows the playground, boxes and banners
   //imageMode(CORNER);
-  image(fireTrailSpecial, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
+  image(Special, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
   //imageMode(CENTER);
   image(castles, width/2, height/2);
   pushMatrix();
   strokeWeight(2);
 
   if (specialMoving) {
-    posSpecial.x ++;
-  }
-  if (posSpecial.x == 400) {
-    specialMoving = false;
+    posSpecial.x += 2;
   }
 
   fill(0, 255, 0);
@@ -267,6 +128,27 @@ void GamingScreen() {
   //strokeWeight(10);
   popMatrix();
 
+  if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
+    image(specialButton, width/3*2 - 20, 80);
+    pushMatrix();
+    fill(120, 180);
+    strokeWeight(0);
+    rectMode(CORNER);
+    rect(width/3*2 + 75 - 20, 80 - 65/2, 5*-(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
+    strokeWeight(4);
+    noFill();
+    rect(width/3*2 - 75 - 20, 80 - 65/2, 150, 65);
+    fill(255);
+    popMatrix();
+  } else { //If ready shows "Special Ready!"
+    //text("Special Ready!", width/3*2, 90);
+    image(specialButton, width/3*2 - 20, 80);
+    strokeWeight(4);
+    noFill();
+    rect(width/3*2 - 75 - 20, 80 - 65/2, 150, 65);
+    fill(255);
+  }
+
   h.selector(h.row);
   h.sendTroopAndUpgrades();
   h.options();
@@ -275,6 +157,15 @@ void GamingScreen() {
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
     ft.get(i).update();
     ft.get(i).checkCollision();
+
+    if (et.size() == 0) { //Friendlies should always move if there is no Enemies
+      ft.get(i).occupied = false;
+    }
+
+    if (ft.get(i).currentHP <= 0) {
+      ft.get(i).isDead = true;
+    }
+
     if (ft.get(i).isDead) {
       ft.remove(ft.get(i));
     }
@@ -284,14 +175,33 @@ void GamingScreen() {
     et.get(i).update();
     et.get(i).checkCollision();
 
-    if (et.get(i).pos.y == h.selectorY && et.get(i).pos.x <= posSpecial.x + 358) {
-      et.get(i).currentHP -= 0.1;
+    if (ft.size() == 0) {// && !ft.get(i).friendlyOccupied && !ft.get(i).friendlyInFront) { //Enemies should always move if there is no Friendlies
+      et.get(i).occupied = false;
+    }
+
+    if (et.get(i).pos.y == posSpecial.y && et.get(i).pos.x <= posSpecial.x + 358 && et.get(i).pos.x >= posSpecial.x - 358) { //Checks if enemy troops are inside the special ability
+      et.get(i).currentHP -= 1*et.get(i).maxHP/100;                                                                         //And if they are, they will take damage over time
+      if (et.get(i).currentHP <= 0) {
+        f.playerGoldCount += et.get(i).worth*0.3;
+        for (int j = 0; j < ft.size(); j++) {
+          if (ft.get(j).pos.y == et.get(i).pos.y) {
+            ft.get(j).occupied = false;
+            ft.get(j).friendlyOccupied = false;
+          }
+        }
+      }
+    }
+
+    if (et.get(i).currentHP <= 0) {
+      et.get(i).isDead = true;
     }
 
     if (et.get(i).isDead) {
       et.remove(et.get(i));
     }
   }
+
+  f.EnemySpawning();
 
 
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.
@@ -305,46 +215,23 @@ void GamingScreen() {
   textFont(goldenIncome);
   fill(255);
 
-  text("Gold: " + f.goldCount, width/3, 90); //Writes the current amount of gold
-  if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
-    //text(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000, width/3*2, 90);
-    image(fireTrailSpecialVisiualBox, width/3*2, 80);
-    pushMatrix();
-    fill(120, 180);
-    strokeWeight(0);
-    rectMode(CORNER);
-    rect(width/3*2+75, 80-32.5, 5*-(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
-    strokeWeight(4);
-    noFill();
-    rect(width/3*2-75, 80-32.5, 150, 65);
-    fill(255);
-    popMatrix();
-  } else { //If ready shows "Special Ready!"
-    //text("Special Ready!", width/3*2, 90);
-    image(fireTrailSpecialVisiualBox, width/3*2, 80);
-    strokeWeight(4);
-    noFill();
-    rect(width/3*2-75, 80-32.5, 150, 65);
-    fill(255);
-  }
+  text("Gold: " + f.playerGoldCount + "  " + f.enemyGoldCount, width/3, 90); //Writes the current amount of gold
+
   textSize(12); //Changes the size to 12
   fill(0);
-
 
   text("Knight", 255, 493); //Writes the names of the troops above the boxes
   text("Archer", 340, 493); 
   text("Mage", 425, 493);
   text("Cavalry", 510, 493);
   text("Giant", 595, 493);
-
-
-
+  
   textSize(16); //Changes the size to 16
-  text(20, 255, 590); //Writes the cost of the troops above the boxes
-  text(25, 340, 590);
-  text(40, 425, 590);
-  text(70, 510, 590);
-  text(100, 595, 590);
+  text((int)friendlyKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
+  text((int)friendlyArcherWorth, 340, 590);
+  text((int)friendlyMageWorth, 425, 590);
+  text((int)friendlyCavalryWorth, 510, 590);
+  text((int)friendlyGiantWorth, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
 
@@ -366,26 +253,33 @@ void EndScreen() {
   }
 
   if (restart) {
-    for (int i = 0; i < et.size(); i++) { //Deletes all enemy troops
-      et.remove(et.get(i));
-    }
-    for (int i = 0; i < ft.size(); i++) { //Deletes all friendly troops
-      ft.remove(ft.get(i));
-    }
+    et.clear(); //Deletes all enemy troops
+    ft.clear(); //Deletes all friendly troops
 
-    f.goldCount = 1000; //Resets gold
+    f.playerGoldCount = 1000; //Resets player gold
+    f.enemyGoldCount = 1000; //Resets enemy gold
 
-    knightLevel = 1; //Resets troop lvl's back to 1
-    archerLevel = 1;
-    mageLevel = 1;
-    cavalryLevel = 1;
-    giantLevel = 1;
+    friendlyKnightLevel = 1; //Resets troop lvl's back to 1
+    friendlyArcherLevel = 1;
+    friendlyMageLevel = 1;
+    friendlyCavalryLevel = 1;
+    friendlyGiantLevel = 1;
+
+    enemyKnightLevel = 1;
+    enemyArcherLevel = 1;
+    enemyMageLevel = 1;
+    enemyCavalryLevel = 1;
+    enemyGiantLevel = 1;
 
     currentEnemyCastleHP = 1000; //Resets Castle HP
     currentFriendlyCastleHP = 1000;
 
+    enemyTroopDeployCoolDown = millis(); //Resets Troop spawning
+
     stage = 3; //Restarts Game on GamingScreen
-    lastSpecialUsed = millis();
+    lastSpecialUsed = millis(); //Resets the special timer
+    posSpecial.x = -316; //Resets special
+    specialMoving = false; 
 
     restart = false;
   }

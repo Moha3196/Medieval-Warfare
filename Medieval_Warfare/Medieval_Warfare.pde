@@ -12,7 +12,7 @@ float vol;
 PVector posSpecial = new PVector();
 
 PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special;
-PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, specialButton;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, specialButton, arrow;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -75,9 +75,10 @@ void setup() {
   tutorialPage1 = loadImage("TutorialPage1.png");
   tutorialPage1.resize(width, height); //Resizes the Tutorial so it fits the boarder
 
-  tutorialPage2 = loadImage("TutorialPage2.png");
+  tutorialPage2 = loadImage("tutorialPage2.png");
   tutorialPage2.resize(width, height); //Resizes the Tutorial so it fits the boarder
 
+  arrow = loadImage("Arrow.png");
   winScreen = loadImage("Win Screen.jpg");
   winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
 
@@ -145,7 +146,7 @@ void draw() {
       break; 
 
     case 2:
-      //Tutorial();
+      Tutorial();
       break;
 
     case 3:

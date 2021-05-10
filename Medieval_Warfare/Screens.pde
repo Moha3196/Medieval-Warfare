@@ -151,7 +151,7 @@ void GamingScreen() {
 
   h.selector(h.row);
   h.sendTroopAndUpgrades();
-  h.options();
+ 
   f.PassiveGold();
 
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
@@ -242,7 +242,10 @@ void GamingScreen() {
     won = true;
     stage = 4;
   }
+  textAlign(LEFT);
+h.options();
 }
+
 
 
 void EndScreen() {

@@ -2,6 +2,7 @@ class Factions {
   int playerGoldCount = 100;
   int enemyGoldCount = 10000;
   int numberOfMaxIndexes;
+  float multiplier;
 
   Factions() {
   }
@@ -221,4 +222,20 @@ class Factions {
 
     return MaxIndexes; //Returns the an array with the index numbers
   }
+void setDifficulty(int value) {
+  switch(value) {
+    case 1:
+      multiplier = 1;
+      break;
+    
+    case 2:
+      multiplier = 1.5;
+      break;
+    
+    case 3:
+      multiplier = 2;
+      break;
+  }
+}
+
 }

@@ -27,6 +27,7 @@ class EnemyTroop {
 
   void update() {
     if (!occupied && !enemyOccupied && !enemyInFront && !attackingCastle) {
+    if (!occupied && !enemyOccupied && !enemyInFront && h.settingsOpen == false) {
       pos.add(speed);
     }
     pushMatrix();
@@ -154,6 +155,8 @@ class EKnight extends EnemyTroop {
     attackSpeed = 1;
     damage = 4 * statsUpgrade;
     maxHP = 25 * statsUpgrade;
+    damage = 5*f.multiplier;
+    maxHP = 20*f.multiplier;
     currentHP = maxHP;
     reach = 10;
     worth = enemyKnightWorth;

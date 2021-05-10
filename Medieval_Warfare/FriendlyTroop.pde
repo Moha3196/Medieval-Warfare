@@ -27,6 +27,7 @@ class FriendlyTroop {
 
   void update() {
     if (!occupied && !friendlyOccupied && !friendlyInFront && !attackingCastle) {
+    if (!occupied && !friendlyOccupied && !friendlyInFront && h.settingsOpen == false) {
       pos.add(speed);
     }
     image(troop, pos.x, pos.y);
@@ -152,11 +153,9 @@ class FKnight extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    //if (lvl > 1) {
-    //  statsUpgrade = 2 * (lvl-1);
-    //}
     worth = friendlyKnightWorth;
     f.playerGoldCount -= worth;
+    worth = 20*f.multiplier;
     troopLevel = lvl;
   }
 
@@ -182,9 +181,6 @@ class FArcher extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    //if (lvl > 1) {
-    //  statsUpgrade = 2 * (lvl-1);
-    //}
     worth = friendlyArcherWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
@@ -212,9 +208,6 @@ class FMage extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    //if (lvl > 1) {
-    //  statsUpgrade = 2 * (lvl-1);
-    //}
     worth = friendlyMageWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
@@ -242,9 +235,6 @@ class FCavalry extends FriendlyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    //if (lvl > 1) {
-    //  statsUpgrade = 2 * (lvl-1);
-    //}
     worth = friendlyCavalryWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
@@ -272,9 +262,6 @@ class FGiant extends FriendlyTroop {
     maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    //if (lvl > 1) {
-    //  statsUpgrade = 2 * (lvl-1);
-    //}
     worth = friendlyGiantWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;

@@ -48,7 +48,7 @@ boolean restart = false; //Value for restarting game
 void setup() {
   size(800, 600);
   frameRate(60);
-  
+
   posSpecial.x = -316;
   posSpecial.y = 200;
   
@@ -149,21 +149,29 @@ void draw() {
 
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
-
+void mouseClicked() {
+  if  (mouseButton == LEFT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
+    if (h.difficulty <= 2) {
+      h.difficulty++;
+    } else {
+      h.difficulty = 1;
+    }
+  }
+}
 
 
 void mousePressed() {
 }
 
 void keyPressed() {
-  if (keyCode == UP) { //to change the selected row (marked with the arrow)
+  if (keyCode == UP || key =='s') { //to change the selected row (marked with the arrow)
     h.row -= 1;
 
     if (h.row <= 0) { //used for wrap-around for the selector
       h.row = 6;
     }
   }
-  if (keyCode == DOWN) {
+  if (keyCode == DOWN || key == 's') {
     h.row += 1;
 
     if (h.row >= 7) {
@@ -189,11 +197,11 @@ void keyPressed() {
     specialMoving = true;
     lastSpecialUsed = millis();
   }
-  
+
   if (keyCode == 'R') { //Restarts game
     restart = true;
   }
-  
+
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
     et.add(new EKnight(enemyKnightLevel, h.selectorY));
     f.enemyGoldCount += 20;

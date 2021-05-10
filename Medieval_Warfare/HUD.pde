@@ -3,6 +3,9 @@ class HUD {
   int row = 1;
   int optionsRotation;
   boolean mouseHand=false;
+  boolean settingsOpen = false;
+  int difficulty=1;
+
 
   HUD () {
     selectorX = 31;      //initial coords for the selector
@@ -149,6 +152,7 @@ class HUD {
     }
     mouseHand = false;
   }
+ 
 
   void options() {
     pushMatrix();
@@ -159,5 +163,65 @@ class HUD {
     rotate(optionsRotation/8);
     image(options, 0, 0);
     popMatrix();
+
+    if  (mousePressed && mouseButton == LEFT) {
+      if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
+        settingsOpen = true;
+       
+      }
+    }
+
+    if (settingsOpen == true) {
+      fill(150);
+      rect(width/2-150, height/2-170, 300, 345);
+      rect(width/2-140, height/2-160, 280, 70); //Resume Button
+      rect(width/2-140, height/2-75, 280, 70);  //Volume Button
+      rect(width/2-140, height/2+10, 280, 70);  //Difficulty Button
+      rect(width/2-140, height/2+95, 280, 70);  //End Button
+      textSize(40);
+      fill(0);
+      text("Resume", width/2-80, height/2-110);
+      text("Volume:100", width/2-120, height/2-25);
+      textSize(30);
+      
+      if (difficulty == 1) { //changes the text for the difficulty button through a mouseClicked in main
+        text("Difficulty:Easy", width/2-125, height/2+55);
+      } else if (difficulty == 2) {
+        text("Difficulty:Normal", width/2-125, height/2+55);
+      } else if (difficulty == 3) {
+        text("Difficulty:Hard", width/2-125, height/2+55);
+      }
+      textSize(50);
+      text("End", width/2-45, height/2+150);
+
+
+      if  (mousePressed && mouseButton == LEFT) {
+        if (mouseX >= 260 && mouseX <= 540 && mouseY >= 140 && mouseY <= 210) { //resume Button
+          settingsOpen = false;
+        }
+      }
+
+
+      if  (mousePressed && mouseButton == LEFT) {
+        if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
+
+          stage = 1; // Resets everything and puts you back to the startscreen 
+          ft.clear();
+          et.clear();
+          f.goldCount = 1000;
+          knightLevel = 1;
+          archerLevel = 1;
+          mageLevel = 1;
+          cavalryLevel = 1;
+          giantLevel = 1;
+          lastSpecialUsed = millis();          
+          row = 1;
+
+          //special running
+          settingsOpen = false;
+        }
+      }
+    }
   }
+  
 }

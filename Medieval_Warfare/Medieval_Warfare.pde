@@ -6,8 +6,8 @@ HUD h  = new HUD();
 
 PVector posSpecial = new PVector();
 
-PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special;
-PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, specialButton;
+PImage map, castles, selector, highlight, options, upgradeHighlight, fireTrailSpecialVisiualBox, fireTrailSpecial;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, arrow;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -15,25 +15,18 @@ boolean won, specialMoving;
 
 PFont goldenIncome;
 
-int friendlyKnightLevel = 1, friendlyArcherLevel = 1, friendlyMageLevel = 1, friendlyCavalryLevel = 1, friendlyGiantLevel = 1; //Sets friendly troop levels to 1
-int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalryLevel = 1, enemyGiantLevel = 1; //Sets enemy troop levels to 1
-
-float friendlyKnightWorth = 20, friendlyArcherWorth = 35, friendlyMageWorth = 50, friendlyCavalryWorth = 70, friendlyGiantWorth = 100; //Sets friendly troop prices
-float enemyKnightWorth = 20, enemyArcherWorth = 35, enemyMageWorth = 50, enemyCavalryWorth = 70, enemyGiantWorth = 100; //Sets enemy troop prices
+int knightLevel = 1, archerLevel = 1, mageLevel = 1, cavalryLevel = 1, giantLevel = 1; //Sets the troop levels to 1
 
 int stage = 1; //Used to switch screens
 
-int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
+int troopDeployCoolDown; //The timer for deploying troops.
 int delayTime = 1000; //The delay time for deploying troops.
 
-int enemyTroopDeployCoolDown; //The timer for deploying enemy troops.
-int enemySpawnDelayTime = 4000; //The delay time for deploying troops.
-
-int specialCoolDown = 30000; //The timer for special.
+int specialCoolDown = 3000; //The timer for special.
 int lastSpecialUsed; //The last time special was used
 
 int passiveGoldCoolDown; //The timer for gaining gold.
-int passiveGoldDelayTime = 1300; //The delay time for gaining gold.
+int passiveGoldDelayTime = 800; //The delay time for gaining gold.
 
 float friendlyCastleHP = 1000; //Total HP for friendly castle
 float currentFriendlyCastleHP; //Current HP for friendly castle
@@ -50,12 +43,12 @@ void setup() {
   frameRate(60);
   
   posSpecial.x = -316;
-  posSpecial.y = 200;
+  posSpecial.y = h.selectorY;
   
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
 
-  friendlyTroopDeployCoolDown = millis();
+  troopDeployCoolDown = millis();
   passiveGoldCoolDown = millis();
   lastTimeAttacked = millis();
 
@@ -69,6 +62,7 @@ void setup() {
   tutorialPage2 = loadImage("TutorialPage2.png");
   tutorialPage2.resize(width, height); //Resizes the Tutorial so it fits the boarder
 
+  arrow = loadImage("Arrow.png");
   winScreen = loadImage("Win Screen.jpg");
   winScreen.resize(width, height); //Resizes the WinScreen so it fits the boarder
 
@@ -112,14 +106,10 @@ void setup() {
   upgradeHighlight = loadImage("upgradeHighlight box.png");
   options   = loadImage("options.png");
   
-  Special = loadImage("Fire_trail_special.png");
+  fireTrailSpecial = loadImage("Fire_trail_special.png");
   
-  tutorialButton = loadImage("Tutorial.png");
-  startButton = loadImage("start button.png");
-  specialButton = loadImage("Special button.png");
-  
-  SpecialVisiualBox = loadImage("Fire_trail_special.png");
-  SpecialVisiualBox.resize(150, 65);
+  fireTrailSpecialVisiualBox = loadImage("Fire_trail_special.png");
+  fireTrailSpecialVisiualBox.resize(150, 65);
   
   goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.
   textFont(goldenIncome);
@@ -147,7 +137,7 @@ void draw() {
     break;
   }
 
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 
@@ -170,18 +160,18 @@ void keyPressed() {
       h.row = 1;
     }
   }
-  if (keyCode == ENTER && millis() - enemyTroopDeployCoolDown >= lastSpecialUsed) { //Makes an enemy Knight troop... Used for testing
-    et.add(new EKnight(enemyKnightLevel, h.selectorY));
-    f.playerGoldCount += 20;
-    enemyTroopDeployCoolDown = millis();
+  if (keyCode == ENTER && millis() - troopDeployCoolDown >= lastSpecialUsed) { //Makes an enemy Knight troop... Used for testing
+    et.add(new EKnight());
+    f.goldCount += 20;
+    troopDeployCoolDown = millis();
   }
 
   if (keyCode == 'F') { //Makes an friendly Knight troop... Used for testing
     //h.selectorX = 100;
-    ft.add(new FKnight(friendlyKnightLevel));
+    ft.add(new FKnight(knightLevel));
     //h.selectorX = 31;
-    f.playerGoldCount += 20;
-    friendlyTroopDeployCoolDown = millis();
+    f.goldCount += 20;
+    troopDeployCoolDown = millis();
   }
 
   if (keyCode == ' ' && millis() - specialCoolDown >= lastSpecialUsed && stage == 3) { //Uses Special
@@ -195,38 +185,30 @@ void keyPressed() {
   }
   
   if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
-    et.add(new EKnight(enemyKnightLevel, h.selectorY));
-    f.enemyGoldCount += 20;
+    et.add(new EKnight());
+    f.goldCount += 20;
   }
   if (keyCode == '2') { //Makes an enemy Archer troop... Used for testing
-    et.add(new EArcher(enemyArcherLevel, h.selectorY));
-    f.enemyGoldCount += 25;
+    et.add(new EArcher());
+    f.goldCount += 25;
   }
   if (keyCode == '3') { //Makes an enemy Mage troop... Used for testing
-    et.add(new EMage(enemyMageLevel, h.selectorY));
-    f.enemyGoldCount += 40;
+    et.add(new EMage());
+    f.goldCount += 40;
   }
   if (keyCode == '4') { //Makes an enemy Cavalry troop... Used for testing
-    et.add(new ECavalry(enemyCavalryLevel, h.selectorY));
-    f.enemyGoldCount += 70;
+    et.add(new ECavalry());
+    f.goldCount += 70;
   }
   if (keyCode == '5') { //Makes an enemy Giant troop... Used for testing
-    et.add(new EGiant(enemyGiantLevel, h.selectorY));
-    f.enemyGoldCount += 100;
+    et.add(new EGiant());
+    f.goldCount += 100;
   }
-  if (keyCode == 'U') { //Upgrades all friendly Troop... Used for testing
-    friendlyKnightLevel += 1;
-    friendlyArcherLevel += 1;
-    friendlyMageLevel += 1;
-    friendlyCavalryLevel += 1;
-    friendlyGiantLevel += 1;
-  }
-  
-  if (keyCode == 'I') { //Upgrades all friendly Troop... Used for testing
-    enemyKnightLevel += 1;
-    enemyArcherLevel += 1;
-    enemyMageLevel += 1;
-    enemyCavalryLevel += 1;
-    enemyGiantLevel += 1;
+  if (keyCode == 'U') { //Upgrades the friendly Knight... Used for testing
+    knightLevel += 1;
+    archerLevel += 1;
+    mageLevel += 1;
+    cavalryLevel += 1;
+    giantLevel += 1;
   }
 }

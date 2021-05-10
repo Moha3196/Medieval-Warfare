@@ -4,6 +4,11 @@ FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
 
+import processing.sound.*;
+SoundFile music;
+Sound m;
+float vol;
+
 PVector posSpecial = new PVector();
 
 PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special;
@@ -48,7 +53,11 @@ boolean restart = false; //Value for restarting game
 void setup() {
   size(800, 600);
   frameRate(60);
-
+  music = new SoundFile(this, "Medieval_Music.mp3");
+  m = new Sound(this);
+  music.play();
+  vol = 0.1;
+  m.volume(vol);
   posSpecial.x = -316;
   posSpecial.y = 200;
 
@@ -150,8 +159,8 @@ void draw() {
   } else {
     h.options();
   }
-
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  m.volume(vol);
+  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 void mouseClicked() {
@@ -161,8 +170,24 @@ void mouseClicked() {
     } else {
       h.difficulty = 1;
     }
+  } else if (mouseButton == RIGHT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
+    if (h.difficulty >= 2) {
+      h.difficulty--;
+    } else {
+      h.difficulty = 3;
+    }
+  }
+  if  (mouseButton == LEFT && mouseX >= 260 && mouseX <= 540 && mouseY >= 225 && mouseY <= 295) { //Volume button
+    if (vol < 1) {
+      vol += 0.10;
+    }
+  } else if (mouseButton == RIGHT && mouseX >= 260 && mouseX <= 540 && mouseY >= 225 && mouseY <= 295) {
+    if (vol >= 0.1) {
+      vol -= 0.10;
+    }
   }
 }
+
 
 
 void mousePressed() {

@@ -180,7 +180,8 @@ class HUD {
       textSize(40);
       fill(0);
       text("Resume", width/2-80, height/2-110);
-      text("Volume:100", width/2-120, height/2-25);
+      textSize(35);
+      text("Volume:" + (int)(vol*100) + "%", width/2-125, height/2-25);
       textSize(30);
 
       if (difficulty == 1) { //changes the text for the difficulty button through a mouseClicked in main
@@ -199,8 +200,10 @@ class HUD {
           settingsOpen = false;
         }
       }
-
-
+     
+        
+        
+        
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
 

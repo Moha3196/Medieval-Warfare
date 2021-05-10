@@ -194,7 +194,7 @@ class HUD {
       }
       textSize(50);
       text("End", width/2-45, height/2+150);
-
+      
 
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 140 && mouseY <= 210) { //resume Button
@@ -203,9 +203,6 @@ class HUD {
         }
       }
      
-        
-        
-        
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
 

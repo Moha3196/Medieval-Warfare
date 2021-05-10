@@ -220,21 +220,18 @@ void GamingScreen() {
   textSize(12); //Changes the size to 12
   fill(0);
 
-
   text("Knight", 255, 493); //Writes the names of the troops above the boxes
   text("Archer", 340, 493); 
   text("Mage", 425, 493);
   text("Cavalry", 510, 493);
   text("Giant", 595, 493);
-
-
-
+  
   textSize(16); //Changes the size to 16
-  text(20, 255, 590); //Writes the cost of the troops above the boxes
-  text(35, 340, 590);
-  text(50, 425, 590);
-  text(70, 510, 590);
-  text(100, 595, 590);
+  text((int)friendlyKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
+  text((int)friendlyArcherWorth, 340, 590);
+  text((int)friendlyMageWorth, 425, 590);
+  text((int)friendlyCavalryWorth, 510, 590);
+  text((int)friendlyGiantWorth, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
 

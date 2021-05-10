@@ -18,8 +18,10 @@ PFont goldenIncome;
 int friendlyKnightLevel = 1, friendlyArcherLevel = 1, friendlyMageLevel = 1, friendlyCavalryLevel = 1, friendlyGiantLevel = 1; //Sets friendly troop levels to 1
 int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalryLevel = 1, enemyGiantLevel = 1; //Sets enemy troop levels to 1
 
+float friendlyKnightWorth = 20, friendlyArcherWorth = 35, friendlyMageWorth = 50, friendlyCavalryWorth = 70, friendlyGiantWorth = 100; //Sets friendly troop prices
+float enemyKnightWorth = 20, enemyArcherWorth = 35, enemyMageWorth = 50, enemyCavalryWorth = 70, enemyGiantWorth = 100; //Sets enemy troop prices
+
 int stage = 1; //Used to switch screens
-//int startingGold = 1000; //The gold that the player and enemy is gonna start with
 
 int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
 int delayTime = 1000; //The delay time for deploying troops.
@@ -115,7 +117,6 @@ void setup() {
   tutorialButton = loadImage("Tutorial.png");
   startButton = loadImage("start button.png");
   specialButton = loadImage("Special button.png");
-  
   
   SpecialVisiualBox = loadImage("Fire_trail_special.png");
   SpecialVisiualBox.resize(150, 65);

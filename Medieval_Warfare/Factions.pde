@@ -1,6 +1,6 @@
 class Factions {
   int playerGoldCount = 100;
-  int enemyGoldCount = 100;
+  int enemyGoldCount = 10000;
   int numberOfMaxIndexes;
 
   Factions() {
@@ -107,7 +107,7 @@ class Factions {
     int enemySpawnY = 92 + (60 * (selectedLane + 1)); //Sets the troop y-position according to the lane 
 
     int ESelectedUnit = 0;
-    int ChosenUnitCost = 0;
+    float ChosenUnitCost = 0;
     boolean EUnitSelected = false;
     if (EUnitSelected == false) {
       ESelectedUnit = (int)random(0, 5);
@@ -115,23 +115,23 @@ class Factions {
       switch(ESelectedUnit) { //Chooses a random troop then changes the "ChosenUnitCost" to the chosen troop cost
       case 0:
         EUnitSelected = true;
-        ChosenUnitCost = 20;
+        ChosenUnitCost = enemyKnightWorth;
         break;
       case 1:
         EUnitSelected = true;
-        ChosenUnitCost = 35;
+        ChosenUnitCost = enemyArcherWorth;
         break;
       case 2:
         EUnitSelected = true;
-        ChosenUnitCost = 50;
+        ChosenUnitCost = enemyMageWorth;
         break;
       case 3:
         EUnitSelected = true;
-        ChosenUnitCost = 70;
+        ChosenUnitCost = enemyCavalryWorth;
         break;
       case 4:
         EUnitSelected = true;
-        ChosenUnitCost = 100;
+        ChosenUnitCost = enemyGiantWorth;
         break;
       }
     }

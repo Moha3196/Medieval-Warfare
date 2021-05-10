@@ -13,7 +13,7 @@ class EnemyTroop {
   boolean attackingCastle = false; //Boolean to check if troop is attacking castle
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
-  int worth;
+  float worth;
   int troopLevel; //Shows the current troop lvl
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
   EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
@@ -156,7 +156,7 @@ class EKnight extends EnemyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = 20;
+    worth = enemyKnightWorth;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -185,7 +185,7 @@ class EArcher extends EnemyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = 35;
+    worth = enemyArcherWorth;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -213,7 +213,7 @@ class EMage extends EnemyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = 50;
+    worth = enemyMageWorth;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -241,7 +241,7 @@ class ECavalry extends EnemyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    worth = 70;
+    worth = enemyCavalryWorth;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -269,7 +269,7 @@ class EGiant extends EnemyTroop {
     maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = 100;
+    worth = enemyGiantWorth;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

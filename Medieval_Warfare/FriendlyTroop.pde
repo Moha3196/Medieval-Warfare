@@ -13,7 +13,7 @@ class FriendlyTroop {
   boolean attackingCastle = false; //Boolean to check if troop is attacking castle
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
-  int worth;
+  float worth;
   int troopLevel; //Shows the current troop lvl
   EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
   FriendlyTroop friendlyTroopInFront; //Object used to save the EnemyTroop infront of the current EnemyTroop 
@@ -152,7 +152,10 @@ class FKnight extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = 20;
+    //if (lvl > 1) {
+    //  statsUpgrade = 2 * (lvl-1);
+    //}
+    worth = friendlyKnightWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -170,7 +173,7 @@ class FArcher extends FriendlyTroop {
       statsUpgrade = 1;
     } else if (lvl > 1) {
       statsUpgrade = 1.5 * (lvl-1);
-    } 
+    }
     troop = fArcher;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
@@ -179,7 +182,10 @@ class FArcher extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = 35;
+    //if (lvl > 1) {
+    //  statsUpgrade = 2 * (lvl-1);
+    //}
+    worth = friendlyArcherWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -206,7 +212,10 @@ class FMage extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = 50;
+    //if (lvl > 1) {
+    //  statsUpgrade = 2 * (lvl-1);
+    //}
+    worth = friendlyMageWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -233,7 +242,10 @@ class FCavalry extends FriendlyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    worth = 70;
+    //if (lvl > 1) {
+    //  statsUpgrade = 2 * (lvl-1);
+    //}
+    worth = friendlyCavalryWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -260,7 +272,10 @@ class FGiant extends FriendlyTroop {
     maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = 100;
+    //if (lvl > 1) {
+    //  statsUpgrade = 2 * (lvl-1);
+    //}
+    worth = friendlyGiantWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }

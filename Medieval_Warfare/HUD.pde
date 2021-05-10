@@ -21,7 +21,7 @@ class HUD {
       if (mouseX >= 218 && mouseX <= 292) {
         mouseHand=true;
         image(highlight, 255, 539); //the highlighted box
-        if (mousePressed && f.playerGoldCount >= 20 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
+        if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
           ft.add(new FKnight(friendlyKnightLevel)); //add a new troop - depends on the box that was clicked
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
           friendlyTroopDeployCoolDown = millis();
@@ -29,7 +29,7 @@ class HUD {
       } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
         mouseHand=true;
         image(highlight, 340, 539);
-        if (mousePressed && f.playerGoldCount >= 25 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
+        if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
           ft.add(new FArcher(friendlyArcherLevel));
           mousePressed = false;
           friendlyTroopDeployCoolDown = millis();
@@ -37,7 +37,7 @@ class HUD {
       } else if (mouseX >= 388 && mouseX <= 462) {
         mouseHand=true;
         image(highlight, 425, 539);
-        if (mousePressed && f.playerGoldCount >= 40 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+        if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
           ft.add(new FMage(friendlyMageLevel));
           mousePressed = false;
           friendlyTroopDeployCoolDown = millis();
@@ -45,7 +45,7 @@ class HUD {
       } else if (mouseX >= 473 && mouseX <= 547) {
         mouseHand=true;
         image(highlight, 510, 539);
-        if (mousePressed && f.playerGoldCount >= 70 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+        if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
           ft.add(new FCavalry(friendlyCavalryLevel));
           mousePressed = false;
           friendlyTroopDeployCoolDown = millis();
@@ -53,7 +53,7 @@ class HUD {
       } else if (mouseX >= 558 && mouseX <= 631) {
         image(highlight, 595, 539);        
         mouseHand=true;
-        if (mousePressed && f.playerGoldCount >= 100 && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+        if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
           ft.add(new FGiant(friendlyGiantLevel));
           mousePressed = false;
           friendlyTroopDeployCoolDown = millis();
@@ -69,24 +69,27 @@ class HUD {
         if (mousePressed && f.playerGoldCount >= 20*pow(2, friendlyKnightLevel)) {
           f.playerGoldCount -= 20*pow(2, friendlyKnightLevel);
           friendlyKnightLevel += 1;
+          friendlyKnightWorth *= 1.5;
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
         }
       } else if (mouseY >= 532 && mouseY <= 547) { //same deal as above, but for different troops
         mouseHand=true;
         image(upgradeHighlight, 129, 540);
 
-        if (mousePressed && f.playerGoldCount >= 25*pow(2, friendlyArcherLevel)) {
-          f.playerGoldCount -= 25*pow(2, friendlyArcherLevel);
+        if (mousePressed && f.playerGoldCount >= 35*pow(2, friendlyArcherLevel)) {
+          f.playerGoldCount -= 35*pow(2, friendlyArcherLevel);
           friendlyArcherLevel += 1;
+          friendlyArcherWorth *= 1.5;
           mousePressed = false;
         }
       } else if (mouseY >= 548 && mouseY <= 563) {
         mouseHand=true;
         image(upgradeHighlight, 129, 556);
 
-        if (mousePressed && f.playerGoldCount >= 40*pow(2, friendlyMageLevel)) {
-          f.playerGoldCount -= 40*pow(2, friendlyMageLevel);
+        if (mousePressed && f.playerGoldCount >= 50*pow(2, friendlyMageLevel)) {
+          f.playerGoldCount -= 50*pow(2, friendlyMageLevel);
           friendlyMageLevel += 1;
+          friendlyMageWorth *= 1.5;
           mousePressed = false;
         }
       } else if (mouseY >= 564 && mouseY <= 579) {
@@ -96,6 +99,7 @@ class HUD {
         if (mousePressed && f.playerGoldCount >= 70*pow(2, friendlyCavalryLevel)) {
           f.playerGoldCount -= 70*pow(2, friendlyCavalryLevel);
           friendlyCavalryLevel += 1;
+          friendlyCavalryWorth *= 1.5;
           mousePressed = false;
         }
       } else if (mouseY >= 580 && mouseY <= 595) {
@@ -105,6 +109,7 @@ class HUD {
         if (mousePressed && f.playerGoldCount >= 100*pow(2, friendlyGiantLevel)) {
           f.playerGoldCount -= 100*pow(2, friendlyGiantLevel);
           friendlyGiantLevel += 1;
+          friendlyGiantWorth *= 1.5;
           mousePressed = false;
         }
       }
@@ -116,7 +121,7 @@ class HUD {
     textSize(13);
     text("Upgrade to:", 69, 513);
     textSize(12);
-    text("LVL " + (friendlyKnightLevel+1) + " Knight: " + int(20*pow(2, friendlyKnightLevel)), 69, 532); // Nice
+    text("LVL " + (friendlyKnightLevel+1) + " Knight: " + int(20*pow(2, friendlyKnightLevel)), 69, 532); //Shows prices for troop upgrades
     text("LVL " + (friendlyArcherLevel+1) + " Archer: " + int(25*pow(2, friendlyArcherLevel)), 69, 548);
     text("LVL " + (friendlyMageLevel+1) + " Mage: " + int(40*pow(2, friendlyMageLevel)), 69, 564);
     text("LVL " + (friendlyCavalryLevel+1) + " Cavalry: " + int(70*pow(2, friendlyCavalryLevel)), 69, 580);

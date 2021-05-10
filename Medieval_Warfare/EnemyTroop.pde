@@ -2,7 +2,8 @@ class EnemyTroop {
   PVector pos = new PVector();  //a starting position
   PVector speed = new PVector(1, 0);  //the speed of a troop - not constant for all troops
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
-  int allegiance, damage, reach; //allegiance defines the troop's faction (player or enemy)
+  int allegiance, reach; //allegiance defines the troop's faction (player or enemy)
+  float damage;
   float maxHP, currentHP;
   float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
   int lastTimeAttacked;
@@ -144,8 +145,8 @@ class EKnight extends EnemyTroop {
     troop = eKnight;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 5;
-    maxHP = 20;
+    damage = 5*f.multiplier;
+    maxHP = 20*f.multiplier;
     currentHP = maxHP;
     reach = 10;
     worth = 20;
@@ -165,9 +166,9 @@ class EArcher extends EnemyTroop {
     troop = eArcher;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 2;
+    damage = 2*f.multiplier;
     attackSpeed = 0.5;
-    maxHP = 15;
+    maxHP = 15*f.multiplier;
     currentHP = maxHP;
     reach = 150;
     worth = 25;
@@ -186,8 +187,8 @@ class EMage extends EnemyTroop {
     troop = eMage;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    damage = 8;
-    maxHP = 15;
+    damage = 8*f.multiplier;
+    maxHP = 15*f.multiplier;
     currentHP = maxHP;
     reach = 80;
     worth = 40;
@@ -206,8 +207,8 @@ class ECavalry extends EnemyTroop {
     troop = eCavalry;
     speed.x = -0.9;
     speedBeforeContact = speed.x;
-    damage = 4;
-    maxHP = 50;
+    damage = 4*f.multiplier;
+    maxHP = 50*f.multiplier;
     currentHP = maxHP;
     reach = 30;
     worth = 70;
@@ -226,9 +227,9 @@ class EGiant extends EnemyTroop {
     troop = eGiant;
     speed.x = -0.3;
     speedBeforeContact = speed.x;
-    damage = 10;
+    damage = 10*f.multiplier;
     attackSpeed = 2;
-    maxHP = 70;
+    maxHP = 70*f.multiplier;
     currentHP = maxHP;
     reach = 10;
     worth = 100;

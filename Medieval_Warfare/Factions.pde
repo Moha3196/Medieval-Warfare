@@ -1,6 +1,6 @@
 class Factions {
   int goldCount = 1000;
-
+  float multiplier;
   Factions() {
   }
 
@@ -23,4 +23,20 @@ class Factions {
       }
     }
   }
+void setDifficulty(int value) {
+  switch(value) {
+    case 1:
+      multiplier = 1;
+      break;
+    
+    case 2:
+      multiplier = 1.5;
+      break;
+    
+    case 3:
+      multiplier = 2;
+      break;
+  }
+}
+
 }

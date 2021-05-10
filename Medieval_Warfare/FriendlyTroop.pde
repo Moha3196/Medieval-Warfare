@@ -12,7 +12,7 @@ class FriendlyTroop {
   boolean friendlyInFront = false; //Booleans to check if there is enemy troops moving infront
   boolean isDead = false; //Boolean to check if troop is dead
   float statsUpgrade = 1;
-  int worth;
+  float worth;
   int troopLevel; //Shows the current troop lvl
   EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
   FriendlyTroop friendlyTroopInFront; //Object used to save the EnemyTroop infront of the current EnemyTroop 
@@ -151,7 +151,7 @@ class FKnight extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = 20;
+    worth = 20*f.multiplier;
     f.goldCount -= worth;
     troopLevel = lvl;
   }
@@ -178,7 +178,7 @@ class FArcher extends FriendlyTroop {
     maxHP = 15 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = 25;
+    worth = 25*f.multiplier;
     f.goldCount -= worth;
     troopLevel = lvl;
   }
@@ -204,7 +204,7 @@ class FMage extends FriendlyTroop {
     maxHP = 15 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = 40;
+    worth = 40*f.multiplier;
     f.goldCount -= worth;
     troopLevel = lvl;
   }
@@ -230,7 +230,7 @@ class FCavalry extends FriendlyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    worth = 70;
+    worth = 70*f.multiplier;
     f.goldCount -= worth;
     troopLevel = lvl;
   }
@@ -257,7 +257,7 @@ class FGiant extends FriendlyTroop {
     maxHP = 70 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = 100;
+    worth = 100*f.multiplier;
     f.goldCount -= worth;
     troopLevel = lvl;
   }

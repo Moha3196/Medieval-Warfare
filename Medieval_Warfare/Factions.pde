@@ -1,6 +1,6 @@
 class Factions {
-  int playerGoldCount = 200;
-  int enemyGoldCount = 200;
+  int playerGoldCount = 1000;
+  int enemyGoldCount = 1000;
   int numberOfMaxIndexes;
   float multiplier = 1;
 

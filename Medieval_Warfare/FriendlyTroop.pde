@@ -26,7 +26,7 @@ class FriendlyTroop {
 
 
   void update() {
-    if (!occupied && !friendlyOccupied && !friendlyInFront && !attackingCastle && h.settingsOpen == false) {
+    if (!occupied && !friendlyOccupied && !friendlyInFront && !attackingCastle && !h.settingsOpen) {
       pos.add(speed);
     }
     image(troop, pos.x, pos.y);

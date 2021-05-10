@@ -243,7 +243,7 @@ void GamingScreen() {
     stage = 4;
   }
   textAlign(LEFT);
-  //h.options();
+  h.options();
 }
 
 
@@ -274,6 +274,12 @@ void EndScreen() {
     enemyCavalryLevel = 1;
     enemyGiantLevel = 1;
 
+    friendlyKnightWorth = 20; //Resets the cost of the troops above the boxes
+    friendlyArcherWorth = 35;
+    friendlyMageWorth = 50;
+    friendlyCavalryWorth = 70;
+    friendlyGiantWorth = 100;
+    
     currentEnemyCastleHP = 1000; //Resets Castle HP
     currentFriendlyCastleHP = 1000;
 
@@ -283,6 +289,8 @@ void EndScreen() {
     lastSpecialUsed = millis(); //Resets the special timer
     posSpecial.x = -316; //Resets special
     specialMoving = false; 
+
+    h.row = 1;
 
     restart = false;
   }

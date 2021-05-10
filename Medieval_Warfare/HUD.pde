@@ -129,7 +129,7 @@ class HUD {
     text("LVL " + (friendlyMageLevel+1) + " Mage: " + int(40*pow(2, friendlyMageLevel)), 69, 564);
     text("LVL " + (friendlyCavalryLevel+1) + " Cavalry: " + int(70*pow(2, friendlyCavalryLevel)), 69, 580);
     text("LVL " + (friendlyGiantLevel+1) + " Giant: " + int(100*pow(2, friendlyGiantLevel)), 69, 596);
-  
+
     textSize(15);
     text("E", 618, 67); 
     text("N", 618, 79); 
@@ -152,7 +152,7 @@ class HUD {
     }
     mouseHand = false;
   }
- 
+
 
   void options() {
     pushMatrix();
@@ -167,7 +167,6 @@ class HUD {
     if  (mousePressed && mouseButton == LEFT) {
       if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
         settingsOpen = true;
-       
       }
     }
 
@@ -183,7 +182,7 @@ class HUD {
       text("Resume", width/2-80, height/2-110);
       text("Volume:100", width/2-120, height/2-25);
       textSize(30);
-      
+
       if (difficulty == 1) { //changes the text for the difficulty button through a mouseClicked in main
         text("Difficulty:Easy", width/2-125, height/2+55);
       } else if (difficulty == 2) {
@@ -206,33 +205,42 @@ class HUD {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
 
           stage = 1; // Resets everything and puts you back to the startscreen 
-          
+
           ft.clear();
           et.clear();
-          
+
           f.playerGoldCount = 1000;
           f.enemyGoldCount = 1000;
-          
+
+          currentEnemyCastleHP = 1000; //Resets Castle HP
+          currentFriendlyCastleHP = 1000;
+
           friendlyKnightLevel = 1;
           friendlyArcherLevel = 1;
           friendlyMageLevel = 1;
           friendlyCavalryLevel = 1;
           friendlyGiantLevel = 1;
-          
+
           enemyKnightLevel = 1;
           enemyArcherLevel = 1;
           enemyMageLevel = 1;
           enemyCavalryLevel = 1;
           enemyGiantLevel = 1;
-          
-          lastSpecialUsed = millis();          
+
+          friendlyKnightWorth = 20; //Resets the cost of the troops above the boxes
+          friendlyArcherWorth = 35;
+          friendlyMageWorth = 50;
+          friendlyCavalryWorth = 70;
+          friendlyGiantWorth = 100;
+
+          lastSpecialUsed = millis(); //Resets the special timer
+          posSpecial.x = -316; //Resets special
+          specialMoving = false;     
           row = 1;
 
-          //special running
           settingsOpen = false;
         }
       }
     }
   }
-  
 }

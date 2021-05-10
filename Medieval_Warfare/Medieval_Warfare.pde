@@ -51,7 +51,7 @@ void setup() {
 
   posSpecial.x = -316;
   posSpecial.y = 200;
-  
+
   currentFriendlyCastleHP = friendlyCastleHP;
   currentEnemyCastleHP = enemyCastleHP;
 
@@ -111,16 +111,16 @@ void setup() {
   highlight = loadImage("Highlighted box.png");
   upgradeHighlight = loadImage("upgradeHighlight box.png");
   options   = loadImage("options.png");
-  
+
   Special = loadImage("Fire_trail_special.png");
-  
+
   tutorialButton = loadImage("Tutorial.png");
   startButton = loadImage("start button.png");
   specialButton = loadImage("Special button.png");
-  
+
   SpecialVisiualBox = loadImage("Fire_trail_special.png");
   SpecialVisiualBox.resize(150, 65);
-  
+
   goldenIncome = createFont("Verdana", 30); //Makes the font to Verdena and the size to 30.
   textFont(goldenIncome);
 
@@ -129,22 +129,26 @@ void setup() {
 
 
 void draw() {
-  switch(stage) { //Stages is used to switch between screens
-  case 1:
-    StartScreen();
-    break; 
+  if (!h.settingsOpen) {
+    switch(stage) { //Stages is used to switch between screens
+    case 1:
+      StartScreen();
+      break; 
 
-  case 2:
-    //Tutorial();
-    break;
+    case 2:
+      //Tutorial();
+      break;
 
-  case 3:
-    GamingScreen();
-    break; 
+    case 3:
+      GamingScreen();
+      break; 
 
-  case 4:
-    EndScreen();
-    break;
+    case 4:
+      EndScreen();
+      break;
+    }
+  } else {
+    h.options();
   }
 
   //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
@@ -230,7 +234,7 @@ void keyPressed() {
     friendlyCavalryLevel += 1;
     friendlyGiantLevel += 1;
   }
-  
+
   if (keyCode == 'I') { //Upgrades all friendly Troop... Used for testing
     enemyKnightLevel += 1;
     enemyArcherLevel += 1;

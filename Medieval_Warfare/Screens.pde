@@ -215,7 +215,7 @@ void GamingScreen() {
   textFont(goldenIncome);
   fill(255);
 
-  text("Gold: " + f.playerGoldCount, width/3, 90); //Writes the current amount of gold
+  text("Gold: " + f.playerGoldCount + "  " + f.enemyGoldCount, width/3, 90); //Writes the current amount of gold
 
   textSize(12); //Changes the size to 12
   fill(0);
@@ -231,8 +231,8 @@ void GamingScreen() {
 
   textSize(16); //Changes the size to 16
   text(20, 255, 590); //Writes the cost of the troops above the boxes
-  text(25, 340, 590);
-  text(40, 425, 590);
+  text(35, 340, 590);
+  text(50, 425, 590);
   text(70, 510, 590);
   text(100, 595, 590);
   fill(255);

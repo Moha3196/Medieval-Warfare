@@ -1,14 +1,15 @@
 class Factions {
-  int playerGoldCount = 1000;
-  int enemyGoldCount = 1000;
+  int playerGoldCount = 100;
+  int enemyGoldCount = 100;
   int numberOfMaxIndexes;
 
   Factions() {
   }
 
   void PassiveGold() {
-    if (millis() - passiveGoldCoolDown >= passiveGoldDelayTime) { //Generates 20 gold every 0.8 seconds
+    if (millis() - passiveGoldCoolDown >= passiveGoldDelayTime) { //Generates 5 gold every 1.3 seconds
       playerGoldCount += 5;
+      enemyGoldCount += 5;
       passiveGoldCoolDown = millis();
     }
   }
@@ -18,7 +19,7 @@ class Factions {
     posSpecial.y = h.selectorY;
   }
 
-  
+
   void EnemySpawning() {
     int[] friendliesInLane = new int[6];
     float[] friendliesCombatPowerInLane = new float[6];
@@ -65,14 +66,14 @@ class Factions {
     //println("");
     //println(friendliesAttackingCastleWithNoResistance);
     //println("");
-    
+
 
     float[] indexNumbersOfMaxCombatValues = indexesOfMaxValues(friendliesCombatPowerInLane);
     float[] lanesWithHighestCombatPower = new float[numberOfMaxIndexes];
     for (int i = 0; i < lanesWithHighestCombatPower.length; i++) {
       lanesWithHighestCombatPower[i] = indexNumbersOfMaxCombatValues[i];
     }
-    
+
     //<------
     int[] indexNumbersOfMaxValues = indexesOfMaxValues(friendliesInLane); //Array that stores the highest lanes in it by using the indexesOfMaxValues function
     int[] lanesWithHighestNumberOfFriendlyTroops = new int[numberOfMaxIndexes]; //Made a new Array that would only contain the specific amount of lanes
@@ -110,6 +111,7 @@ class Factions {
     boolean EUnitSelected = false;
     if (EUnitSelected == false) {
       ESelectedUnit = (int)random(0, 5);
+
       switch(ESelectedUnit) { //Chooses a random troop then changes the "ChosenUnitCost" to the chosen troop cost
       case 0:
         EUnitSelected = true;
@@ -117,11 +119,11 @@ class Factions {
         break;
       case 1:
         EUnitSelected = true;
-        ChosenUnitCost = 25;
+        ChosenUnitCost = 35;
         break;
       case 2:
         EUnitSelected = true;
-        ChosenUnitCost = 40;
+        ChosenUnitCost = 50;
         break;
       case 3:
         EUnitSelected = true;
@@ -139,35 +141,30 @@ class Factions {
       case 0:
         et.add(new EKnight(enemyKnightLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
-        enemyGoldCount -= ChosenUnitCost;
         EUnitSelected = false;
         break;
 
       case 1:
         et.add(new EArcher(enemyArcherLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
-        enemyGoldCount -= ChosenUnitCost;
         EUnitSelected = false;
         break; 
 
       case 2:
         et.add(new EMage(enemyMageLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
-        enemyGoldCount -= ChosenUnitCost;
         EUnitSelected = false;
         break;
 
       case 3:
         et.add(new ECavalry(enemyCavalryLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
-        enemyGoldCount -= ChosenUnitCost;
         EUnitSelected = false;
         break;
 
       case 4:
         et.add(new EGiant(enemyGiantLevel, enemySpawnY));
         enemyTroopDeployCoolDown = millis();
-        enemyGoldCount -= ChosenUnitCost;
         EUnitSelected = false;
         break;
       }

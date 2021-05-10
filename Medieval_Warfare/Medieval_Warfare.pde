@@ -1,5 +1,5 @@
-ArrayList<FriendlyTroop> ft = new ArrayList<FriendlyTroop>(0);
-ArrayList<EnemyTroop> et = new ArrayList<EnemyTroop>(0);
+ArrayList<FriendlyTroop> ft = new ArrayList<FriendlyTroop>();
+ArrayList<EnemyTroop> et = new ArrayList<EnemyTroop>();
 FKnight friendlyKnight;
 Factions f = new Factions();
 HUD h  = new HUD();
@@ -19,6 +19,7 @@ int friendlyKnightLevel = 1, friendlyArcherLevel = 1, friendlyMageLevel = 1, fri
 int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalryLevel = 1, enemyGiantLevel = 1; //Sets enemy troop levels to 1
 
 int stage = 1; //Used to switch screens
+//int startingGold = 1000; //The gold that the player and enemy is gonna start with
 
 int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
 int delayTime = 1000; //The delay time for deploying troops.

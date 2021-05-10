@@ -179,7 +179,7 @@ class FArcher extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = 25;
+    worth = 35;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -206,7 +206,7 @@ class FMage extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = 40;
+    worth = 50;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }

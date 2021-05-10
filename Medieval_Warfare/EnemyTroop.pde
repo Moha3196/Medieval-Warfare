@@ -185,7 +185,7 @@ class EArcher extends EnemyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = 25;
+    worth = 35;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -213,7 +213,7 @@ class EMage extends EnemyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = 40;
+    worth = 50;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

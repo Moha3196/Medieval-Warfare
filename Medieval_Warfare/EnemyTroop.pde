@@ -180,7 +180,7 @@ class EArcher extends EnemyTroop {
     troop = eArcher;
     speed.x = -0.5;
     speedBeforeContact = speed.x;
-    attackSpeed = 0.7;
+    attackSpeed = 1;
     damage = 4 * statsUpgrade * f.multiplier;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;

@@ -102,7 +102,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/3, width/3+20, height/3+20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("When you click the 'Settings' button the game pauses, and the game settings shows", width/3-8, height/3-3, width/3+20, height/3+20);//explains settings effect
+    text("When you click the 'Settings' button the game pauses, and shows the settings menu", width/3-8, height/3-3, width/3+20, height/3+20);//explains settings effect
     break;
 
   case 4://Shows the fifth page of the Tutorial
@@ -174,7 +174,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/3, width/3+20, height/4-10);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Current Lane' Shows which lane you currently are on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
+    text("'Current Lane' Shows which lane you're currently on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
 
     break;
   case 8: //Shows the ninth page of the Tutorial
@@ -233,7 +233,6 @@ void Tutorial() {    //Explain the different features in the game
     mouseHand = false;
   }
 }
-
 
 
 

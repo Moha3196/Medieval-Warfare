@@ -31,6 +31,10 @@ int stage = 1; //Used to switch screens
 int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
 int delayTime = 1000; //The delay time for deploying troops.
 
+int enemyLevelingCoolDown; //The timer for leveling enemy troops.
+int enemyLevelingCoolDownBeforeOptions; //The timer for enemy leveling before option was opened.
+int enemyLevelingDelayTime = 15000; //The delay time for leveling enemy troops.
+
 int enemyTroopDeployCoolDown; //The timer for deploying enemy troops.
 int enemySpawnDelayTime = 4000; //The delay time for deploying troops.
 

@@ -168,6 +168,7 @@ class HUD {
       if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
         settingsOpen = true;
         specialCoolDownBeforeOptions = millis() - lastSpecialUsed;
+        enemyLevelingCoolDownBeforeOptions = millis() - enemyLevelingCoolDown;
       }
     }
 
@@ -200,6 +201,7 @@ class HUD {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 140 && mouseY <= 210) { //resume Button
           settingsOpen = false;
           lastSpecialUsed = millis() - specialCoolDownBeforeOptions;
+          enemyLevelingCoolDown = millis() - enemyLevelingCoolDownBeforeOptions;
         }
       }
      
@@ -236,6 +238,7 @@ class HUD {
           friendlyGiantWorth = 100;
 
           lastSpecialUsed = millis(); //Resets the special timer
+          enemyLevelingCoolDown = millis(); //Resets Enemy Upgrade Timer
           posSpecial.x = -316; //Resets special
           specialMoving = false;     
           row = 1;

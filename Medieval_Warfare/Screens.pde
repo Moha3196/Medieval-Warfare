@@ -17,6 +17,7 @@ void StartScreen() {
         stage = 3;
         lastSpecialUsed = millis();
         enemyTroopDeployCoolDown = millis();
+        enemyLevelingCoolDown = millis();
       }
     }
 
@@ -270,7 +271,6 @@ void GamingScreen() {
 
   h.selector(h.row);
   h.sendTroopAndUpgrades();
-
   f.PassiveGold();
 
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
@@ -319,7 +319,8 @@ void GamingScreen() {
       et.remove(et.get(i));
     }
   }
-
+  
+  f.EnemyLeveling();
   f.EnemySpawning();
 
 
@@ -405,6 +406,7 @@ void EndScreen() {
     enemyTroopDeployCoolDown = millis(); //Resets Troop spawning
 
     stage = 3; //Restarts Game on GamingScreen
+    enemyLevelingCoolDown = millis(); //Resets Enemy Upgrade Timer
     lastSpecialUsed = millis(); //Resets the special timer
     posSpecial.x = -316; //Resets special
     specialMoving = false; 

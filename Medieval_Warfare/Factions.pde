@@ -14,13 +14,80 @@ class Factions {
       passiveGoldCoolDown = millis();
     }
   }
-
+  
   void Special() {
     posSpecial.x = -316;
     posSpecial.y = h.selectorY;
   }
+  
+  void EnemyLeveling() {
+    int ESelectedUnit = 0;
+    float ChosenUnitUpgradeCost = 0;
+    boolean EUnitSelected = false;
+    if (EUnitSelected == false) {
+      ESelectedUnit = (int)random(0, 5);
 
+      switch(ESelectedUnit) { //Chooses a random troop then changes the "ChosenUnitUpgradeCost" to the chosen troop upgrade cost
+      case 0:
+        EUnitSelected = true;
+        ChosenUnitUpgradeCost = 20*pow(2, enemyKnightLevel);
+        break;
+      case 1:
+        EUnitSelected = true;
+        ChosenUnitUpgradeCost = 35*pow(2, enemyArcherLevel);
+        break;
+      case 2:
+        EUnitSelected = true;
+        ChosenUnitUpgradeCost = 50*pow(2, enemyMageLevel);
+        break;
+      case 3:
+        EUnitSelected = true;
+        ChosenUnitUpgradeCost = 70*pow(2, enemyCavalryLevel);
+        break;
+      case 4:
+        EUnitSelected = true;
+        ChosenUnitUpgradeCost = 100*pow(2, enemyGiantLevel);
+        break;
+      }
+    }
 
+    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitUpgradeCost && millis() - enemyLevelingCoolDown >= enemyLevelingDelayTime) {
+      switch(ESelectedUnit) { //Upgrades enemy troops
+      case 0:
+        enemyKnightLevel++;
+        enemyLevelingCoolDown = millis();
+        EUnitSelected = false;
+        break;
+
+      case 1:
+        enemyArcherLevel++;
+        enemyLevelingCoolDown = millis();
+        EUnitSelected = false;
+        break; 
+
+      case 2:
+        enemyMageLevel++;
+        enemyLevelingCoolDown = millis();
+        EUnitSelected = false;
+        break;
+
+      case 3:
+        enemyCavalryLevel++;
+        enemyLevelingCoolDown = millis();
+        EUnitSelected = false;
+        break;
+
+      case 4:
+        enemyGiantLevel++;
+        enemyLevelingCoolDown = millis();
+        EUnitSelected = false;
+        break;
+      }
+    }
+    
+    
+  }
+  
   void EnemySpawning() {
     int[] friendliesInLane = new int[6];
     float[] friendliesCombatPowerInLane = new float[6];
@@ -85,10 +152,10 @@ class Factions {
     int randomLaneSelector;
     int selectedLane = 0;
     if (lanesWithNoResistance.size() == 0) { //If there is no attack on castle then focus lane with highest combat power
-      for (int i = 0; i <=friendliesCombatPowerInLane.length-1; i++) {
+      for (int i = 0; i < friendliesCombatPowerInLane.length; i++) {
         int checkedLanesTotalPower = 0;
-        for (int j = 0; j <= i - 1; j++) {
-          checkedLanesTotalPower +=friendliesCombatPowerInLane[j];//totalfriendliesCombatPowerInLane of lanes already checked
+        for (int j = 0; j < i; j++) {
+          checkedLanesTotalPower += friendliesCombatPowerInLane[j]; //totalfriendliesCombatPowerInLane of lanes already checked
         }       
 
         if (checkedLanesTotalPower < lanePicker && friendliesCombatPowerInLane[i] + checkedLanesTotalPower > lanePicker) {

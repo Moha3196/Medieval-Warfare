@@ -174,7 +174,7 @@ class FArcher extends FriendlyTroop {
     troop = fArcher;
     speed.x = 0.5;
     speedBeforeContact = speed.x;
-    attackSpeed = 0.7;
+    attackSpeed = 1;
     damage = 4 * statsUpgrade;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;

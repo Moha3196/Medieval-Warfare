@@ -403,22 +403,22 @@ void EndScreen() {
   fill(125, 100);
   strokeWeight(2);
   
-  image(playAgainButton, 310, 200); //Start Game Button
-  image(quitButton, width - 310, 200); //Tutorial Button
+  image(playAgainButton, 310, 200); //play again Button
+  image(quitButton, width - 310, 200); //quit Button
   if (mouseY >= 163 && mouseY <= 243) {
-    if (mouseX >= 250 && mouseX <= 371) { //Start Game Button
-      rect(250, 160, 120, 80); //Highlighted Start Game Button
+    if (mouseX >= 250 && mouseX <= 371) { //Play again Button
+      rect(250, 160, 120, 80); //Highlighted Play again Button
 
-      if (mousePressed) { //Starts the Game
-        stage = 3;
-        lastSpecialUsed = millis();
-        enemyTroopDeployCoolDown = millis();
-        enemyLevelingCoolDown = millis();
+      if (mousePressed) { //restarts the Game
+        
+        restart = true;
+
+        
       }
     }
 
     if (mouseX >= width - 370 && mouseX <= width - 249) { //Exit Button
-      rect(width - 250, 160, -120, 80); //Highlighted Tutorial Button
+      rect(width - 250, 160, -120, 80); //Highlighted exit Button
       if (mousePressed) { //Exits the game
         exit();
       }
@@ -456,7 +456,7 @@ void EndScreen() {
 
     enemyTroopDeployCoolDown = millis(); //Resets Troop spawning
 
-    stage = 3; //Restarts Game on GamingScreen
+    stage = 1; //Restarts Game on GamingScreen
     enemyLevelingCoolDown = millis(); //Resets Enemy Upgrade Timer
     lastSpecialUsed = millis(); //Resets the special timer
     posSpecial.x = -316; //Resets special

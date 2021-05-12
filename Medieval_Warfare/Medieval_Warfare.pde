@@ -12,7 +12,7 @@ float vol;
 PVector posSpecial = new PVector();
 
 PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special;
-PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, specialButton, arrow;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, difficultyEasy, difficultyNormal, difficultyHard, specialButton, arrow;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -128,6 +128,9 @@ void setup() {
   tutorialButton = loadImage("Tutorial.png");
   startButton = loadImage("start button.png");
   specialButton = loadImage("Special button.png");
+  difficultyEasy = loadImage("difficultyEasy.png");
+  difficultyNormal = loadImage("difficultyNormal.png");
+  difficultyHard = loadImage("difficultyHard.png");
 
   SpecialVisiualBox = loadImage("Fire_trail_special.png");
   SpecialVisiualBox.resize(150, 65);
@@ -162,19 +165,19 @@ void draw() {
     h.options();
   }
   m.volume(vol);
-
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+println(h.difficulty);
+  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 void mouseClicked() {
-  if  (mouseButton == LEFT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
+  if  (mouseButton == LEFT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button in settings
     if (h.difficulty <= 2) {
       h.difficulty++;
       f.setDifficulty(h.difficulty);
     } else {
       h.difficulty = 1;
     }
-  } else if (mouseButton == RIGHT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button
+  } else if (mouseButton == RIGHT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button in settings, right click
     if (h.difficulty >= 2) {
       h.difficulty--;
       f.setDifficulty(h.difficulty);
@@ -189,6 +192,21 @@ void mouseClicked() {
   } else if (mouseButton == RIGHT && mouseX >= 260 && mouseX <= 540 && mouseY >= 225 && mouseY <= 295) {
     if (vol >= 0.1) {
       vol -= 0.1;
+    }
+  }
+  if  (mouseButton == LEFT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button
+    if (h.difficulty <= 2 && stage == 1) {
+      h.difficulty++;
+      f.setDifficulty(h.difficulty);
+    } else if(stage ==1){
+      h.difficulty = 1;
+    }
+  }else if (mouseButton == RIGHT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button in settings, right click
+    if (h.difficulty >= 2 && stage == 1) {
+      h.difficulty--;
+      f.setDifficulty(h.difficulty);
+    } else if(stage == 1){
+      h.difficulty = 3;
     }
   }
 }

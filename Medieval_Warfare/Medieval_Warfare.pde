@@ -26,7 +26,7 @@ int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalry
 float friendlyKnightWorth = 20, friendlyArcherWorth = 35, friendlyMageWorth = 50, friendlyCavalryWorth = 70, friendlyGiantWorth = 100; //Sets friendly troop prices
 float enemyKnightWorth = 20, enemyArcherWorth = 35, enemyMageWorth = 50, enemyCavalryWorth = 70, enemyGiantWorth = 100; //Sets enemy troop prices
 
-int stage = 4; //Used to switch screens
+int stage = 1; //Used to switch screens
 
 int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
 int delayTime = 1000; //The delay time for deploying troops.

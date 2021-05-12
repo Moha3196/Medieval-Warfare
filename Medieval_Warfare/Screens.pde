@@ -3,12 +3,15 @@ int tutorialPage = 0;
 
 void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
   textAlign(CENTER);
   fill(125, 100);
 
   image(startButton, 180, 440); //Start Game Button
   image(tutorialButton, width - 180, 440); //Tutorial Button
+
+
+
   if (mouseY >= 403 && mouseY <= 483) {
     if (mouseX >= 120 && mouseX <= 241) { //Start Game Button
       rect(120, 400, 120, 80); //Highlighted Start Game Button
@@ -20,15 +23,27 @@ void StartScreen() {
         enemyLevelingCoolDown = millis();
       }
     }
-
-
+   
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
       rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
       if (mousePressed) { //Starts the Tutorial
         stage = 2;
       }
     }
-  }
+ 
+}
+if (h.difficulty == 1) { //changes the text for the difficulty button through a mouseClicked in main
+         image(difficultyEasy, width/2, 540);
+      } else if (h.difficulty == 2) {
+         image(difficultyNormal, width/2, 540);
+      } else if (h.difficulty == 3) {
+          image(difficultyHard, width/2, 540);
+      }
+ if (mouseY >= 510 && mouseY <= 570) {
+      if (mouseX >= 250 && mouseX <= 550) { //Difficulty Button
+        rect(250, 510, 300, 60); //Highlighted Difficulty Button       
+            }
+    }
 }
 
 

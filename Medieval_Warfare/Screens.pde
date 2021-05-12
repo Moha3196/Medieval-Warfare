@@ -121,7 +121,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/4, width/3+20, height/3-20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Troop cost' is the amount of gold it requires to spawn the specefic unit", width/3-8, height/4-3, width/3+20, height/3-20);//explains prices
+    text("'Troop cost' is the amount of gold it requires to spawn the specific unit", width/3-8, height/4-3, width/3+20, height/3-20);//explains prices
     break;
 
   case 6: //Shows the seventh page of the Tutorial
@@ -138,7 +138,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/5, width/3+20, height/3+20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Troop upgrade' is used to upgrade units by cliking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);//explains upgrades
+    text("'Troop upgrade' is used to upgrade units by clicking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);//explains upgrades
     break;
 
   case 7: //Shows the eight page of the Tutorial
@@ -159,7 +159,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/3, width/3+20, height/4-10);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Current Lane' Shows which lane your currently on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
+    text("'Current Lane' Shows which lane you currently are on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
 
     break;
   case 8: //Shows the ninth page of the Tutorial
@@ -319,7 +319,7 @@ void GamingScreen() {
       et.remove(et.get(i));
     }
   }
-  
+
   f.EnemyLeveling();
   f.EnemySpawning();
 
@@ -369,11 +369,47 @@ void GamingScreen() {
 
 
 void EndScreen() {
+  strokeWeight(4);
   if (!won) {  //If player lost, show losing screen
     image(lossScreen, width/2, height/2); //Shows the LossScreen
+    fill(255);
+    rect(width/2 - 180, 65, 360, 50);
+    fill(0);
+    text("You were defeated!", width/2, 100);
   } else if (won) {  //If player won, show winning screen
     image(winScreen, width/2, height/2); //Shows the WinScreen
+    fill(255);
+    rect(width/2 - 220, 65, 440, 50);
+    fill(0);
+    text("Congratulations! You won!", width/2, 100);
   }
+
+  textAlign(CENTER);
+  fill(125, 100);
+  strokeWeight(2);
+  
+  image(playAgainButton, 310, 200); //Start Game Button
+  image(quitButton, width - 310, 200); //Tutorial Button
+  if (mouseY >= 163 && mouseY <= 243) {
+    if (mouseX >= 250 && mouseX <= 371) { //Start Game Button
+      rect(250, 160, 120, 80); //Highlighted Start Game Button
+
+      if (mousePressed) { //Starts the Game
+        stage = 3;
+        lastSpecialUsed = millis();
+        enemyTroopDeployCoolDown = millis();
+        enemyLevelingCoolDown = millis();
+      }
+    }
+
+    if (mouseX >= width - 370 && mouseX <= width - 249) { //Exit Button
+      rect(width - 250, 160, -120, 80); //Highlighted Tutorial Button
+      if (mousePressed) { //Exits the game
+        exit();
+      }
+    }
+  }
+
 
   if (restart) {
     et.clear(); //Deletes all enemy troops
@@ -399,7 +435,7 @@ void EndScreen() {
     friendlyMageWorth = 50;
     friendlyCavalryWorth = 70;
     friendlyGiantWorth = 100;
-    
+
     currentEnemyCastleHP = 1000; //Resets Castle HP
     currentFriendlyCastleHP = 1000;
 

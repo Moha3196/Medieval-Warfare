@@ -11,8 +11,8 @@ float vol;
 
 PVector posSpecial = new PVector();
 
-PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special;
-PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, specialButton, arrow;
+PImage map, castles, selector, highlight, options, upgradeHighlight, SpecialVisiualBox, Special, arrow;
+PImage startScreen, winScreen, lossScreen, tutorialPage0, tutorialPage1, tutorialPage2, tutorialButton, startButton, quitButton, specialButton, playAgainButton;
 PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
@@ -26,7 +26,7 @@ int enemyKnightLevel = 1, enemyArcherLevel = 1, enemyMageLevel = 1, enemyCavalry
 float friendlyKnightWorth = 20, friendlyArcherWorth = 35, friendlyMageWorth = 50, friendlyCavalryWorth = 70, friendlyGiantWorth = 100; //Sets friendly troop prices
 float enemyKnightWorth = 20, enemyArcherWorth = 35, enemyMageWorth = 50, enemyCavalryWorth = 70, enemyGiantWorth = 100; //Sets enemy troop prices
 
-int stage = 1; //Used to switch screens
+int stage = 4; //Used to switch screens
 
 int friendlyTroopDeployCoolDown; //The timer for deploying friendly troops.
 int delayTime = 1000; //The delay time for deploying troops.
@@ -60,7 +60,7 @@ void setup() {
   frameRate(60);
   music = new SoundFile(this, "Medieval_Music.mp3");
   m = new Sound(this);
-  music.play();
+  music.loop();
   vol = 0.1;
   m.volume(vol);
   posSpecial.x = -316;
@@ -131,6 +131,8 @@ void setup() {
 
   tutorialButton = loadImage("Tutorial.png");
   startButton = loadImage("start button.png");
+  quitButton = loadImage("quitButton.png");
+  playAgainButton = loadImage("playAgainButton.png");
   specialButton = loadImage("Special button.png");
 
   SpecialVisiualBox = loadImage("Fire_trail_special.png");

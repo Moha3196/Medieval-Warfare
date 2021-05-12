@@ -125,8 +125,8 @@ class HUD {
     text("Upgrade to:", 69, 513);
     textSize(12);
     text("LVL " + (friendlyKnightLevel+1) + " Knight: " + int(20*pow(2, friendlyKnightLevel)), 69, 532); //Shows prices for troop upgrades
-    text("LVL " + (friendlyArcherLevel+1) + " Archer: " + int(25*pow(2, friendlyArcherLevel)), 69, 548);
-    text("LVL " + (friendlyMageLevel+1) + " Mage: " + int(40*pow(2, friendlyMageLevel)), 69, 564);
+    text("LVL " + (friendlyArcherLevel+1) + " Archer: " + int(35*pow(2, friendlyArcherLevel)), 69, 548);
+    text("LVL " + (friendlyMageLevel+1) + " Mage: " + int(50*pow(2, friendlyMageLevel)), 69, 564);
     text("LVL " + (friendlyCavalryLevel+1) + " Cavalry: " + int(70*pow(2, friendlyCavalryLevel)), 69, 580);
     text("LVL " + (friendlyGiantLevel+1) + " Giant: " + int(100*pow(2, friendlyGiantLevel)), 69, 596);
 

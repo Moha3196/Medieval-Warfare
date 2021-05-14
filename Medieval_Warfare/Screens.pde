@@ -294,13 +294,6 @@ void GamingScreen() {
       ft.get(i).occupied = false;
     }
 
-    //for (int j = 0; j < 6; j++) {
-    //  int lanePosY = 92 + (60 * (j+1));
-    //  if (lanePosY == ft.get(i).pos.y && h.selectorX + 60 >= ft.get(i).pos.x) {
-    //    friendlyTroopsStillInSpawn[j] = true;
-    //  }
-    //}
-
     if (ft.get(i).currentHP <= 0) {
       ft.get(i).isDead = true;
     }
@@ -342,6 +335,7 @@ void GamingScreen() {
 
   f.EnemyLeveling();
   f.EnemySpawning();
+  f.CheckIfTroopsInSpawn();
 
 
   image(fKnight, 255, 541); //Shows the image of the troops in the boxes below.

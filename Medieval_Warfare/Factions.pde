@@ -14,12 +14,12 @@ class Factions {
       passiveGoldCoolDown = millis();
     }
   }
-  
+
   void Special() {
     posSpecial.x = -316;
     posSpecial.y = h.selectorY;
   }
-  
+
   void EnemyLeveling() {
     int ESelectedUnit = 0;
     float ChosenUnitUpgradeCost = 0;
@@ -84,10 +84,38 @@ class Factions {
         break;
       }
     }
-    
-    
   }
-  
+
+  void CheckIfTroopsInSpawn() {
+    for (int i = 0; i < 6; i++) {
+      int friendliesInSpawn = 0;
+      int enemiesInSpawn = 0;
+      int lanePosY = 92 + (60 * (i+1));
+      for (int j = 0; j < ft.size(); j++) {
+        if (lanePosY == ft.get(j).pos.y && h.selectorX + 60 >= ft.get(j).pos.x) { //Checks if there still is friendly troops in spawn
+          friendliesInSpawn++;
+        }
+      }
+      if (friendliesInSpawn > 0) { //If there is changes the boolean to true
+      
+        friendlyTroopsStillInSpawn[i] = true;
+      } else {
+        friendlyTroopsStillInSpawn[i] = false;
+      }
+      
+      for (int j = 0; j < et.size(); j++) { 
+        if (lanePosY == et.get(j).pos.y && width - h.selectorX - 60 <= et.get(j).pos.x) { //Checks if there still is enemie troops in spawn
+          enemiesInSpawn++;
+        }
+      }
+      if (enemiesInSpawn > 0) { //If there is changes the boolean to true
+        enemieTroopsStillInSpawn[i] = true;
+      } else {
+        enemieTroopsStillInSpawn[i] = false;
+      }
+    }
+  }
+
   void EnemySpawning() {
     int[] friendliesInLane = new int[6];
     float[] friendliesCombatPowerInLane = new float[6];
@@ -202,7 +230,7 @@ class Factions {
       }
     }
 
-    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - enemyTroopDeployCoolDown >= enemySpawnDelayTime) {
+    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - enemyTroopDeployCoolDown >= enemySpawnDelayTime && !enemieTroopsStillInSpawn[selectedLane]) {
       switch(ESelectedUnit) { //Spawns enemy troops on the selected lane
       case 0:
         et.add(new EKnight(enemyKnightLevel, enemySpawnY));

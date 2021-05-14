@@ -20,55 +20,52 @@ class HUD {
 
 
   void sendTroopAndUpgrades() {
-    //for (int j = 0; j < 6; j++) {
-    //  int lanePosY = 92 + (60 * (j+1));
-      //if (lanePosY == selectorInitY && !friendlyTroopsStillInSpawn[j]) {
-        if (mouseY >= 504 && mouseY <= 597) {
-          if (mouseX >= 218 && mouseX <= 292) {
-            mouseHand = true;
-            image(highlight, 255, 539); //the highlighted box
-            //if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorInitY && !friendlyTroopsStillInSpawn[j])) { //if box is clicked on, and player has enough gold:
-            if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
-              ft.add(new FKnight(friendlyKnightLevel)); //add a new troop - depends on the box that was clicked
-              mousePressed = false; //stop the program from spamming troops in the blink of an eye
-              friendlyTroopDeployCoolDown = millis();
-            }
-          } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
-            mouseHand = true;
-            image(highlight, 340, 539);
-            if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
-              ft.add(new FArcher(friendlyArcherLevel));
-              mousePressed = false;
-              friendlyTroopDeployCoolDown = millis();
-            }
-          } else if (mouseX >= 388 && mouseX <= 462) {
-            mouseHand = true;
-            image(highlight, 425, 539);
-            if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
-              ft.add(new FMage(friendlyMageLevel));
-              mousePressed = false;
-              friendlyTroopDeployCoolDown = millis();
-            }
-          } else if (mouseX >= 473 && mouseX <= 547) {
-            mouseHand = true;
-            image(highlight, 510, 539);
-            if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
-              ft.add(new FCavalry(friendlyCavalryLevel));
-              mousePressed = false;
-              friendlyTroopDeployCoolDown = millis();
-            }
-          } else if (mouseX >= 558 && mouseX <= 631) {
-            image(highlight, 595, 539);        
-            mouseHand = true;
-            if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
-              ft.add(new FGiant(friendlyGiantLevel));
-              mousePressed = false;
-              friendlyTroopDeployCoolDown = millis();
-            }
+    for (int j = 0; j < 6; j++) {
+      int lanePosY = 92 + (60 * (j+1));
+      if (mouseY >= 504 && mouseY <= 597) {
+        if (mouseX >= 218 && mouseX <= 292) {
+          mouseHand = true;
+          image(highlight, 255, 539); //the highlighted box
+          if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorY && !friendlyTroopsStillInSpawn[j])) { //if box is clicked on, and player has enough gold:
+            ft.add(new FKnight(friendlyKnightLevel)); //add a new troop - depends on the box that was clicked
+            mousePressed = false; //stop the program from spamming troops in the blink of an eye
+            friendlyTroopDeployCoolDown = millis();
+          }
+        } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
+          mouseHand = true;
+          image(highlight, 340, 539);
+          if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
+            ft.add(new FArcher(friendlyArcherLevel));
+            mousePressed = false;
+            friendlyTroopDeployCoolDown = millis();
+          }
+        } else if (mouseX >= 388 && mouseX <= 462) {
+          mouseHand = true;
+          image(highlight, 425, 539);
+          if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+            ft.add(new FMage(friendlyMageLevel));
+            mousePressed = false;
+            friendlyTroopDeployCoolDown = millis();
+          }
+        } else if (mouseX >= 473 && mouseX <= 547) {
+          mouseHand = true;
+          image(highlight, 510, 539);
+          if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+            ft.add(new FCavalry(friendlyCavalryLevel));
+            mousePressed = false;
+            friendlyTroopDeployCoolDown = millis();
+          }
+        } else if (mouseX >= 558 && mouseX <= 631) {
+          image(highlight, 595, 539);        
+          mouseHand = true;
+          if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+            ft.add(new FGiant(friendlyGiantLevel));
+            mousePressed = false;
+            friendlyTroopDeployCoolDown = millis();
           }
         }
-      //}
-    //}
+      }
+    }
 
     if (mouseX >= 59 && mouseX <= 199) {
       if (mouseY >= 516 && mouseY <= 531) {

@@ -52,6 +52,7 @@ class FriendlyTroop {
         lastTimeAttacked = millis();
       }
     }
+    
 
     for (int i = 0; i < ft.size(); i++) {
       if (pos.x >= ft.get(i).pos.x - 30 - 15

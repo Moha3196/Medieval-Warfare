@@ -3,7 +3,7 @@ int tutorialPage = 0;
 
 void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
-  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
   textAlign(CENTER);
   fill(125, 100);
 
@@ -23,27 +23,26 @@ void StartScreen() {
         enemyLevelingCoolDown = millis();
       }
     }
-   
+
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
       rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
       if (mousePressed) { //Starts the Tutorial
         stage = 2;
       }
     }
- 
-}
-if (h.difficulty == 1) { //changes the text for the difficulty button through a mouseClicked in main
-         image(difficultyEasy, width/2, 540);
-      } else if (h.difficulty == 2) {
-         image(difficultyNormal, width/2, 540);
-      } else if (h.difficulty == 3) {
-          image(difficultyHard, width/2, 540);
-      }
- if (mouseY >= 510 && mouseY <= 570) {
-      if (mouseX >= 250 && mouseX <= 550) { //Difficulty Button
-        rect(250, 510, 300, 60); //Highlighted Difficulty Button       
-            }
+  }
+  if (h.difficulty == 1) { //changes the text for the difficulty button through a mouseClicked in main
+    image(difficultyEasy, width/2, 540);
+  } else if (h.difficulty == 2) {
+    image(difficultyNormal, width/2, 540);
+  } else if (h.difficulty == 3) {
+    image(difficultyHard, width/2, 540);
+  }
+  if (mouseY >= 510 && mouseY <= 570) {
+    if (mouseX >= 250 && mouseX <= 550) { //Difficulty Button
+      rect(250, 510, 300, 60); //Highlighted Difficulty Button
     }
+  }
 }
 
 
@@ -295,6 +294,13 @@ void GamingScreen() {
       ft.get(i).occupied = false;
     }
 
+    //for (int j = 0; j < 6; j++) {
+    //  int lanePosY = 92 + (60 * (j+1));
+    //  if (lanePosY == ft.get(i).pos.y && h.selectorX + 60 >= ft.get(i).pos.x) {
+    //    friendlyTroopsStillInSpawn[j] = true;
+    //  }
+    //}
+
     if (ft.get(i).currentHP <= 0) {
       ft.get(i).isDead = true;
     }
@@ -401,7 +407,7 @@ void EndScreen() {
   textAlign(CENTER);
   fill(125, 100);
   strokeWeight(2);
-  
+
   image(playAgainButton, 310, 200); //play again Button
   image(quitButton, width - 310, 200); //quit Button
   if (mouseY >= 163 && mouseY <= 243) {
@@ -409,10 +415,8 @@ void EndScreen() {
       rect(250, 160, 120, 80); //Highlighted Play again Button
 
       if (mousePressed) { //restarts the Game
-        
-        restart = true;
 
-        
+        restart = true;
       }
     }
 
@@ -429,8 +433,8 @@ void EndScreen() {
     et.clear(); //Deletes all enemy troops
     ft.clear(); //Deletes all friendly troops
 
-    f.playerGoldCount = 1000; //Resets player gold
-    f.enemyGoldCount = 1000; //Resets enemy gold
+    f.playerGoldCount = 600; //Resets player gold
+    f.enemyGoldCount = 600; //Resets enemy gold
 
     friendlyKnightLevel = 1; //Resets troop lvl's back to 1
     friendlyArcherLevel = 1;

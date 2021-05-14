@@ -20,49 +20,55 @@ class HUD {
 
 
   void sendTroopAndUpgrades() {
-    if (mouseY >= 504 && mouseY <= 597) {
-      if (mouseX >= 218 && mouseX <= 292) {
-        mouseHand=true;
-        image(highlight, 255, 539); //the highlighted box
-        if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
-          ft.add(new FKnight(friendlyKnightLevel)); //add a new troop - depends on the box that was clicked
-          mousePressed = false; //stop the program from spamming troops in the blink of an eye
-          friendlyTroopDeployCoolDown = millis();
+    //for (int j = 0; j < 6; j++) {
+    //  int lanePosY = 92 + (60 * (j+1));
+      //if (lanePosY == selectorInitY && !friendlyTroopsStillInSpawn[j]) {
+        if (mouseY >= 504 && mouseY <= 597) {
+          if (mouseX >= 218 && mouseX <= 292) {
+            mouseHand = true;
+            image(highlight, 255, 539); //the highlighted box
+            //if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorInitY && !friendlyTroopsStillInSpawn[j])) { //if box is clicked on, and player has enough gold:
+            if (mousePressed && f.playerGoldCount >= friendlyKnightWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //if box is clicked on, and player has enough gold:
+              ft.add(new FKnight(friendlyKnightLevel)); //add a new troop - depends on the box that was clicked
+              mousePressed = false; //stop the program from spamming troops in the blink of an eye
+              friendlyTroopDeployCoolDown = millis();
+            }
+          } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
+            mouseHand = true;
+            image(highlight, 340, 539);
+            if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
+              ft.add(new FArcher(friendlyArcherLevel));
+              mousePressed = false;
+              friendlyTroopDeployCoolDown = millis();
+            }
+          } else if (mouseX >= 388 && mouseX <= 462) {
+            mouseHand = true;
+            image(highlight, 425, 539);
+            if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+              ft.add(new FMage(friendlyMageLevel));
+              mousePressed = false;
+              friendlyTroopDeployCoolDown = millis();
+            }
+          } else if (mouseX >= 473 && mouseX <= 547) {
+            mouseHand = true;
+            image(highlight, 510, 539);
+            if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+              ft.add(new FCavalry(friendlyCavalryLevel));
+              mousePressed = false;
+              friendlyTroopDeployCoolDown = millis();
+            }
+          } else if (mouseX >= 558 && mouseX <= 631) {
+            image(highlight, 595, 539);        
+            mouseHand = true;
+            if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+              ft.add(new FGiant(friendlyGiantLevel));
+              mousePressed = false;
+              friendlyTroopDeployCoolDown = millis();
+            }
+          }
         }
-      } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
-        mouseHand=true;
-        image(highlight, 340, 539);
-        if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
-          ft.add(new FArcher(friendlyArcherLevel));
-          mousePressed = false;
-          friendlyTroopDeployCoolDown = millis();
-        }
-      } else if (mouseX >= 388 && mouseX <= 462) {
-        mouseHand=true;
-        image(highlight, 425, 539);
-        if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
-          ft.add(new FMage(friendlyMageLevel));
-          mousePressed = false;
-          friendlyTroopDeployCoolDown = millis();
-        }
-      } else if (mouseX >= 473 && mouseX <= 547) {
-        mouseHand=true;
-        image(highlight, 510, 539);
-        if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
-          ft.add(new FCavalry(friendlyCavalryLevel));
-          mousePressed = false;
-          friendlyTroopDeployCoolDown = millis();
-        }
-      } else if (mouseX >= 558 && mouseX <= 631) {
-        image(highlight, 595, 539);        
-        mouseHand=true;
-        if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
-          ft.add(new FGiant(friendlyGiantLevel));
-          mousePressed = false;
-          friendlyTroopDeployCoolDown = millis();
-        }
-      }
-    }
+      //}
+    //}
 
     if (mouseX >= 59 && mouseX <= 199) {
       if (mouseY >= 516 && mouseY <= 531) {
@@ -195,7 +201,7 @@ class HUD {
       }
       textSize(50);
       text("End", width/2-45, height/2+150);
-      
+
 
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 140 && mouseY <= 210) { //resume Button
@@ -204,7 +210,7 @@ class HUD {
           enemyLevelingCoolDown = millis() - enemyLevelingCoolDownBeforeOptions;
         }
       }
-     
+
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
 
@@ -213,8 +219,8 @@ class HUD {
           ft.clear();
           et.clear();
 
-          f.playerGoldCount = 1000;
-          f.enemyGoldCount = 1000;
+          f.playerGoldCount = 600;
+          f.enemyGoldCount = 600;
 
           currentEnemyCastleHP = 1000; //Resets Castle HP
           currentFriendlyCastleHP = 1000;

@@ -19,6 +19,8 @@ PImage fKnight, fGiant, fArcher, fMage, fCavalry;
 PImage eKnight, eGiant, eArcher, eMage, eCavalry;
 
 boolean won, specialMoving;
+boolean[] friendlyTroopsStillInSpawn = new boolean[6];
+boolean[] enemieTroopsStillInSpawn = new boolean[6];
 
 PFont goldenIncome;
 
@@ -173,26 +175,28 @@ void draw() {
     h.options();
   }
   m.volume(vol);
-println(h.difficulty);
-  println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
+  //println(h.selectorY);
+  //println(h.difficulty);
+  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 void mouseClicked() {
   if  (mouseButton == LEFT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button in settings
     if (h.difficulty <= 2) {
       h.difficulty++;
-      f.setDifficulty(h.difficulty);
     } else {
       h.difficulty = 1;
     }
+    f.setDifficulty(h.difficulty);
   } else if (mouseButton == RIGHT && h.settingsOpen == true && mouseX >= 260 && mouseX <= 540 && mouseY >= 310 && mouseY <= 380) {//difficulty button in settings, right click
     if (h.difficulty >= 2) {
       h.difficulty--;
-      f.setDifficulty(h.difficulty);
     } else {
       h.difficulty = 3;
     }
+    f.setDifficulty(h.difficulty);
   }
+
   if  (mouseButton == LEFT && mouseX >= 260 && mouseX <= 540 && mouseY >= 225 && mouseY <= 295) { //Volume button
     if (vol < 1) {
       vol += 0.1;
@@ -202,20 +206,21 @@ void mouseClicked() {
       vol -= 0.1;
     }
   }
+  
   if  (mouseButton == LEFT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button
     if (h.difficulty <= 2 && stage == 1) {
       h.difficulty++;
-      f.setDifficulty(h.difficulty);
-    } else if(stage ==1){
+    } else if (stage ==1) {
       h.difficulty = 1;
     }
-  }else if (mouseButton == RIGHT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button in settings, right click
+    f.setDifficulty(h.difficulty);
+  } else if (mouseButton == RIGHT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button in settings, right click
     if (h.difficulty >= 2 && stage == 1) {
       h.difficulty--;
-      f.setDifficulty(h.difficulty);
-    } else if(stage == 1){
+    } else if (stage == 1) {
       h.difficulty = 3;
     }
+    f.setDifficulty(h.difficulty);
   }
 }
 

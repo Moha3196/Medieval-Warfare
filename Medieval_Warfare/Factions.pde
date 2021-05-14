@@ -1,6 +1,6 @@
 class Factions {
-  int playerGoldCount = 1200;
-  int enemyGoldCount = 1000;
+  int playerGoldCount = 600;
+  int enemyGoldCount = 600;
   int numberOfMaxIndexes;
   float multiplier = 1;
 
@@ -9,8 +9,8 @@ class Factions {
 
   void PassiveGold() {
     if (millis() - passiveGoldCoolDown >= passiveGoldDelayTime) { //Generates 5 gold every 1.3 seconds
-      //playerGoldCount += 5;
-      //enemyGoldCount += 5;
+      playerGoldCount += 5;
+      enemyGoldCount += 5;
       passiveGoldCoolDown = millis();
     }
   }

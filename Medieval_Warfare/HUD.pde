@@ -34,7 +34,7 @@ class HUD {
         } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
           mouseHand = true;
           image(highlight, 340, 539);
-          if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) { //("25" is the cost of deploying the troop)
+          if (mousePressed && f.playerGoldCount >= friendlyArcherWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorY && !friendlyTroopsStillInSpawn[j])) { //("25" is the cost of deploying the troop)
             ft.add(new FArcher(friendlyArcherLevel));
             mousePressed = false;
             friendlyTroopDeployCoolDown = millis();
@@ -42,7 +42,7 @@ class HUD {
         } else if (mouseX >= 388 && mouseX <= 462) {
           mouseHand = true;
           image(highlight, 425, 539);
-          if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+          if (mousePressed && f.playerGoldCount >= friendlyMageWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorY && !friendlyTroopsStillInSpawn[j])) {
             ft.add(new FMage(friendlyMageLevel));
             mousePressed = false;
             friendlyTroopDeployCoolDown = millis();
@@ -50,7 +50,7 @@ class HUD {
         } else if (mouseX >= 473 && mouseX <= 547) {
           mouseHand = true;
           image(highlight, 510, 539);
-          if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+          if (mousePressed && f.playerGoldCount >= friendlyCavalryWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorY && !friendlyTroopsStillInSpawn[j])) {
             ft.add(new FCavalry(friendlyCavalryLevel));
             mousePressed = false;
             friendlyTroopDeployCoolDown = millis();
@@ -58,7 +58,7 @@ class HUD {
         } else if (mouseX >= 558 && mouseX <= 631) {
           image(highlight, 595, 539);        
           mouseHand = true;
-          if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime)) {
+          if (mousePressed && f.playerGoldCount >= friendlyGiantWorth && (millis() - friendlyTroopDeployCoolDown >= delayTime && lanePosY == selectorY && !friendlyTroopsStillInSpawn[j])) {
             ft.add(new FGiant(friendlyGiantLevel));
             mousePressed = false;
             friendlyTroopDeployCoolDown = millis();

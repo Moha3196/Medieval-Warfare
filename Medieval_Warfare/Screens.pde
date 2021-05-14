@@ -349,7 +349,7 @@ void GamingScreen() {
   textFont(goldenIncome);
   fill(255);
 
-  text("Gold: " + f.playerGoldCount + "  " + f.enemyGoldCount, width/3, 90); //Writes the current amount of gold
+  text("Gold: " + f.playerGoldCount, width/3, 90); //Writes the current amount of gold
 
   textSize(12); //Changes the size to 12
   fill(0);

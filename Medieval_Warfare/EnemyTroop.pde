@@ -269,7 +269,7 @@ class EGiant extends EnemyTroop {
     maxHP = 75 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    maxHP = enemyGiantWorth * f.multiplier;
+    worth = enemyGiantWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

@@ -4,15 +4,14 @@ class EnemyTroop {
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
   int allegiance, reach; //allegiance defines the troop's faction (player or enemy)
   float damage, maxHP, currentHP;
-  float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
-  int lastTimeAttacked;
-  float speedBeforeContact;
+  float attackFreq; //the attack speed of a troop - not constant for all troops
+  int attackCD;
   boolean occupied = false; //Boolean to check if in Combat
-  boolean enemyOccupied = false; //Booleans to check if there is enemy troops not moving infront
-  boolean enemyInFront = false; //Booleans to check if there is enemy troops moving infront
+  boolean enemyOccupied = false; //Boolean to check if there is enemy troops not moving infront
+  boolean enemyInFront = false; //Boolean to check if there is enemy troops moving infront
   boolean attackingCastle = false; //Boolean to check if troop is attacking castle
-  boolean isDead = false; //Boolean to check if troop is dead
-  float statsUpgrade = 1;
+  boolean isDead = false;
+  float statsUpgrade;
   float worth;
   int troopLevel; //Shows the current troop lvl
   FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
@@ -22,6 +21,7 @@ class EnemyTroop {
     pos.x = width - h.selectorX - 20;
     //pos.y = h.selectorY;
     isDead = false;
+    attackCD = millis();
   }
 
 
@@ -51,9 +51,9 @@ class EnemyTroop {
   void checkCollision() {
     if (pos.x <= 0 + 75 + reach && pos.x > 0) { //Checks collision with Friendly castle
       attackingCastle = true;
-      if (millis() - lastTimeAttacked >= attackSpeed*1000 && attackingCastle) {
+      if (millis() - attackCD >= attackFreq*1000 && attackingCastle) {
         fCastleCurrHP -= damage;
-        lastTimeAttacked = millis();
+        attackCD = millis();
       }
     }
 
@@ -109,9 +109,9 @@ class EnemyTroop {
         }
 
         if (currentFriendlyTroop.currentHP > 0) {
-          if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
+          if (millis() - attackCD >= attackFreq*1000) { //Attack speed is multiplied by 1000 because the millis()
             currentFriendlyTroop.currentHP -= damage;            //runs in milli seconds while attack speed is in seconds
-            lastTimeAttacked = millis();
+            attackCD = millis();
           }
         } else {
           occupied = false;
@@ -150,8 +150,7 @@ class EKnight extends EnemyTroop {
     } 
     troop = eKnight;
     speed.x = -0.5;
-    speedBeforeContact = speed.x;
-    attackSpeed = 1;
+    attackFreq = 1;
     damage = 4 * statsUpgrade * f.multiplier;
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
@@ -179,8 +178,7 @@ class EArcher extends EnemyTroop {
     }
     troop = eArcher;
     speed.x = -0.5;
-    speedBeforeContact = speed.x;
-    attackSpeed = 1;
+    attackFreq = 1;
     damage = 4 * statsUpgrade * f.multiplier;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
@@ -207,8 +205,7 @@ class EMage extends EnemyTroop {
     }
     troop = eMage;
     speed.x = -0.5;
-    speedBeforeContact = speed.x;
-    attackSpeed = 2.5;
+    attackFreq = 2.5;
     damage = 15 * statsUpgrade * f.multiplier;
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
@@ -235,8 +232,7 @@ class ECavalry extends EnemyTroop {
     }
     troop = eCavalry;
     speed.x = -0.9;
-    speedBeforeContact = speed.x;
-    attackSpeed = 1.5;
+    attackFreq = 1.5;
     damage = 5 * statsUpgrade * f.multiplier;
     maxHP = 50 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
@@ -263,8 +259,7 @@ class EGiant extends EnemyTroop {
     }
     troop = eGiant;
     speed.x = -0.3;
-    speedBeforeContact = speed.x;
-    attackSpeed = 2;
+    attackFreq = 2;
     damage = 10 * statsUpgrade * f.multiplier;
     maxHP = 75 * statsUpgrade * f.multiplier;
     currentHP = maxHP;

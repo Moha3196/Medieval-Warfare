@@ -4,9 +4,8 @@ class FriendlyTroop {
   PImage troop;  //the image of the troop we deploy - defined in each sub-class
   int allegiance, reach; //allegiance defines the troop's faction (player or enemy)
   float damage, maxHP, currentHP;
-  float attackSpeed = 1; //the attack speed of a troop - not constant for all troops
-  int lastTimeAttacked;
-  float speedBeforeContact;
+  float attackFreq = 1; //the attack speed of a troop - not constant for all troops
+  int attackCD;
   boolean occupied = false; //Boolean to check if in Combat
   boolean friendlyOccupied = false; //Booleans to check if there is friendly troops not moving infront
   boolean friendlyInFront = false; //Booleans to check if there is friendly troops moving infront
@@ -15,13 +14,14 @@ class FriendlyTroop {
   float statsUpgrade = 1;
   float worth;
   int troopLevel; //Shows the current troop lvl
-  EnemyTroop currentEnemyTroop; //Object used to save the currentEnemyTroop that the FriendlyTroop is fighting
-  FriendlyTroop friendlyTroopInFront; //Object used to save the EnemyTroop infront of the current EnemyTroop 
+  EnemyTroop currFoe; //Object used to save the currFoe that the FriendlyTroop is fighting
+  FriendlyTroop friendlyAhead; //Object used to save the EnemyTroop infront of the current EnemyTroop 
 
   FriendlyTroop () {
     pos.x = h.selectorX + 20;
     pos.y = h.selectorY;
     isDead = false;
+    attackCD = millis();
   }
 
 
@@ -47,9 +47,9 @@ class FriendlyTroop {
   void checkCollision() {
     if (pos.x >= width - 75 - reach && pos.x < width) { //Checks collision with Enemy castle
       attackingCastle = true;
-      if (millis() - lastTimeAttacked >= attackSpeed*1000 && attackingCastle) {
+      if (millis() - attackCD >= attackFreq*1000 && attackingCastle) {
         eCastleCurrHP -= damage;
-        lastTimeAttacked = millis();
+        attackCD = millis();
       }
     }
     
@@ -65,10 +65,10 @@ class FriendlyTroop {
         && !ft.get(i).friendlyOccupied
         && !ft.get(i).friendlyInFront
         && !ft.get(i).isDead) { //Checks if there is an friendly troop are infront 
-        friendlyTroopInFront = ft.get(i); 
+        friendlyAhead = ft.get(i); 
         friendlyInFront = true;
       } else if (friendlyInFront) {
-        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - 15) {
+        if (friendlyAhead.isDead || pos.x < friendlyAhead.pos.x - 30 - 15) {
           friendlyInFront = false;
         }
       }
@@ -82,10 +82,10 @@ class FriendlyTroop {
         || ft.get(i).friendlyOccupied
         || ft.get(i).attackingCastle)
         && !ft.get(i).isDead) { //Checks collision with friendly troops
-        friendlyTroopInFront = ft.get(i); 
+        friendlyAhead = ft.get(i); 
         friendlyOccupied = true;
       } else if (friendlyOccupied) {
-        if (friendlyTroopInFront.isDead || pos.x < friendlyTroopInFront.pos.x - 30 - 15) {
+        if (friendlyAhead.isDead || pos.x < friendlyAhead.pos.x - 30 - 15) {
           friendlyOccupied = false;
           occupied = false;
         }
@@ -98,28 +98,28 @@ class FriendlyTroop {
         && !occupied
         && !attackingCastle
         && !et.get(i).isDead) { //Checks collision with enemy troops, if there is changes occupied to be true
-        currentEnemyTroop = et.get(i); 
+        currFoe = et.get(i); 
         occupied = true;
       } else if (occupied) { 
-        if (currentEnemyTroop.isDead) {
+        if (currFoe.isDead) {
           occupied = false;
         }
 
-        if (currentEnemyTroop.currentHP > 0) {
-          if (millis() - lastTimeAttacked >= attackSpeed*1000) { //Attack speed is multiplied by 1000 because the millis()
-            currentEnemyTroop.currentHP -= damage;               //runs in milli seconds while attack speed is in seconds
-            lastTimeAttacked = millis();
+        if (currFoe.currentHP > 0) {
+          if (millis() - attackCD >= attackFreq*1000) { //Attack speed is multiplied by 1000 because the millis() runs in milliseconds,
+            currFoe.currentHP -= damage;                         //while attack speed is in seconds
+            attackCD = millis();
           }
         } else {
           occupied = false;
-          f.playerGoldCount += currentEnemyTroop.worth*1.5;
+          f.playerGoldCount += currFoe.worth*1.5;
           for (int j = 0; j < ft.size(); j++) {
             if (ft.get(j).pos.y == pos.y) {
               ft.get(j).occupied = false;
               ft.get(j).friendlyOccupied = false;
             }
           }
-          currentEnemyTroop.isDead = true;
+          currFoe.isDead = true;
           for (int j = 0; j < et.size(); j++) {
             if (et.get(j).pos.y == pos.y) {
               et.get(j).enemyOccupied = false;
@@ -147,8 +147,7 @@ class FKnight extends FriendlyTroop {
     } 
     troop = fKnight;
     speed.x = 0.5;
-    speedBeforeContact = speed.x;
-    attackSpeed = 1;
+    attackFreq = 1;
     damage = 4 * statsUpgrade;
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
@@ -174,8 +173,7 @@ class FArcher extends FriendlyTroop {
     }
     troop = fArcher;
     speed.x = 0.5;
-    speedBeforeContact = speed.x;
-    attackSpeed = 1;
+    attackFreq = 1;
     damage = 4 * statsUpgrade;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
@@ -201,8 +199,7 @@ class FMage extends FriendlyTroop {
     } 
     troop = fMage;
     speed.x = 0.5;
-    speedBeforeContact = speed.x;
-    attackSpeed = 2.5;
+    attackFreq = 2.5;
     damage = 15 * statsUpgrade;
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
@@ -228,8 +225,7 @@ class FCavalry extends FriendlyTroop {
     } 
     troop = fCavalry;
     speed.x = 0.9;
-    speedBeforeContact = speed.x;
-    attackSpeed = 1.5;
+    attackFreq = 1.5;
     damage = 5 * statsUpgrade;
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
@@ -255,8 +251,7 @@ class FGiant extends FriendlyTroop {
     } 
     troop = fGiant;
     speed.x = 0.3;
-    speedBeforeContact = speed.x;
-    attackSpeed = 2;
+    attackFreq = 2;
     damage = 10 * statsUpgrade;
     maxHP = 75 * statsUpgrade;
     currentHP = maxHP;

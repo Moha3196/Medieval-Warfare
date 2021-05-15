@@ -56,8 +56,6 @@ float fCastleCurrHP; //Current HP for friendly castle
 float eCastleHP = 1000; //Total HP for enemy castle
 float eCastleCurrHP; //Current HP for enemy castle
 
-int lastTimeAttacked; //The timer for attacking.
-
 boolean restart = false;
 
 void setup() {
@@ -135,15 +133,14 @@ void setup() {
   
   fDeployCD = millis(); //variables for cooldowns (CD's)
   passiveGoldCD = millis();         //"
-  lastTimeAttacked = millis();            //"
   
   imageMode(CENTER);
 }
 
 
 void draw() {
-  if (!h.settingsOpen) {
-    switch(stage) { //Stages is used to switch between screens
+  if (!h.settingsOpen) { //practially pauses the game, if settings is open
+    switch(stage) { //a switch-statement for switching screens, since this is more efficient
     case 1:
       StartScreen();
       break; 
@@ -160,13 +157,11 @@ void draw() {
       EndScreen();
       break;
     }
-  } else {
-    h.options();
+  } else {       //if settings menu is not up, make sure to continue options() func call,otherwise the game stops since you can't close the menu again
+    h.options(); //otherwise the game stops since you can't close the menu again
   }
+  
   m.volume(vol);
-  //println(h.selectorY);
-  //println(h.difficulty);
-  //println("mouseX: " + mouseX + "   mouseY: " + mouseY);  //for testing (finding approximate coordinates)
 }
 
 void mouseClicked() {
@@ -203,7 +198,8 @@ void mouseClicked() {
       h.difficulty = 1;
     }
     f.setDifficulty(h.difficulty);
-  } else if (mouseButton == RIGHT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button in settings, right click
+  }//
+  else if (mouseButton == RIGHT && mouseX >= 250 && mouseX <= 550 && mouseY >= 510 && mouseY <= 570) {//difficulty button in settings, right click
     if (h.difficulty >= 2 && stage == 1) {
       h.difficulty--;
     } else if (stage == 1) {
@@ -233,63 +229,10 @@ void keyPressed() {
       h.row = 1;
     }
   }
-  if (keyCode == ENTER && millis() - eDeployCD >= lastSpecialUsed) { //Makes an enemy Knight troop... Used for testing
-    et.add(new EKnight(eKnightLevel, h.selectorY));
-    f.playerGoldCount += 20;
-    eDeployCD = millis();
-  }
-
-  if (keyCode == 'F') { //Makes an friendly Knight troop... Used for testing
-    //h.selectorX = 100;
-    ft.add(new FKnight(fKnightLevel));
-    //h.selectorX = 31;
-    f.playerGoldCount += 20;
-    fDeployCD = millis();
-  }
 
   if (keyCode == ' ' && millis() - specialCD >= lastSpecialUsed && stage == 3) { //Uses Special
     f.special();
     specialMoving = true;
     lastSpecialUsed = millis();
-  }
-
-  if (keyCode == 'R') { //Restarts game
-    restart = true;
-  }
-
-  if (keyCode == '1') { //Makes an enemy Knight troop... Used for testing
-    et.add(new EKnight(eKnightLevel, h.selectorY));
-    f.enemyGoldCount += 20;
-  }
-  if (keyCode == '2') { //Makes an enemy Archer troop... Used for testing
-    et.add(new EArcher(eArcherLevel, h.selectorY));
-    f.enemyGoldCount += 25;
-  }
-  if (keyCode == '3') { //Makes an enemy Mage troop... Used for testing
-    et.add(new EMage(eMageLevel, h.selectorY));
-    f.enemyGoldCount += 40;
-  }
-  if (keyCode == '4') { //Makes an enemy Cavalry troop... Used for testing
-    et.add(new ECavalry(eCavalryLevel, h.selectorY));
-    f.enemyGoldCount += 70;
-  }
-  if (keyCode == '5') { //Makes an enemy Giant troop... Used for testing
-    et.add(new EGiant(eGiantLevel, h.selectorY));
-    f.enemyGoldCount += 100;
-  }
-  if (keyCode == 'U') { //Upgrades all friendly Troop... Used for testing
-    fKnightLevel += 1;
-    fArcherLevel += 1;
-    fMageLevel += 1;
-    fCavalryLevel += 1;
-    fGiantLevel += 1;
-  }
-
-  if (keyCode == 'I') { //Upgrades all friendly Troop... Used for testing
-    eKnightLevel += 1;
-    eArcherLevel += 1;
-    eMageLevel += 1;
-    eCavalryLevel += 1;
-    eGiantLevel += 1;
   }
 }

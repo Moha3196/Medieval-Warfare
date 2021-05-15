@@ -131,7 +131,7 @@ class Factions {
       for (int f = 0; f < ft.size(); f++) {
         if (ft.get(f).pos.y == lanePosY) { //Checks if the friendly troop is on the current lane, and if it is, then it gets added to the Array
           friendliesInLane[i]++;
-          friendliesCombatPowerInLane[i] += ft.get(f).maxHP * ft.get(f).damage / ft.get(f).attackSpeed; //Calculates Combat Power
+          friendliesCombatPowerInLane[i] += ft.get(f).maxHP * ft.get(f).damage / ft.get(f).attackFreq; //Calculates Combat Power
         }
 
         for (int e = 0; e < et.size(); e++) {

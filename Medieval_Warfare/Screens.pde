@@ -312,7 +312,7 @@ void GamingScreen() {
     }
 
     if (et.get(i).pos.y == posSpecial.y && et.get(i).pos.x <= posSpecial.x + 358 && et.get(i).pos.x >= posSpecial.x - 358) { //Checks if enemy troops are inside the special ability
-      et.get(i).currentHP -= 1*et.get(i).maxHP/100;                                                                         //And if they are, they will take damage over time
+      et.get(i).currentHP -= et.get(i).maxHP/100;                                                                            //And if they are, they will take damage over time
       if (et.get(i).currentHP <= 0) {
         f.playerGoldCount += et.get(i).worth*0.3;
         for (int j = 0; j < ft.size(); j++) {

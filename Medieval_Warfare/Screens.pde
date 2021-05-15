@@ -1,5 +1,5 @@
-
 int tutorialPage = 0;
+
 
 void StartScreen() {
   image(startScreen, width/2, height/2); //Shows the start screen image
@@ -17,17 +17,17 @@ void StartScreen() {
       rect(120, 400, 120, 80); //Highlighted Start Game Button
 
       if (mousePressed) { //Starts the Game
-        stage = 3;
+        h.stage = 3;
         lastSpecialUsed = millis();
-        eDeployCD = millis();
-        eLevelingCD = millis();
+        f.eDeployCD = millis();
+        f.eLevelingCD = millis();
       }
     }
 
     if (mouseX >= width-240 && mouseX <= width-119) { //Tutorial Button
       rect(width - 120, 400, -120, 80); //Highlighted Tutorial Button
       if (mousePressed) { //Starts the Tutorial
-        stage = 2;
+        h.stage = 2;
       }
     }
   }
@@ -44,10 +44,6 @@ void StartScreen() {
     }
   }
 }
-
-
-
-
 
 
 void Tutorial() {    //Explain the different features in the game
@@ -101,7 +97,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/3, width/3+20, height/3+20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("When you click the 'Settings' button the game pauses, and shows the settings menu", width/3-8, height/3-3, width/3+20, height/3+20);//explains settings effect
+    text("When you click the 'Settings' button the game pauses, and shows the settings menu", width/3-8, height/3-3, width/3+20, height/3+20); //explains settings effect
     break;
 
   case 4://Shows the fifth page of the Tutorial
@@ -118,7 +114,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-60, height/4-5, width/3+120, height/5+50);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("When you click the 'troop' button a troop will spawn on the current lane    (lanes are explained later)", width/3-58, height/4-8, width/3+120, height/5+50);//explains troop effect
+    text("When you click the 'troop' button a troop will spawn on the current lane    (lanes are explained later)", width/3-58, height/4-8, width/3+120, height/5+50); //explains troop effect
     break;
 
   case 5://Shows the sixth page of the Tutorial
@@ -135,7 +131,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/4, width/3+20, height/3-20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Troop cost' is the amount of gold it requires to spawn the specific unit", width/3-8, height/4-3, width/3+20, height/3-20);//explains prices
+    text("'Troop cost' is the amount of gold it requires to spawn the specific unit", width/3-8, height/4-3, width/3+20, height/3-20); //explains prices
     break;
 
   case 6: //Shows the seventh page of the Tutorial
@@ -152,7 +148,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/5, width/3+20, height/3+20);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Troop upgrade' is used to upgrade units by clicking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20);//explains upgrades
+    text("'Troop upgrade' is used to upgrade units by clicking on the desired units upgrade", width/3-8, height/5-3, width/3+20, height/3+20); //explains upgrades
     break;
 
   case 7: //Shows the eight page of the Tutorial
@@ -173,7 +169,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/3, width/3+20, height/4-10);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Current Lane' Shows which lane you're currently on", width/3-8, height/3-3, width/3+20, height/4-10);//explains current lane
+    text("'Current Lane' Shows which lane you're currently on", width/3-8, height/3-3, width/3+20, height/4-10); //explains current lane
 
     break;
   case 8: //Shows the ninth page of the Tutorial
@@ -186,7 +182,7 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-25, height/2, width/3+50, height/4-10);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Ability Button' Shows the cooldown left on ability use", width/3-23, height/2-3, width/3+50, height/4-10);//explains current lane
+    text("'Ability Button' Shows the cooldown left on ability use", width/3-23, height/2-3, width/3+50, height/4-10); //explains current lane
     break;
 
   case 9: //Shows the tenth page of the Tutorial
@@ -200,11 +196,11 @@ void Tutorial() {    //Explain the different features in the game
     rect(width/3-10, height/2, width/3+20, height/4-10);
     fill(0, 0, 0);
     textAlign(LEFT, TOP);
-    text("'Enemy level' Shows the current enemy level", width/3-8, height/2-3, width/3+20, height/4-10);//explains current lane
+    text("'Enemy level' Shows the current enemy level", width/3-8, height/2-3, width/3+20, height/4-10); //explains current lane
     break;
   }
   popMatrix();
-  if (mouseY >= 48 && mouseY <= 88 && stage == 2) {
+  if (mouseY >= 48 && mouseY <= 88 && h.stage == 2) {
     if (mouseX >= 55 && mouseX <= 75 && tutorialPage != 0) {
       mouseHand = true;
       if (mousePressed) {
@@ -218,14 +214,14 @@ void Tutorial() {    //Explain the different features in the game
         tutorialPage++;
         mousePressed = false;
       } else if (mousePressed && tutorialPage == 9) {
-        stage = 1;
+        h.stage = 1;
         tutorialPage = 0;
         mousePressed = false;
       }
     }
   }
 
-  if (mouseHand && stage == 2) {
+  if (mouseHand && h.stage == 2) {
     cursor(HAND);
   } else {
     cursor(ARROW);
@@ -238,21 +234,21 @@ void Tutorial() {    //Explain the different features in the game
 void GamingScreen() {
   image(map, width/2, height/2); //Shows the playground, boxes and banners
   //imageMode(CORNER);
-  image(special, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
+  image(special, specialPos.x, specialPos.y); //Shows the Special fire trail.
   //imageMode(CENTER);
   image(castles, width/2, height/2);
   pushMatrix();
   strokeWeight(2);
 
   if (specialMoving) {
-    posSpecial.x += 2;
+    specialPos.x += 2;
   }
 
   fill(0, 255, 0);
-  rect(width, 1, width/2/eCastleHP*-eCastleCurrHP, 38); //Shows Enemy castle health bar
+  rect(width, 1, (width/2)/f.eCastleHP * -f.eCastleCurrHP, 38); //Shows Enemy castle health bar
 
   fill(0, 255, 0);
-  rect(0, 1, width/2/fCastleHP*fCastleCurrHP, 38); //Shows Friendly castle health bar
+  rect(0, 1, (width/2)/f.fCastleHP * f.fCastleCurrHP, 38); //Shows Friendly castle health bar
 
   strokeWeight(4);
   noFill();
@@ -311,7 +307,7 @@ void GamingScreen() {
       et.get(i).occupied = false;
     }
 
-    if (et.get(i).pos.y == posSpecial.y && et.get(i).pos.x <= posSpecial.x + 358 && et.get(i).pos.x >= posSpecial.x - 358) { //Checks if enemy troops are inside the special ability
+    if (et.get(i).pos.y == specialPos.y && et.get(i).pos.x <= specialPos.x + 358 && et.get(i).pos.x >= specialPos.x - 358) { //Checks if enemy troops are inside the special ability
       et.get(i).currentHP -= et.get(i).maxHP/100;                                                                            //And if they are, they will take damage over time
       if (et.get(i).currentHP <= 0) {
         f.playerGoldCount += et.get(i).worth*0.3;
@@ -361,20 +357,20 @@ void GamingScreen() {
   text("Giant", 595, 493);
 
   textSize(16); //Changes the size to 16
-  text((int)fKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
-  text((int)fArcherWorth, 340, 590);
-  text((int)fMageWorth, 425, 590);
-  text((int)fCavalryWorth, 510, 590);
-  text((int)fGiantWorth, 595, 590);
+  text((int) f.fKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
+  text((int) f.fArcherWorth, 340, 590);
+  text((int) f.fMageWorth, 425, 590);
+  text((int) f.fCavalryWorth, 510, 590);
+  text((int) f.fGiantWorth, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
 
-  if (fCastleCurrHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
+  if (f.fCastleCurrHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
     won = false;
-    stage = 4;
-  } else if (eCastleCurrHP <= 0) {  //When the Enemy Castle dies, loads winning screen
+    h.stage = 4;
+  } else if (f.eCastleCurrHP <= 0) {  //When the Enemy Castle dies, loads winning screen
     won = true;
-    stage = 4;
+    h.stage = 4;
   }
   textAlign(LEFT);
   h.options();
@@ -424,43 +420,43 @@ void EndScreen() {
 
 
   if (restart) {
-    et.clear(); //Deletes all enemy troops
-    ft.clear(); //Deletes all friendly troops
-
-    f.playerGoldCount = 600; //Resets player gold
-    f.enemyGoldCount = 600; //Resets enemy gold
-
-    fKnightLevel = 1; //Resets troop lvl's back to 1
-    fArcherLevel = 1;
-    fMageLevel = 1;
-    fCavalryLevel = 1;
-    fGiantLevel = 1;
-
-    eKnightLevel = 1;
-    eArcherLevel = 1;
-    eMageLevel = 1;
-    eCavalryLevel = 1;
-    eGiantLevel = 1;
-
-    fKnightWorth = 20; //Resets the cost of the troops above the boxes
-    fArcherWorth = 35;
-    fMageWorth = 50;
-    fCavalryWorth = 70;
-    fGiantWorth = 100;
-
-    eCastleCurrHP = 1000; //Resets Castle HP
-    fCastleCurrHP = 1000;
-
-    eDeployCD = millis(); //Resets Troop spawning
-
-    stage = 1; //Restarts Game on GamingScreen
-    eLevelingCD = millis(); //Resets Enemy Upgrade Timer
-    lastSpecialUsed = millis(); //Resets the special timer
-    posSpecial.x = -316; //Resets special
-    specialMoving = false; 
-
+    ft.clear(); //Removes all troops to prepare for the next game
+    et.clear(); //"
+    
+    h.stage = 1; //Restarts Game on the start screen
     h.row = 1;
+    
+    f.playerGoldCount = 600; //Resets faction's gold
+    f.enemyGoldCount = 600;  //"
 
-    restart = false;
+    f.fKnightLevel = 1;  //Resets troop levels
+    f.fArcherLevel = 1;  //"
+    f.fMageLevel = 1;    //"
+    f.fCavalryLevel = 1; //"
+    f.fGiantLevel = 1;   //"
+
+    f.eKnightLevel = 1;  //"
+    f.eArcherLevel = 1;  //"
+    f.eMageLevel = 1;    //"
+    f.eCavalryLevel = 1; //"
+    f.eGiantLevel = 1;   //"
+
+    f.fKnightWorth = 20;  //Resets the prices of the troops above the boxes
+    f.fArcherWorth = 35;  //"
+    f.fMageWorth = 50;    //"
+    f.fCavalryWorth = 70; //"
+    f.fGiantWorth = 100;  //"
+
+    f.eCastleCurrHP = 1000; //Resets Castle HP
+    f.fCastleCurrHP = 1000; //"
+
+    f.eDeployCD = millis(); //Resets Troop spawning
+    f.eLevelingCD = millis();
+    lastSpecialUsed = millis();
+    
+    specialPos.x = -316;   //Resets special,
+    specialMoving = false; //and stops it from moving
+
+    restart = false; //
   }
 }

@@ -1,4 +1,5 @@
 class HUD {
+  int stage;
   int selectorX, selectorY, selectorInitY;  //coords for selector - the base is a stepping stone (see line 18)
   int row = 1;
   int optionsRotation;
@@ -8,8 +9,9 @@ class HUD {
 
 
   HUD () {
-    selectorX = 31;      //initial coords for the selector
-    selectorInitY = 92;  //(pretty specific due to size of display window)
+    stage = 1; //Used to switch screens
+    selectorX = 31;     //initial coords for the selector
+    selectorInitY = 92; //(pretty specific due to size of display window)
   }
 
 
@@ -26,42 +28,42 @@ class HUD {
         if (mouseX >= 218 && mouseX <= 292) {
           mouseHand = true;
           image(highlight, 255, 539); //the highlighted box
-          if (mousePressed && f.playerGoldCount >= fKnightWorth && (millis() - fDeployCD >= delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) { //if box is clicked on, and player has enough gold:
-            ft.add(new FKnight(fKnightLevel)); //add a new troop - depends on the box that was clicked
+          if (mousePressed && f.playerGoldCount >= f.fKnightWorth && (millis() - f.fDeployCD >= f.delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) { //if box is clicked on, and player has enough gold:
+            ft.add(new FKnight(f.fKnightLevel)); //add a new troop - depends on the box that was clicked
             mousePressed = false; //stop the program from spamming troops in the blink of an eye
-            fDeployCD = millis();
+            f.fDeployCD = millis();
           }
         } else if (mouseX >= 303 && mouseX <= 377) { //same deal as above, but for different troops
           mouseHand = true;
           image(highlight, 340, 539);
-          if (mousePressed && f.playerGoldCount >= fArcherWorth && (millis() - fDeployCD >= delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) { //("25" is the cost of deploying the troop)
-            ft.add(new FArcher(fArcherLevel));
+          if (mousePressed && f.playerGoldCount >= f.fArcherWorth && (millis() - f.fDeployCD >= f.delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) { //("25" is the cost of deploying the troop)
+            ft.add(new FArcher(f.fArcherLevel));
             mousePressed = false;
-            fDeployCD = millis();
+            f.fDeployCD = millis();
           }
         } else if (mouseX >= 388 && mouseX <= 462) {
           mouseHand = true;
           image(highlight, 425, 539);
-          if (mousePressed && f.playerGoldCount >= fMageWorth && (millis() - fDeployCD >= delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) {
-            ft.add(new FMage(fMageLevel));
+          if (mousePressed && f.playerGoldCount >= f.fMageWorth && (millis() - f.fDeployCD >= f.delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) {
+            ft.add(new FMage(f.fMageLevel));
             mousePressed = false;
-            fDeployCD = millis();
+            f.fDeployCD = millis();
           }
         } else if (mouseX >= 473 && mouseX <= 547) {
           mouseHand = true;
           image(highlight, 510, 539);
-          if (mousePressed && f.playerGoldCount >= fCavalryWorth && (millis() - fDeployCD >= delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) {
-            ft.add(new FCavalry(fCavalryLevel));
+          if (mousePressed && f.playerGoldCount >= f.fCavalryWorth && (millis() - f.fDeployCD >= f.delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) {
+            ft.add(new FCavalry(f.fCavalryLevel));
             mousePressed = false;
-            fDeployCD = millis();
+            f.fDeployCD = millis();
           }
         } else if (mouseX >= 558 && mouseX <= 631) {
           image(highlight, 595, 539);        
           mouseHand = true;
-          if (mousePressed && f.playerGoldCount >= fGiantWorth && (millis() - fDeployCD >= delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) {
-            ft.add(new FGiant(fGiantLevel));
+          if (mousePressed && f.playerGoldCount >= f.fGiantWorth && (millis() - f.fDeployCD >= f.delayTime && lanePosY == selectorY && !friendliesInSpawn[j])) {
+            ft.add(new FGiant(f.fGiantLevel));
             mousePressed = false;
-            fDeployCD = millis();
+            f.fDeployCD = millis();
           }
         }
       }
@@ -72,50 +74,50 @@ class HUD {
         mouseHand=true;
         image(upgradeHighlight, 129, 524); //the highlighted box
 
-        if (mousePressed && f.playerGoldCount >= 20*pow(2, fKnightLevel)) {
-          f.playerGoldCount -= 20*pow(2, fKnightLevel);
-          fKnightLevel += 1;
-          fKnightWorth *= 1.5;
+        if (mousePressed && f.playerGoldCount >= 20*pow(2, f.fKnightLevel)) {
+          f.playerGoldCount -= 20*pow(2, f.fKnightLevel);
+          f.fKnightLevel += 1;
+          f.fKnightWorth *= 1.5;
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
         }
       } else if (mouseY >= 532 && mouseY <= 547) { //same deal as above, but for different troops
         mouseHand=true;
         image(upgradeHighlight, 129, 540);
 
-        if (mousePressed && f.playerGoldCount >= 35*pow(2, fArcherLevel)) {
-          f.playerGoldCount -= 35*pow(2, fArcherLevel);
-          fArcherLevel += 1;
-          fArcherWorth *= 1.5;
+        if (mousePressed && f.playerGoldCount >= 35*pow(2, f.fArcherLevel)) {
+          f.playerGoldCount -= 35*pow(2, f.fArcherLevel);
+          f.fArcherLevel += 1;
+          f.fArcherWorth *= 1.5;
           mousePressed = false;
         }
       } else if (mouseY >= 548 && mouseY <= 563) {
         mouseHand=true;
         image(upgradeHighlight, 129, 556);
 
-        if (mousePressed && f.playerGoldCount >= 50*pow(2, fMageLevel)) {
-          f.playerGoldCount -= 50*pow(2, fMageLevel);
-          fMageLevel += 1;
-          fMageWorth *= 1.5;
+        if (mousePressed && f.playerGoldCount >= 50*pow(2, f.fMageLevel)) {
+          f.playerGoldCount -= 50*pow(2, f.fMageLevel);
+          f.fMageLevel += 1;
+          f.fMageWorth *= 1.5;
           mousePressed = false;
         }
       } else if (mouseY >= 564 && mouseY <= 579) {
         mouseHand=true;
         image(upgradeHighlight, 129, 572);
 
-        if (mousePressed && f.playerGoldCount >= 70*pow(2, fCavalryLevel)) {
-          f.playerGoldCount -= 70*pow(2, fCavalryLevel);
-          fCavalryLevel += 1;
-          fCavalryWorth *= 1.5;
+        if (mousePressed && f.playerGoldCount >= 70*pow(2, f.fCavalryLevel)) {
+          f.playerGoldCount -= 70*pow(2, f.fCavalryLevel);
+          f.fCavalryLevel += 1;
+          f.fCavalryWorth *= 1.5;
           mousePressed = false;
         }
       } else if (mouseY >= 580 && mouseY <= 595) {
         mouseHand=true;
         image(upgradeHighlight, 129, 588);
 
-        if (mousePressed && f.playerGoldCount >= 100*pow(2, fGiantLevel)) {
-          f.playerGoldCount -= 100*pow(2, fGiantLevel);
-          fGiantLevel += 1;
-          fGiantWorth *= 1.5;
+        if (mousePressed && f.playerGoldCount >= 100*pow(2, f.fGiantLevel)) {
+          f.playerGoldCount -= 100*pow(2, f.fGiantLevel);
+          f.fGiantLevel += 1;
+          f.fGiantWorth *= 1.5;
           mousePressed = false;
         }
       }
@@ -127,11 +129,11 @@ class HUD {
     textSize(13);
     text("Upgrade to:", 69, 513);
     textSize(12);
-    text("LVL " + (fKnightLevel+1) + " Knight: " + int(20*pow(2, fKnightLevel)), 69, 532); //Shows prices for troop upgrades
-    text("LVL " + (fArcherLevel+1) + " Archer: " + int(35*pow(2, fArcherLevel)), 69, 548);
-    text("LVL " + (fMageLevel+1) + " Mage: " + int(50*pow(2, fMageLevel)), 69, 564);
-    text("LVL " + (fCavalryLevel+1) + " Cavalry: " + int(70*pow(2, fCavalryLevel)), 69, 580);
-    text("LVL " + (fGiantLevel+1) + " Giant: " + int(100*pow(2, fGiantLevel)), 69, 596);
+    text("LVL " + (f.fKnightLevel+1) + " Knight: " + int(20*pow(2, f.fKnightLevel)), 69, 532); //Shows prices for troop upgrades
+    text("LVL " + (f.fArcherLevel+1) + " Archer: " + int(35*pow(2, f.fArcherLevel)), 69, 548);
+    text("LVL " + (f.fMageLevel+1) + " Mage: " + int(50*pow(2, f.fMageLevel)), 69, 564);
+    text("LVL " + (f.fCavalryLevel+1) + " Cavalry: " + int(70*pow(2, f.fCavalryLevel)), 69, 580);
+    text("LVL " + (f.fGiantLevel+1) + " Giant: " + int(100*pow(2, f.fGiantLevel)), 69, 596);
 
     textSize(15);
     text("E", 618, 67); 
@@ -141,11 +143,11 @@ class HUD {
     text("Y", 619, 115); 
 
     textSize(11);
-    text("Knight  LVL " + (eKnightLevel), 639, 62); //Shows Enemy troop levels in 
-    text("Archer  LVL " + (eArcherLevel), 639, 75); 
-    text("Mage    LVL " + (eMageLevel), 639, 88); 
-    text("Cavalry LVL " + (eCavalryLevel), 639, 101); 
-    text("Giant    LVL " + (eGiantLevel), 639, 114); 
+    text("Knight  LVL " + (f.eKnightLevel), 639, 62); //Shows Enemy troop levels in 
+    text("Archer  LVL " + (f.eArcherLevel), 639, 75); 
+    text("Mage    LVL " + (f.eMageLevel), 639, 88); 
+    text("Cavalry LVL " + (f.eCavalryLevel), 639, 101); 
+    text("Giant    LVL " + (f.eGiantLevel), 639, 114); 
     popMatrix();
 
     if (mouseHand && stage == 3) {
@@ -171,7 +173,7 @@ class HUD {
       if (mouseX >= 708 && mouseX <= 755 && mouseY >= 517 && mouseY <= 563) {
         settingsOpen = true;
         specialCD_PreOptions = millis() - lastSpecialUsed;
-        eLevelingCD_PreOptions = millis() - eLevelingCD;
+        f.eLevelingCD_PreOptions = millis() - f.eLevelingCD;
       }
     }
 
@@ -204,7 +206,7 @@ class HUD {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 140 && mouseY <= 210) { //resume Button
           settingsOpen = false;
           lastSpecialUsed = millis() - specialCD_PreOptions;
-          eLevelingCD = millis() - eLevelingCD_PreOptions;
+          f.eLevelingCD = millis() - f.eLevelingCD_PreOptions;
         }
       }
 
@@ -219,30 +221,30 @@ class HUD {
           f.playerGoldCount = 600;
           f.enemyGoldCount = 600;
 
-          eCastleCurrHP = 1000; //Resets Castle HP
-          fCastleCurrHP = 1000;
+          f.eCastleCurrHP = 1000; //Resets Castle HP
+          f.fCastleCurrHP = 1000;
 
-          fKnightLevel = 1;
-          fArcherLevel = 1;
-          fMageLevel = 1;
-          fCavalryLevel = 1;
-          fGiantLevel = 1;
+          f.fKnightLevel = 1;
+          f.fArcherLevel = 1;
+          f.fMageLevel = 1;
+          f.fCavalryLevel = 1;
+          f.fGiantLevel = 1;
 
-          eKnightLevel = 1;
-          eArcherLevel = 1;
-          eMageLevel = 1;
-          eCavalryLevel = 1;
-          eGiantLevel = 1;
+          f.eKnightLevel = 1;
+          f.eArcherLevel = 1;
+          f.eMageLevel = 1;
+          f.eCavalryLevel = 1;
+          f.eGiantLevel = 1;
 
-          fKnightWorth = 20; //Resets the cost of the troops above the boxes
-          fArcherWorth = 35;
-          fMageWorth = 50;
-          fCavalryWorth = 70;
-          fGiantWorth = 100;
+          f.fKnightWorth = 20; //Resets the cost of the troops above the boxes
+          f.fArcherWorth = 35;
+          f.fMageWorth = 50;
+          f.fCavalryWorth = 70;
+          f.fGiantWorth = 100;
 
           lastSpecialUsed = millis(); //Resets the special timer
-          eLevelingCD = millis(); //Resets Enemy Upgrade Timer
-          posSpecial.x = -316; //Resets special
+          f.eLevelingCD = millis(); //Resets Enemy Upgrade Timer
+          specialPos.x = -316; //Resets special
           specialMoving = false;     
           row = 1;
 

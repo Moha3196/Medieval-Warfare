@@ -14,8 +14,8 @@ class EnemyTroop {
   float statsUpgrade;
   float worth;
   int troopLevel; //Shows the current troop lvl
-  FriendlyTroop currentFriendlyTroop; //Object used to save the currentFriendlyTroop that the EnemyTroop is fighting
-  EnemyTroop enemyTroopInFront; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
+  FriendlyTroop currFoe; //Object used to save the currFoe that the EnemyTroop is fighting
+  EnemyTroop enemyAhead; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
   EnemyTroop () {
     pos.x = width - h.selectorX - 20;
@@ -52,7 +52,7 @@ class EnemyTroop {
     if (pos.x <= 0 + 75 + reach && pos.x > 0) { //Checks collision with Friendly castle
       attackingCastle = true;
       if (millis() - attackCD >= attackFreq*1000 && attackingCastle) {
-        fCastleCurrHP -= damage;
+        f.fCastleCurrHP -= damage;
         attackCD = millis();
       }
     }
@@ -68,10 +68,10 @@ class EnemyTroop {
         && !et.get(i).enemyOccupied
         && !et.get(i).enemyInFront
         && !et.get(i).isDead) { //Checks if there is an enemy troop are infront 
-        enemyTroopInFront = et.get(i); 
+        enemyAhead = et.get(i); 
         enemyInFront = true;
       } else if (enemyInFront) {
-        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + 15) {
+        if (enemyAhead.isDead || pos.x > enemyAhead.pos.x + 30 + 15) {
           enemyInFront = false;
         }
       }
@@ -85,10 +85,10 @@ class EnemyTroop {
         || et.get(i).enemyOccupied
         || et.get(i).attackingCastle)
         && !et.get(i).isDead) { //Checks collision with friendly troops
-        enemyTroopInFront = et.get(i); 
+        enemyAhead = et.get(i); 
         enemyOccupied = true;
       } else if (enemyOccupied) {
-        if (enemyTroopInFront.isDead || pos.x > enemyTroopInFront.pos.x + 30 + 15) {
+        if (enemyAhead.isDead || pos.x > enemyAhead.pos.x + 30 + 15) {
           enemyOccupied = false;
           occupied = false;
         }
@@ -101,28 +101,28 @@ class EnemyTroop {
         && !occupied
         && !attackingCastle
         && !ft.get(i).isDead) { //Checks collision with friendly troops, if there is changes occupied to be true
-        currentFriendlyTroop = ft.get(i); 
+        currFoe = ft.get(i); 
         occupied = true;
       } else if (occupied) { 
-        if (currentFriendlyTroop.isDead) {
+        if (currFoe.isDead) {
           occupied = false;
         }
 
-        if (currentFriendlyTroop.currentHP > 0) {
+        if (currFoe.currentHP > 0) {
           if (millis() - attackCD >= attackFreq*1000) { //Attack speed is multiplied by 1000 because the millis()
-            currentFriendlyTroop.currentHP -= damage;            //runs in milli seconds while attack speed is in seconds
+            currFoe.currentHP -= damage;            //runs in milli seconds while attack speed is in seconds
             attackCD = millis();
           }
         } else {
           occupied = false;
-          f.enemyGoldCount += currentFriendlyTroop.worth*1.5;
+          f.enemyGoldCount += currFoe.worth*1.5;
           for (int j = 0; j < et.size(); j++) {
             if (et.get(j).pos.y == pos.y) {
               et.get(j).occupied = false;
               et.get(j).enemyOccupied = false;
             }
           }
-          currentFriendlyTroop.isDead = true;
+          currFoe.isDead = true;
           for (int j = 0; j < ft.size(); j++) {
             if (ft.get(j).pos.y == pos.y) {
               ft.get(j).friendlyOccupied = false;
@@ -155,7 +155,7 @@ class EKnight extends EnemyTroop {
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = eKnightWorth * f.multiplier;
+    worth = f.eKnightWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -183,7 +183,7 @@ class EArcher extends EnemyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = eArcherWorth * f.multiplier;
+    worth = f.eArcherWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -210,7 +210,7 @@ class EMage extends EnemyTroop {
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 80;
-    worth = eMageWorth;
+    worth = f.eMageWorth;
     f.enemyGoldCount -= worth * f.multiplier;
     troopLevel = lvl;
     pos.y = yPos;
@@ -237,7 +237,7 @@ class ECavalry extends EnemyTroop {
     maxHP = 50 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 30;
-    worth = eCavalryWorth * f.multiplier;
+    worth = f.eCavalryWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -264,7 +264,7 @@ class EGiant extends EnemyTroop {
     maxHP = 75 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = eGiantWorth * f.multiplier;
+    worth = f.eGiantWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

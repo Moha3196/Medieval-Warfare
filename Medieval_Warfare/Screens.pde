@@ -19,8 +19,8 @@ void StartScreen() {
       if (mousePressed) { //Starts the Game
         stage = 3;
         lastSpecialUsed = millis();
-        enemyTroopDeployCoolDown = millis();
-        enemyLevelingCoolDown = millis();
+        eDeployCD = millis();
+        eLevelingCD = millis();
       }
     }
 
@@ -238,7 +238,7 @@ void Tutorial() {    //Explain the different features in the game
 void GamingScreen() {
   image(map, width/2, height/2); //Shows the playground, boxes and banners
   //imageMode(CORNER);
-  image(Special, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
+  image(special, posSpecial.x, posSpecial.y); //Shows the Special fire trail.
   //imageMode(CENTER);
   image(castles, width/2, height/2);
   pushMatrix();
@@ -249,10 +249,10 @@ void GamingScreen() {
   }
 
   fill(0, 255, 0);
-  rect(width, 1, width/2/enemyCastleHP*-currentEnemyCastleHP, 38); //Shows Enemy castle health bar
+  rect(width, 1, width/2/eCastleHP*-eCastleCurrHP, 38); //Shows Enemy castle health bar
 
   fill(0, 255, 0);
-  rect(0, 1, width/2/friendlyCastleHP*currentFriendlyCastleHP, 38); //Shows Friendly castle health bar
+  rect(0, 1, width/2/fCastleHP*fCastleCurrHP, 38); //Shows Friendly castle health bar
 
   strokeWeight(4);
   noFill();
@@ -261,13 +261,13 @@ void GamingScreen() {
   //strokeWeight(10);
   popMatrix();
 
-  if ((millis()/1000 - lastSpecialUsed/1000) < specialCoolDown/1000) { //Checks if special is ready, if not shows remaining time
+  if ((millis()/1000 - lastSpecialUsed/1000) < specialCD/1000) { //Checks if special is ready, if not shows remaining time
     image(specialButton, width/3*2 - 20, 80);
     pushMatrix();
     fill(120, 180);
     strokeWeight(0);
     rectMode(CORNER);
-    rect(width/3*2 + 75 - 20, 80 - 65/2, 5*-(specialCoolDown/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
+    rect(width/3*2 + 75 - 20, 80 - 65/2, 5*-(specialCD/1000 + lastSpecialUsed/1000 - millis()/1000), 65);
     strokeWeight(4);
     noFill();
     rect(width/3*2 - 75 - 20, 80 - 65/2, 150, 65);
@@ -284,7 +284,7 @@ void GamingScreen() {
 
   h.selector(h.row);
   h.sendTroopAndUpgrades();
-  f.PassiveGold();
+  f.passiveGold();
 
   for (int i = 0; i < ft.size(); i++) { //runs the different functions for Friendly troops
     ft.get(i).update();
@@ -361,18 +361,18 @@ void GamingScreen() {
   text("Giant", 595, 493);
 
   textSize(16); //Changes the size to 16
-  text((int)friendlyKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
-  text((int)friendlyArcherWorth, 340, 590);
-  text((int)friendlyMageWorth, 425, 590);
-  text((int)friendlyCavalryWorth, 510, 590);
-  text((int)friendlyGiantWorth, 595, 590);
+  text((int)fKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
+  text((int)fArcherWorth, 340, 590);
+  text((int)fMageWorth, 425, 590);
+  text((int)fCavalryWorth, 510, 590);
+  text((int)fGiantWorth, 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
 
-  if (currentFriendlyCastleHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
+  if (fCastleCurrHP <= 0) {  //When the Friendly Castle dies, loads losing screen 
     won = false;
     stage = 4;
-  } else if (currentEnemyCastleHP <= 0) {  //When the Enemy Castle dies, loads winning screen
+  } else if (eCastleCurrHP <= 0) {  //When the Enemy Castle dies, loads winning screen
     won = true;
     stage = 4;
   }
@@ -430,31 +430,31 @@ void EndScreen() {
     f.playerGoldCount = 600; //Resets player gold
     f.enemyGoldCount = 600; //Resets enemy gold
 
-    friendlyKnightLevel = 1; //Resets troop lvl's back to 1
-    friendlyArcherLevel = 1;
-    friendlyMageLevel = 1;
-    friendlyCavalryLevel = 1;
-    friendlyGiantLevel = 1;
+    fKnightLevel = 1; //Resets troop lvl's back to 1
+    fArcherLevel = 1;
+    fMageLevel = 1;
+    fCavalryLevel = 1;
+    fGiantLevel = 1;
 
-    enemyKnightLevel = 1;
-    enemyArcherLevel = 1;
-    enemyMageLevel = 1;
-    enemyCavalryLevel = 1;
-    enemyGiantLevel = 1;
+    eKnightLevel = 1;
+    eArcherLevel = 1;
+    eMageLevel = 1;
+    eCavalryLevel = 1;
+    eGiantLevel = 1;
 
-    friendlyKnightWorth = 20; //Resets the cost of the troops above the boxes
-    friendlyArcherWorth = 35;
-    friendlyMageWorth = 50;
-    friendlyCavalryWorth = 70;
-    friendlyGiantWorth = 100;
+    fKnightWorth = 20; //Resets the cost of the troops above the boxes
+    fArcherWorth = 35;
+    fMageWorth = 50;
+    fCavalryWorth = 70;
+    fGiantWorth = 100;
 
-    currentEnemyCastleHP = 1000; //Resets Castle HP
-    currentFriendlyCastleHP = 1000;
+    eCastleCurrHP = 1000; //Resets Castle HP
+    fCastleCurrHP = 1000;
 
-    enemyTroopDeployCoolDown = millis(); //Resets Troop spawning
+    eDeployCD = millis(); //Resets Troop spawning
 
     stage = 1; //Restarts Game on GamingScreen
-    enemyLevelingCoolDown = millis(); //Resets Enemy Upgrade Timer
+    eLevelingCD = millis(); //Resets Enemy Upgrade Timer
     lastSpecialUsed = millis(); //Resets the special timer
     posSpecial.x = -316; //Resets special
     specialMoving = false; 

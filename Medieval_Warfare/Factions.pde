@@ -7,15 +7,15 @@ class Factions {
   Factions() {
   }
 
-  void PassiveGold() {
-    if (millis() - passiveGoldCoolDown >= passiveGoldDelayTime) { //Generates 5 gold every 1.3 seconds
+  void passiveGold() {
+    if (millis() - passiveGoldCD >= passiveGoldDelay) { //Generates 5 gold every 1.3 seconds
       playerGoldCount += 5;
       enemyGoldCount += 5;
-      passiveGoldCoolDown = millis();
+      passiveGoldCD = millis();
     }
   }
 
-  void Special() {
+  void special() {
     posSpecial.x = -316;
     posSpecial.y = h.selectorY;
   }
@@ -30,56 +30,56 @@ class Factions {
       switch(ESelectedUnit) { //Chooses a random troop then changes the "ChosenUnitUpgradeCost" to the chosen troop upgrade cost
       case 0:
         EUnitSelected = true;
-        ChosenUnitUpgradeCost = 20*pow(2, enemyKnightLevel);
+        ChosenUnitUpgradeCost = 20*pow(2, eKnightLevel);
         break;
       case 1:
         EUnitSelected = true;
-        ChosenUnitUpgradeCost = 35*pow(2, enemyArcherLevel);
+        ChosenUnitUpgradeCost = 35*pow(2, eArcherLevel);
         break;
       case 2:
         EUnitSelected = true;
-        ChosenUnitUpgradeCost = 50*pow(2, enemyMageLevel);
+        ChosenUnitUpgradeCost = 50*pow(2, eMageLevel);
         break;
       case 3:
         EUnitSelected = true;
-        ChosenUnitUpgradeCost = 70*pow(2, enemyCavalryLevel);
+        ChosenUnitUpgradeCost = 70*pow(2, eCavalryLevel);
         break;
       case 4:
         EUnitSelected = true;
-        ChosenUnitUpgradeCost = 100*pow(2, enemyGiantLevel);
+        ChosenUnitUpgradeCost = 100*pow(2, eGiantLevel);
         break;
       }
     }
 
-    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitUpgradeCost && millis() - enemyLevelingCoolDown >= enemyLevelingDelayTime) {
+    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitUpgradeCost && millis() - eLevelingCD >= eLevelingDelay) {
       switch(ESelectedUnit) { //Upgrades enemy troops
       case 0:
-        enemyKnightLevel++;
-        enemyLevelingCoolDown = millis();
+        eKnightLevel++;
+        eLevelingCD = millis();
         EUnitSelected = false;
         break;
 
       case 1:
-        enemyArcherLevel++;
-        enemyLevelingCoolDown = millis();
+        eArcherLevel++;
+        eLevelingCD = millis();
         EUnitSelected = false;
         break; 
 
       case 2:
-        enemyMageLevel++;
-        enemyLevelingCoolDown = millis();
+        eMageLevel++;
+        eLevelingCD = millis();
         EUnitSelected = false;
         break;
 
       case 3:
-        enemyCavalryLevel++;
-        enemyLevelingCoolDown = millis();
+        eCavalryLevel++;
+        eLevelingCD = millis();
         EUnitSelected = false;
         break;
 
       case 4:
-        enemyGiantLevel++;
-        enemyLevelingCoolDown = millis();
+        eGiantLevel++;
+        eLevelingCD = millis();
         EUnitSelected = false;
         break;
       }
@@ -88,30 +88,30 @@ class Factions {
 
   void CheckIfTroopsInSpawn() {
     for (int i = 0; i < 6; i++) {
-      int friendliesInSpawn = 0;
-      int enemiesInSpawn = 0;
+      int fTroopsInSpawn = 0;
+      int eTroopsInSpawn = 0;
       int lanePosY = 92 + (60 * (i+1));
       for (int j = 0; j < ft.size(); j++) {
         if (lanePosY == ft.get(j).pos.y && h.selectorX + 60 >= ft.get(j).pos.x) { //Checks if there still is friendly troops in spawn
-          friendliesInSpawn++;
+          fTroopsInSpawn++;
         }
       }
-      if (friendliesInSpawn > 0) { //If there is changes the boolean to true
+      if (fTroopsInSpawn > 0) { //If there is changes the boolean to true
       
-        friendlyTroopsStillInSpawn[i] = true;
+        friendliesInSpawn[i] = true;
       } else {
-        friendlyTroopsStillInSpawn[i] = false;
+        friendliesInSpawn[i] = false;
       }
       
       for (int j = 0; j < et.size(); j++) { 
         if (lanePosY == et.get(j).pos.y && width - h.selectorX - 60 <= et.get(j).pos.x) { //Checks if there still is enemie troops in spawn
-          enemiesInSpawn++;
+          eTroopsInSpawn++;
         }
       }
-      if (enemiesInSpawn > 0) { //If there is changes the boolean to true
-        enemieTroopsStillInSpawn[i] = true;
+      if (eTroopsInSpawn > 0) { //If there is changes the boolean to true
+        enemiesInSpawn[i] = true;
       } else {
-        enemieTroopsStillInSpawn[i] = false;
+        enemiesInSpawn[i] = false;
       }
     }
   }
@@ -209,56 +209,60 @@ class Factions {
       switch(ESelectedUnit) { //Chooses a random troop then changes the "ChosenUnitCost" to the chosen troop cost
       case 0:
         EUnitSelected = true;
-        ChosenUnitCost = enemyKnightWorth;
+        ChosenUnitCost = eKnightWorth;
         break;
+        
       case 1:
         EUnitSelected = true;
-        ChosenUnitCost = enemyArcherWorth;
+        ChosenUnitCost = eArcherWorth;
         break;
+        
       case 2:
         EUnitSelected = true;
-        ChosenUnitCost = enemyMageWorth;
+        ChosenUnitCost = eMageWorth;
         break;
+        
       case 3:
         EUnitSelected = true;
-        ChosenUnitCost = enemyCavalryWorth;
+        ChosenUnitCost = eCavalryWorth;
         break;
+        
       case 4:
         EUnitSelected = true;
-        ChosenUnitCost = enemyGiantWorth;
+        ChosenUnitCost = eGiantWorth;
         break;
       }
     }
 
-    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - enemyTroopDeployCoolDown >= enemySpawnDelayTime && !enemieTroopsStillInSpawn[selectedLane]) {
+    if (EUnitSelected == true && enemyGoldCount >= ChosenUnitCost && millis() - eDeployCD >= eSpawnDelay && !enemiesInSpawn[selectedLane]) {
       switch(ESelectedUnit) { //Spawns enemy troops on the selected lane
       case 0:
-        et.add(new EKnight(enemyKnightLevel, enemySpawnY));
-        enemyTroopDeployCoolDown = millis();
+        et.add(new EKnight(eKnightLevel, enemySpawnY));
+        eDeployCD = millis();
         EUnitSelected = false;
         break;
 
       case 1:
-        et.add(new EArcher(enemyArcherLevel, enemySpawnY));
-        enemyTroopDeployCoolDown = millis();
+        et.add(new EArcher(eArcherLevel, enemySpawnY));
+        eDeployCD = millis();
         EUnitSelected = false;
         break; 
 
       case 2:
-        et.add(new EMage(enemyMageLevel, enemySpawnY));
-        enemyTroopDeployCoolDown = millis();
+        et.add(new EMage(eMageLevel, enemySpawnY));
+        eDeployCD = millis();
         EUnitSelected = false;
         break;
 
       case 3:
-        et.add(new ECavalry(enemyCavalryLevel, enemySpawnY));
-        enemyTroopDeployCoolDown = millis();
+        et.add(new ECavalry(eCavalryLevel, enemySpawnY));
+        eDeployCD = millis();
         EUnitSelected = false;
         break;
 
       case 4:
-        et.add(new EGiant(enemyGiantLevel, enemySpawnY));
-        enemyTroopDeployCoolDown = millis();
+        et.add(new EGiant(eGiantLevel, enemySpawnY));
+        eDeployCD = millis();
         EUnitSelected = false;
         break;
       }

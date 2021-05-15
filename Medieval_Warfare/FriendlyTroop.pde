@@ -48,7 +48,7 @@ class FriendlyTroop {
     if (pos.x >= width - 75 - reach && pos.x < width) { //Checks collision with Enemy castle
       attackingCastle = true;
       if (millis() - lastTimeAttacked >= attackSpeed*1000 && attackingCastle) {
-        currentEnemyCastleHP -= damage;
+        eCastleCurrHP -= damage;
         lastTimeAttacked = millis();
       }
     }
@@ -153,7 +153,7 @@ class FKnight extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = friendlyKnightWorth;
+    worth = fKnightWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -180,7 +180,7 @@ class FArcher extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = friendlyArcherWorth;
+    worth = fArcherWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -207,7 +207,7 @@ class FMage extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = friendlyMageWorth;
+    worth = fMageWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -234,7 +234,7 @@ class FCavalry extends FriendlyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    worth = friendlyCavalryWorth;
+    worth = fCavalryWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -261,7 +261,7 @@ class FGiant extends FriendlyTroop {
     maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = friendlyGiantWorth;
+    worth = fGiantWorth;
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }

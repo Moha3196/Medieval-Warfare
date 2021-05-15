@@ -52,7 +52,7 @@ class EnemyTroop {
     if (pos.x <= 0 + 75 + reach && pos.x > 0) { //Checks collision with Friendly castle
       attackingCastle = true;
       if (millis() - lastTimeAttacked >= attackSpeed*1000 && attackingCastle) {
-        currentFriendlyCastleHP -= damage;
+        fCastleCurrHP -= damage;
         lastTimeAttacked = millis();
       }
     }
@@ -156,7 +156,7 @@ class EKnight extends EnemyTroop {
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = enemyKnightWorth * f.multiplier;
+    worth = eKnightWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -185,7 +185,7 @@ class EArcher extends EnemyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = enemyArcherWorth * f.multiplier;
+    worth = eArcherWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -213,7 +213,7 @@ class EMage extends EnemyTroop {
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 80;
-    worth = enemyMageWorth;
+    worth = eMageWorth;
     f.enemyGoldCount -= worth * f.multiplier;
     troopLevel = lvl;
     pos.y = yPos;
@@ -241,7 +241,7 @@ class ECavalry extends EnemyTroop {
     maxHP = 50 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 30;
-    worth = enemyCavalryWorth * f.multiplier;
+    worth = eCavalryWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -269,7 +269,7 @@ class EGiant extends EnemyTroop {
     maxHP = 75 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = enemyGiantWorth * f.multiplier;
+    worth = eGiantWorth * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

@@ -19,11 +19,11 @@ class Factions {
   int eLevelingCD_PreOptions; //The cooldown for enemy upgrading before options menu was opened.
   int eLevelingDelay = 15000; //The delay between each attempt at upgrading an enemy troop
   
-  int fKnightLevel = 1, fArcherLevel = 1, fMageLevel = 1, fCavalryLevel = 1, fGiantLevel = 1; //initializes all troop levels
-  int eKnightLevel = 1, eArcherLevel = 1, eMageLevel = 1, eCavalryLevel = 1, eGiantLevel = 1; //
+  int[] fTroopLevels = new int[5]; //to store the levels of different troops
+  int[] eTroopLevels = new int[5]; //(index 0 = knight, 1 = archer, and so on)
   
-  float fKnightWorth = 20, fArcherWorth = 35, fMageWorth = 50, fCavalryWorth = 70, fGiantWorth = 100; //Sets friendly troop prices
-  float eKnightWorth = 20, eArcherWorth = 35, eMageWorth = 50, eCavalryWorth = 70, eGiantWorth = 100; //Sets enemy troop prices
+  int[] fTroopPrices = new int[5]; //to store the prices of the different troops
+  int[] eTroopPrices = new int[5]; //(index values are the same as for the level arrays)
 
   int numberOfMaxIndexes;
   float multiplier = 1; //a multiplier for the difficulty
@@ -32,6 +32,21 @@ class Factions {
   Factions() {
     fCastleCurrHP = fCastleHP;
     eCastleCurrHP = eCastleHP;
+    
+    for (int i = 0; i < 5; i++) { //stores the levels of all troops, which are all 1 in the beginning
+      fTroopLevels[i] = 1;
+      eTroopLevels[i] = 1;
+    }
+    
+    fTroopPrices[0] = 20;  //stores the initial values of player's troops
+    fTroopPrices[1] = 35;  //"
+    fTroopPrices[2] = 50;  //"
+    fTroopPrices[3] = 70;  //"
+    fTroopPrices[4] = 100; //"
+    
+    for (int i = 0; i < 5; i++) { //for-loop to copy over prices from player's troops to the enemy's troops
+      eTroopPrices[i] = fTroopPrices[i];
+    }
     
     passiveGoldCD = millis();
     eDeployCD = millis();
@@ -46,7 +61,6 @@ class Factions {
       passiveGoldCD = millis();
     }
   }
-
 
   void special() {
     specialPos.x = -316;
@@ -64,27 +78,27 @@ class Factions {
       switch(eSelectedUnit) { //Chooses a random troop then changes the "ChosenUnitUpgradeCost" to the chosen troop upgrade cost
       case 0:
         eUnitSelected = true;
-        ChosenUnitUpgradeCost = 20*pow(2, eKnightLevel);
+        ChosenUnitUpgradeCost = 20*pow(2, eTroopLevels[0]);
         break;
         
       case 1:
         eUnitSelected = true;
-        ChosenUnitUpgradeCost = 35*pow(2, eArcherLevel);
+        ChosenUnitUpgradeCost = 35*pow(2, eTroopLevels[1]);
         break;
         
       case 2:
         eUnitSelected = true;
-        ChosenUnitUpgradeCost = 50*pow(2, eMageLevel);
+        ChosenUnitUpgradeCost = 50*pow(2, eTroopLevels[2]);
         break;
         
       case 3:
         eUnitSelected = true;
-        ChosenUnitUpgradeCost = 70*pow(2, eCavalryLevel);
+        ChosenUnitUpgradeCost = 70*pow(2, eTroopLevels[3]);
         break;
         
       case 4:
         eUnitSelected = true;
-        ChosenUnitUpgradeCost = 100*pow(2, eGiantLevel);
+        ChosenUnitUpgradeCost = 100*pow(2, eTroopLevels[4]);
         break;
       }
     }
@@ -92,31 +106,31 @@ class Factions {
     if (eUnitSelected == true && enemyGoldCount >= ChosenUnitUpgradeCost && millis() - eLevelingCD >= eLevelingDelay) {
       switch(eSelectedUnit) { //Upgrades enemy troops
       case 0:
-        eKnightLevel++;
+        eTroopLevels[0]++;
         eLevelingCD = millis();
         eUnitSelected = false;
         break;
 
       case 1:
-        eArcherLevel++;
+        eTroopLevels[1]++;
         eLevelingCD = millis();
         eUnitSelected = false;
         break; 
 
       case 2:
-        eMageLevel++;
+        eTroopLevels[2]++;
         eLevelingCD = millis();
         eUnitSelected = false;
         break;
 
       case 3:
-        eCavalryLevel++;
+        eTroopLevels[3]++;
         eLevelingCD = millis();
         eUnitSelected = false;
         break;
 
       case 4:
-        eGiantLevel++;
+        eTroopLevels[4]++;
         eLevelingCD = millis();
         eUnitSelected = false;
         break;
@@ -249,27 +263,27 @@ class Factions {
       switch(eSelectedUnit) { //Chooses a random troop then changes the "chosenUnitCost" to the chosen troop cost
       case 0:
         eUnitSelected = true;
-        chosenUnitCost = eKnightWorth;
+        chosenUnitCost = eTroopPrices[0];
         break;
         
       case 1:
         eUnitSelected = true;
-        chosenUnitCost = eArcherWorth;
+        chosenUnitCost = eTroopPrices[1];
         break;
         
       case 2:
         eUnitSelected = true;
-        chosenUnitCost = eMageWorth;
+        chosenUnitCost = eTroopPrices[2];
         break;
         
       case 3:
         eUnitSelected = true;
-        chosenUnitCost = eCavalryWorth;
+        chosenUnitCost = eTroopPrices[3];
         break;
         
       case 4:
         eUnitSelected = true;
-        chosenUnitCost = eGiantWorth;
+        chosenUnitCost = eTroopPrices[4];
         break;
       }
     }
@@ -277,31 +291,31 @@ class Factions {
     if (eUnitSelected == true && enemyGoldCount >= chosenUnitCost && millis() - eDeployCD >= eSpawnDelay && !enemiesInSpawn[selectedLane]) {
       switch(eSelectedUnit) { //Spawns enemy troops on the selected lane
       case 0:
-        et.add(new EKnight(eKnightLevel, enemySpawnY));
+        et.add(new EKnight(eTroopLevels[0], enemySpawnY));
         eDeployCD = millis();
         eUnitSelected = false;
         break;
 
       case 1:
-        et.add(new EArcher(eArcherLevel, enemySpawnY));
+        et.add(new EArcher(eTroopLevels[1], enemySpawnY));
         eDeployCD = millis();
         eUnitSelected = false;
         break; 
 
       case 2:
-        et.add(new EMage(eMageLevel, enemySpawnY));
+        et.add(new EMage(eTroopLevels[2], enemySpawnY));
         eDeployCD = millis();
         eUnitSelected = false;
         break;
 
       case 3:
-        et.add(new ECavalry(eCavalryLevel, enemySpawnY));
+        et.add(new ECavalry(eTroopLevels[3], enemySpawnY));
         eDeployCD = millis();
         eUnitSelected = false;
         break;
 
       case 4:
-        et.add(new EGiant(eGiantLevel, enemySpawnY));
+        et.add(new EGiant(eTroopLevels[4], enemySpawnY));
         eDeployCD = millis();
         eUnitSelected = false;
         break;

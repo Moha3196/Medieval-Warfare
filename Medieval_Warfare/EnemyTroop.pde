@@ -155,7 +155,7 @@ class EKnight extends EnemyTroop {
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = f.eKnightWorth * f.multiplier;
+    worth = f.eTroopPrices[0] * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -183,7 +183,7 @@ class EArcher extends EnemyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = f.eArcherWorth * f.multiplier;
+    worth = f.eTroopPrices[1] * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -210,7 +210,7 @@ class EMage extends EnemyTroop {
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 80;
-    worth = f.eMageWorth;
+    worth = f.eTroopPrices[2];
     f.enemyGoldCount -= worth * f.multiplier;
     troopLevel = lvl;
     pos.y = yPos;
@@ -237,7 +237,7 @@ class ECavalry extends EnemyTroop {
     maxHP = 50 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 30;
-    worth = f.eCavalryWorth * f.multiplier;
+    worth = f.eTroopPrices[3] * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
@@ -264,7 +264,7 @@ class EGiant extends EnemyTroop {
     maxHP = 75 * statsUpgrade * f.multiplier;
     currentHP = maxHP;
     reach = 10;
-    worth = f.eGiantWorth * f.multiplier;
+    worth = f.eTroopPrices[4] * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;

@@ -152,7 +152,7 @@ class FKnight extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = f.fKnightWorth;
+    worth = f.fTroopPrices[0];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -178,7 +178,7 @@ class FArcher extends FriendlyTroop {
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
     reach = 150;
-    worth = f.fArcherWorth;
+    worth = f.fTroopPrices[1];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -204,7 +204,7 @@ class FMage extends FriendlyTroop {
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;
     reach = 80;
-    worth = f.fMageWorth;
+    worth = f.fTroopPrices[2];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -230,7 +230,7 @@ class FCavalry extends FriendlyTroop {
     maxHP = 50 * statsUpgrade;
     currentHP = maxHP;
     reach = 30;
-    worth = f.fCavalryWorth;
+    worth = f.fTroopPrices[3];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
@@ -256,7 +256,7 @@ class FGiant extends FriendlyTroop {
     maxHP = 75 * statsUpgrade;
     currentHP = maxHP;
     reach = 10;
-    worth = f.fGiantWorth;
+    worth = f.fTroopPrices[4];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }

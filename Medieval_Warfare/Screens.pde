@@ -357,11 +357,11 @@ void GamingScreen() {
   text("Giant", 595, 493);
 
   textSize(16); //Changes the size to 16
-  text((int) f.fKnightWorth, 255, 590); //Writes the cost of the troops above the boxes
-  text((int) f.fArcherWorth, 340, 590);
-  text((int) f.fMageWorth, 425, 590);
-  text((int) f.fCavalryWorth, 510, 590);
-  text((int) f.fGiantWorth, 595, 590);
+  text((int) f.fTroopPrices[0], 255, 590); //Writes the cost of the troops above the boxes
+  text((int) f.fTroopPrices[1], 340, 590);
+  text((int) f.fTroopPrices[2], 425, 590);
+  text((int) f.fTroopPrices[3], 510, 590);
+  text((int) f.fTroopPrices[4], 595, 590);
   fill(255);
   textSize(20); //Changes the size to 20
 

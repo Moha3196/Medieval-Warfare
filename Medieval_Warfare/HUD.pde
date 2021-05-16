@@ -71,7 +71,7 @@ class HUD {
 
     if (mouseX >= 59 && mouseX <= 199) {
       if (mouseY >= 516 && mouseY <= 531) {
-        mouseHand=true;
+        mouseHand = true;
         image(upgradeHighlight, 129, 524); //the highlighted box
 
         if (mousePressed && f.playerGoldCount >= 20*pow(2, f.fKnightLevel)) {
@@ -81,7 +81,7 @@ class HUD {
           mousePressed = false; //stop the program from spamming troops in the blink of an eye
         }
       } else if (mouseY >= 532 && mouseY <= 547) { //same deal as above, but for different troops
-        mouseHand=true;
+        mouseHand = true;
         image(upgradeHighlight, 129, 540);
 
         if (mousePressed && f.playerGoldCount >= 35*pow(2, f.fArcherLevel)) {
@@ -91,7 +91,7 @@ class HUD {
           mousePressed = false;
         }
       } else if (mouseY >= 548 && mouseY <= 563) {
-        mouseHand=true;
+        mouseHand = true;
         image(upgradeHighlight, 129, 556);
 
         if (mousePressed && f.playerGoldCount >= 50*pow(2, f.fMageLevel)) {
@@ -101,7 +101,7 @@ class HUD {
           mousePressed = false;
         }
       } else if (mouseY >= 564 && mouseY <= 579) {
-        mouseHand=true;
+        mouseHand = true;
         image(upgradeHighlight, 129, 572);
 
         if (mousePressed && f.playerGoldCount >= 70*pow(2, f.fCavalryLevel)) {
@@ -111,7 +111,7 @@ class HUD {
           mousePressed = false;
         }
       } else if (mouseY >= 580 && mouseY <= 595) {
-        mouseHand=true;
+        mouseHand = true;
         image(upgradeHighlight, 129, 588);
 
         if (mousePressed && f.playerGoldCount >= 100*pow(2, f.fGiantLevel)) {
@@ -177,7 +177,7 @@ class HUD {
       }
     }
 
-    if (settingsOpen == true) {
+    if (settingsOpen) {
       fill(150);
       rect(width/2-150, height/2-170, 300, 345);
       rect(width/2-140, height/2-160, 280, 70); //Resume Button
@@ -213,44 +213,87 @@ class HUD {
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
 
-          stage = 1; // Resets everything and puts you back to the startscreen 
+          //stage = 1; // Resets everything and puts you back to the startscreen 
 
-          ft.clear();
-          et.clear();
+          //ft.clear();
+          //et.clear();
 
-          f.playerGoldCount = 600;
-          f.enemyGoldCount = 600;
+          //f.playerGoldCount = 600;
+          //f.enemyGoldCount = 600;
 
-          f.eCastleCurrHP = 1000; //Resets Castle HP
-          f.fCastleCurrHP = 1000;
+          //f.eCastleCurrHP = 1000; //Resets Castle HP
+          //f.fCastleCurrHP = 1000;
 
-          f.fKnightLevel = 1;
-          f.fArcherLevel = 1;
-          f.fMageLevel = 1;
-          f.fCavalryLevel = 1;
-          f.fGiantLevel = 1;
+          //f.fKnightLevel = 1;
+          //f.fArcherLevel = 1;
+          //f.fMageLevel = 1;
+          //f.fCavalryLevel = 1;
+          //f.fGiantLevel = 1;
 
-          f.eKnightLevel = 1;
-          f.eArcherLevel = 1;
-          f.eMageLevel = 1;
-          f.eCavalryLevel = 1;
-          f.eGiantLevel = 1;
+          //f.eKnightLevel = 1;
+          //f.eArcherLevel = 1;
+          //f.eMageLevel = 1;
+          //f.eCavalryLevel = 1;
+          //f.eGiantLevel = 1;
 
-          f.fKnightWorth = 20; //Resets the cost of the troops above the boxes
-          f.fArcherWorth = 35;
-          f.fMageWorth = 50;
-          f.fCavalryWorth = 70;
-          f.fGiantWorth = 100;
+          //f.fKnightWorth = 20; //Resets the cost of the troops above the boxes
+          //f.fArcherWorth = 35;
+          //f.fMageWorth = 50;
+          //f.fCavalryWorth = 70;
+          //f.fGiantWorth = 100;
 
-          lastSpecialUsed = millis(); //Resets the special timer
-          f.eLevelingCD = millis(); //Resets Enemy Upgrade Timer
-          specialPos.x = -316; //Resets special
-          specialMoving = false;     
-          row = 1;
-
+          //lastSpecialUsed = millis(); //Resets the special timer
+          //f.eLevelingCD = millis(); //Resets Enemy Upgrade Timer
+          //specialPos.x = -316; //Resets special
+          //specialMoving = false;     
+          //row = 1;
+          
+          restart();
           settingsOpen = false;
         }
       }
     }
+  }
+  
+  
+  void restart() {
+    ft.clear(); //Removes all troops to prepare for the next game
+    et.clear(); //"
+    
+    h.stage = 1; //Restarts Game on the start screen
+    h.row = 1;
+    
+    f.eCastleCurrHP = 1000; //Resets Castle HP
+    f.fCastleCurrHP = 1000; //"
+    
+    f.playerGoldCount = 600; //Resets faction's gold
+    f.enemyGoldCount = 600;  //"
+
+    f.fKnightLevel = 1;  //Resets troop levels
+    f.fArcherLevel = 1;  //"
+    f.fMageLevel = 1;    //"
+    f.fCavalryLevel = 1; //"
+    f.fGiantLevel = 1;   //"
+
+    f.eKnightLevel = 1;  //"
+    f.eArcherLevel = 1;  //"
+    f.eMageLevel = 1;    //"
+    f.eCavalryLevel = 1; //"
+    f.eGiantLevel = 1;   //"
+
+    f.fKnightWorth = 20;  //Resets the prices of the troops above the boxes
+    f.fArcherWorth = 35;  //"
+    f.fMageWorth = 50;    //"
+    f.fCavalryWorth = 70; //"
+    f.fGiantWorth = 100;  //"
+
+    f.eDeployCD = millis(); //Resets Troop spawning
+    f.eLevelingCD = millis();
+    lastSpecialUsed = millis();
+    
+    specialPos.x = -316;   //Resets special,
+    specialMoving = false; //and stops it from moving
+
+    //restart = false; //
   }
 }

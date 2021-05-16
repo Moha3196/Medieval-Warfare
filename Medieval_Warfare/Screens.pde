@@ -406,7 +406,7 @@ void EndScreen() {
 
       if (mousePressed) { //restarts the Game
 
-        restart = true;
+        h.restart();
       }
     }
 
@@ -416,47 +416,5 @@ void EndScreen() {
         exit();
       }
     }
-  }
-
-
-  if (restart) {
-    ft.clear(); //Removes all troops to prepare for the next game
-    et.clear(); //"
-    
-    h.stage = 1; //Restarts Game on the start screen
-    h.row = 1;
-    
-    f.playerGoldCount = 600; //Resets faction's gold
-    f.enemyGoldCount = 600;  //"
-
-    f.fKnightLevel = 1;  //Resets troop levels
-    f.fArcherLevel = 1;  //"
-    f.fMageLevel = 1;    //"
-    f.fCavalryLevel = 1; //"
-    f.fGiantLevel = 1;   //"
-
-    f.eKnightLevel = 1;  //"
-    f.eArcherLevel = 1;  //"
-    f.eMageLevel = 1;    //"
-    f.eCavalryLevel = 1; //"
-    f.eGiantLevel = 1;   //"
-
-    f.fKnightWorth = 20;  //Resets the prices of the troops above the boxes
-    f.fArcherWorth = 35;  //"
-    f.fMageWorth = 50;    //"
-    f.fCavalryWorth = 70; //"
-    f.fGiantWorth = 100;  //"
-
-    f.eCastleCurrHP = 1000; //Resets Castle HP
-    f.fCastleCurrHP = 1000; //"
-
-    f.eDeployCD = millis(); //Resets Troop spawning
-    f.eLevelingCD = millis();
-    lastSpecialUsed = millis();
-    
-    specialPos.x = -316;   //Resets special,
-    specialMoving = false; //and stops it from moving
-
-    restart = false; //
   }
 }

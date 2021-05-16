@@ -212,41 +212,6 @@ class HUD {
 
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
-
-          //stage = 1; // Resets everything and puts you back to the startscreen 
-
-          //ft.clear();
-          //et.clear();
-
-          //f.playerGoldCount = 600;
-          //f.enemyGoldCount = 600;
-
-          //f.eCastleCurrHP = 1000; //Resets Castle HP
-          //f.fCastleCurrHP = 1000;
-
-          //f.fKnightLevel = 1;
-          //f.fArcherLevel = 1;
-          //f.fMageLevel = 1;
-          //f.fCavalryLevel = 1;
-          //f.fGiantLevel = 1;
-
-          //f.eKnightLevel = 1;
-          //f.eArcherLevel = 1;
-          //f.eMageLevel = 1;
-          //f.eCavalryLevel = 1;
-          //f.eGiantLevel = 1;
-
-          //f.fKnightWorth = 20; //Resets the cost of the troops above the boxes
-          //f.fArcherWorth = 35;
-          //f.fMageWorth = 50;
-          //f.fCavalryWorth = 70;
-          //f.fGiantWorth = 100;
-
-          //lastSpecialUsed = millis(); //Resets the special timer
-          //f.eLevelingCD = millis(); //Resets Enemy Upgrade Timer
-          //specialPos.x = -316; //Resets special
-          //specialMoving = false;     
-          //row = 1;
           
           restart();
           settingsOpen = false;
@@ -293,7 +258,5 @@ class HUD {
     
     specialPos.x = -316;   //Resets special,
     specialMoving = false; //and stops it from moving
-
-    //restart = false; //
   }
 }

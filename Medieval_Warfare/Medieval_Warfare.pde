@@ -30,8 +30,6 @@ int specialCD = 30000; //The timer for special.
 int specialCD_PreOptions; //The timer for special before option was opened.
 int lastSpecialUsed; //The last time special was used
 
-boolean restart = false;
-
 void setup() {
   size(800, 600);
   frameRate(60);

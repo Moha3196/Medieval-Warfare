@@ -177,7 +177,7 @@ class FArcher extends FriendlyTroop {
     damage = 4 * statsUpgrade;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
-    reach = 150;
+    reach = 100;
     worth = f.fTroopPrices[1];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
@@ -199,7 +199,7 @@ class FMage extends FriendlyTroop {
     } 
     troop = fMage;
     speed.x = 0.5;
-    attackFreq = 2.5;
+    attackFreq = 2;
     damage = 15 * statsUpgrade;
     maxHP = 25 * statsUpgrade;
     currentHP = maxHP;

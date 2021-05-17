@@ -182,7 +182,7 @@ class EArcher extends EnemyTroop {
     damage = 4 * statsUpgrade * f.multiplier;
     maxHP = 20 * statsUpgrade;
     currentHP = maxHP;
-    reach = 150;
+    reach = 100;
     worth = f.eTroopPrices[1] * f.multiplier;
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
@@ -205,7 +205,7 @@ class EMage extends EnemyTroop {
     }
     troop = eMage;
     speed.x = -0.5;
-    attackFreq = 2.5;
+    attackFreq = 2;
     damage = 15 * statsUpgrade * f.multiplier;
     maxHP = 25 * statsUpgrade * f.multiplier;
     currentHP = maxHP;

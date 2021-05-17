@@ -14,7 +14,7 @@ class EnemyTroop {
   float statsUpgrade;
   float worth;
   int troopLevel; //Shows the current troop lvl
-  FriendlyTroop currFoe; //Object used to save the currFoe that the EnemyTroop is fighting
+  FriendlyTroop currFoe; //Object used to save the currFoe that the EnemyTroop is fighting. "curr" just means "current"
   EnemyTroop enemyAhead; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
 

@@ -51,8 +51,8 @@ void setup() {
   castles   = loadImage("Castles.png");
   selector  = loadImage("Selector.png");
   highlight = loadImage("Highlighted box.png");
-  upgradeHighlight = loadImage("UpgradeHighlight box.png");
-  options   = loadImage("Options.png");
+  upgradeHighlight = loadImage("upgradeHighlight box.png");
+  options   = loadImage("options.png");
 
   startScreen = loadImage("MEDIEVAL_WARFARE_LOGO.png");
   winScreen = loadImage("Win Screen.jpg");

@@ -212,7 +212,6 @@ class HUD {
 
       if  (mousePressed && mouseButton == LEFT) {
         if (mouseX >= 260 && mouseX <= 540 && mouseY >= 394 && mouseY <= 464) { //end Button
-          
           restart();
           settingsOpen = false;
         }

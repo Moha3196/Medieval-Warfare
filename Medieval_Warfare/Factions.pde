@@ -173,7 +173,7 @@ class Factions {
   void EnemySpawning() {
     int[] friendliesInLane = new int[6];
     float[] fLaneCombatPower = new float[6];
-    boolean[] fUnhinderedAssault = new boolean[6];
+    boolean[] fUnhinderedAssault = new boolean[6]; //used for troops attacking the castle without resistance
     int totalLanePower = 0; 
 
     for (int i = 0; i < 6; i++) { //Counts how many friendly troops there is in every lane

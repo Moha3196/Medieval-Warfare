@@ -17,6 +17,7 @@ class FriendlyTroop {
   EnemyTroop currFoe; //Object used to save the currFoe that the FriendlyTroop is fighting
   FriendlyTroop friendlyAhead; //Object used to save the EnemyTroop infront of the current EnemyTroop 
 
+
   FriendlyTroop () {
     pos.x = h.selectorX + 20;
     pos.y = h.selectorY;
@@ -129,9 +130,6 @@ class FriendlyTroop {
       }
     }
   }
-
-  void collision() {
-  }
 }
 
 
@@ -156,9 +154,6 @@ class FKnight extends FriendlyTroop {
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
-
-  void collision() {
-  }
 }
 
 
@@ -181,9 +176,6 @@ class FArcher extends FriendlyTroop {
     worth = f.fTroopPrices[1];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
-  }
-
-  void collision() {
   }
 }
 
@@ -208,9 +200,6 @@ class FMage extends FriendlyTroop {
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
-
-  void collision() {
-  }
 }
 
 
@@ -234,9 +223,6 @@ class FCavalry extends FriendlyTroop {
     f.playerGoldCount -= worth;
     troopLevel = lvl;
   }
-
-  void collision() {
-  }
 }
 
 
@@ -259,8 +245,5 @@ class FGiant extends FriendlyTroop {
     worth = f.fTroopPrices[4];
     f.playerGoldCount -= worth;
     troopLevel = lvl;
-  }
-
-  void collision() {
   }
 }

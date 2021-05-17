@@ -17,9 +17,9 @@ class EnemyTroop {
   FriendlyTroop currFoe; //Object used to save the currFoe that the EnemyTroop is fighting
   EnemyTroop enemyAhead; //Object used to save the FriendlyTroop infront of the current FriendlyTroop 
 
+
   EnemyTroop () {
     pos.x = width - h.selectorX - 20;
-    //pos.y = h.selectorY;
     isDead = false;
     attackCD = millis();
   }
@@ -110,7 +110,7 @@ class EnemyTroop {
 
         if (currFoe.currentHP > 0) {
           if (millis() - attackCD >= attackFreq*1000) { //Attack speed is multiplied by 1000 because the millis()
-            currFoe.currentHP -= damage;            //runs in milli seconds while attack speed is in seconds
+            currFoe.currentHP -= damage;                //runs in milli seconds while attack speed is in seconds
             attackCD = millis();
           }
         } else {
@@ -131,9 +131,6 @@ class EnemyTroop {
         }
       }
     }
-  }
-
-  void collision() {
   }
 }
 
@@ -160,10 +157,6 @@ class EKnight extends EnemyTroop {
     troopLevel = lvl;
     pos.y = yPos;
   }
-
-
-  void collision() {
-  }
 }
 
 
@@ -187,9 +180,6 @@ class EArcher extends EnemyTroop {
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
-  }
-
-  void collision() {
   }
 }
 
@@ -215,9 +205,6 @@ class EMage extends EnemyTroop {
     troopLevel = lvl;
     pos.y = yPos;
   }
-
-  void collision() {
-  }
 }
 
 
@@ -242,9 +229,6 @@ class ECavalry extends EnemyTroop {
     troopLevel = lvl;
     pos.y = yPos;
   }
-
-  void collision() {
-  }
 }
 
 
@@ -268,8 +252,5 @@ class EGiant extends EnemyTroop {
     f.enemyGoldCount -= worth;
     troopLevel = lvl;
     pos.y = yPos;
-  }
-
-  void collision() {
   }
 }

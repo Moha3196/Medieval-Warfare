@@ -2,7 +2,6 @@ import processing.sound.*;
 
 ArrayList<FriendlyTroop> ft; //an arraylist for storing the player's troops,
 ArrayList<EnemyTroop> et;    //and an arraylist for the enemy's troops
-FKnight friendlyKnight;
 Factions f;
 HUD h;
 Sound m; //only needed so we can use volume()
@@ -182,10 +181,6 @@ void mouseClicked() {
   }
 }
 
-
-
-void mousePressed() {
-}
 
 void keyPressed() {
   if (h.stage == 3) {

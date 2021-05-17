@@ -176,9 +176,9 @@ class Factions {
     boolean[] fUnhinderedAssault = new boolean[6]; //used for troops attacking the castle without resistance
     int totalLanePower = 0; 
 
-    for (int i = 0; i < 6; i++) { //Counts how many friendly troops there is in every lane
-      int resistance = 0;
-      int[] notAttacking = new int[6];
+    for (int i = 0; i < 6; i++) { //Counts how many friendly and enemy troops there is in every lane and checks if they combat power and  
+      int resistance = 0;         //if they are attacking castle with not resistane
+      int attackingCastle = 0;
       int lanePosY = 92 + (60 * (i+1)); //Y-Position of the lanes
       int enemiesInLane = 0;
 
@@ -194,25 +194,24 @@ class Factions {
           }
         }
 
-        if (!ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY) { //Checks if the friendly troop is not attacking castle
-          notAttacking[i]++;
-        } else if (ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY && enemiesInLane == 0) { //Checks if friendly troop is attacking castle and there is no enemies defending
-          notAttacking[i] = 0;
+        if (ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY && enemiesInLane == 0) { //Checks if friendly troop is attacking castle and there is no enemies defending
+          attackingCastle++;
         } else if (ft.get(f).attackingCastle && ft.get(f).pos.y == lanePosY && enemiesInLane > 0) { //Checks if friendly troop is attacking castle and there is enemies defending
           resistance++;
         }
       }
 
-      if (notAttacking[i] > 0 || friendliesInLane[i] == 0) { //If there is no friendly troops in lane or if the troop isnt attaking castle, sets boolean to false
+      if (attackingCastle == 0 || friendliesInLane[i] == 0) { //If there is no friendly troops in lane or if the troop isnt attaking castle, sets boolean to false
         fUnhinderedAssault[i] = false;
-      } else if (notAttacking[i] == 0 && enemiesInLane == 0) { //If the troop is attacking but there is no resistance, sets boolean to true
+      } else if (attackingCastle > 0 && enemiesInLane == 0) { //If the troop is attacking but there is no resistance, sets boolean to true
         fUnhinderedAssault[i] = true;
       } else if (resistance > 0) { //If the troop is attacking and there is resistance, sets boolean to false
         fUnhinderedAssault[i] = false;
       }
       fLaneCombatPower[i] += 50;
       totalLanePower += fLaneCombatPower[i]; //Defines the total combat power of all lanes
-
+      
+      attackingCastle = 0; //Resets attackingCastle
       resistance = 0; //Resets Resistance
     }
 
@@ -245,8 +244,6 @@ class Factions {
           break;
         }
       }
-      //randomLaneSelector = (int)random(0, priorityLanes.length);
-      //selectedLane = (int)priorityLanes[randomLaneSelector];
     } else { //Sends troops to defend against castle attack 
       randomLaneSelector = (int)random(0, lanesWithNoResistance.size());
       selectedLane = lanesWithNoResistance.get(randomLaneSelector);
@@ -326,12 +323,10 @@ class Factions {
 
   float[] indexesOfMaxValues(float[] chosenArray) { //Fuction that finds all the indexes with the highest Value
     float maxValue = chosenArray[0];
-    //float maxIndex = 0;
-    float[] MaxIndexes = new float[chosenArray.length]; //The array we are gonna store the indexes of max value in
+    float[] MaxIndexes = new float[chosenArray.length]; //MaxIndexes is the array we are gonna store the indexes of max value in
 
     for (int i = 1; i < chosenArray.length; i++) { //For loop to find the highest value in the Array we are looking in
       if (chosenArray[i] > maxValue) {
-        //maxIndex = i;
         maxValue = chosenArray[i];
       }
     }
